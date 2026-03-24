@@ -1,0 +1,47 @@
+name: Create develop branch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-develop:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Create develop branch if it does not exist
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo  = context.repo.repo;
+            const branch = 'develop';
+
+            try {
+              await github.rest.git.getRef({
+                owner,
+                repo,
+                ref: `heads/${branch}`,
+              });
+              console.log(`Branch '${branch}' already exists — nothing to do.`);
+            } catch (err) {
+              if (err.status === 404) {
+                const { data: mainRef } = await github.rest.git.getRef({
+                  owner,
+                  repo,
+                  ref: 'heads/main',
+                });
+                await github.rest.git.createRef({
+                  owner,
+                  repo,
+                  ref: `refs/heads/${branch}`,
+                  sha: mainRef.object.sha,
+                });
+                console.log(`Branch '${branch}' created from main (${mainRef.object.sha}).`);
+              } else {
+                throw err;
+              }
+            }
