@@ -1,7 +1,8 @@
+Control IT - Sistema de Gestión de Préstamos Tecnológicos
 
 📖 Descripción del Proyecto
 
-  Software de gestión diseñado para el Colegio Alexander Campbell. Su propósito principal es centralizar el control de los 
+Control IT es un Software de gestión diseñado para el Colegio Alexander Campbell. Su propósito principal es centralizar el control de los 
 equipos tecnológicos (laptops, tablets, proyectores) que el colegio asigna a empleados y alumnos, permitiendo un seguimiento en tiempo real
 y asegurando la integridad del inventario institucional.Con esta plataforma, se busca eliminar la dependencia de registros manuales, garantizando trazabilidad,
 disponibilidad y un control riguroso de los activos.
