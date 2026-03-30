@@ -1,4 +1,4 @@
-# Sistema-de-Control-de-Equipos-Tecnologicos
+
 📖 Descripción del Proyecto
   Software de gestión diseñado para el Colegio Alexander Campbell. Su propósito principal es centralizar el control de los 
 equipos tecnológicos (laptops, tablets, proyectores) que el colegio asigna a empleados y alumnos, permitiendo un seguimiento en tiempo real
