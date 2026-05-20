@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<nav class="navbar navbar-dark bg-dark px-4">
+    <span class="navbar-brand">Control IT</span>
+
+    <a href="{% url 'logout' %}" class="btn btn-outline-light btn-sm">
+        Cerrar sesión
+    </a>
+</nav>
+
+<div class="container mt-5">
+    <h1>Bienvenido a Control IT</h1>
+    <p>Has iniciado sesión correctamente.</p>
+</div>
+
+{% endblock %}
