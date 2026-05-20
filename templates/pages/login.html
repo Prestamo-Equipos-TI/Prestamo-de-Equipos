@@ -1,15 +1,27 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Control IT</title>
 
-{% block content %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
 
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
+<body>
 
-    <div class="card shadow p-4" style="width: 400px;">
-        <h3 class="text-center mb-4">Control IT</h3>
-        <h5 class="text-center mb-4">Iniciar sesión</h5>
+<div class="login-container">
+
+    <div class="login-card">
+
+        <img src="{% static 'img/campbell_logo.png' %}" alt="Logo Colegio" class="login-logo">
+
+        <h1>Control IT</h1>
+        <p>Colegio Alexander Campbell</p>
 
         {% if form.errors %}
-            <div class="alert alert-danger">
+            <div class="error-box">
                 Usuario o contraseña incorrectos.
             </div>
         {% endif %}
@@ -17,24 +29,24 @@
         <form method="post">
             {% csrf_token %}
 
-            <div class="mb-3">
-                <label class="form-label">Usuario</label>
-                <input type="text" name="username" class="form-control" required>
+            <div class="form-group">
+                <label>Usuario</label>
+                <input type="text" name="username" required>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Contraseña</label>
-                <input type="password" name="password" class="form-control" required>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" name="password" required>
             </div>
 
-            <button type="submit" class="btn btn-dark w-100">
-                Entrar
+            <button type="submit" class="login-btn">
+                Iniciar sesión
             </button>
         </form>
+
     </div>
 
 </div>
 
-{% endblock %}
-
-Cuando lo tengas, dime listo.
+</body>
+</html>
