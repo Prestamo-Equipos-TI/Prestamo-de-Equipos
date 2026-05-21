@@ -8,7 +8,7 @@
 <div class="modal-backdrop-custom" id="equipment-modal">
 
     <script>
-        document.body.classList.add('modal-open');
+        abrirModal();
     </script>
 
     <div class="modal-panel">
@@ -22,7 +22,7 @@
                 <button
                     type="button"
                     class="primary-action"
-                    onclick="window.location.href='{% url 'inventario:lista' %}'">
+                    onclick="volverInventario('{% url 'inventario:lista' %}')">
                     Volver al inventario
                 </button>
             </div>
@@ -38,10 +38,7 @@
                 <button
                     type="button"
                     class="modal-close-btn"
-                    onclick="
-                        document.body.classList.remove('modal-open');
-                        document.getElementById('modal-container').innerHTML = '';
-                    ">
+                    onclick="cerrarModal()">
                     ×
                 </button>
             </div>
@@ -61,10 +58,7 @@
                     <button
                         type="button"
                         class="secondary-action"
-                        onclick="
-                            document.body.classList.remove('modal-open');
-                            document.getElementById('modal-container').innerHTML = '';
-                        ">
+                        onclick="cerrarModal()">
                         Cancelar
                     </button>
 

@@ -16,6 +16,12 @@
     padding: 0;
 }
 
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
 body {
     background: var(--bg-main);
     color: var(--white);
@@ -24,7 +30,8 @@ body {
 
 .dashboard-layout {
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
     background:
         radial-gradient(circle at top right, rgba(178, 162, 27, 0.16), transparent 35%),
         radial-gradient(circle at bottom left, rgba(20, 87, 255, 0.13), transparent 35%),
@@ -33,12 +40,15 @@ body {
 
 .sidebar {
     width: 280px;
+    min-width: 280px;
+    height: 100vh;
     background: var(--bg-sidebar);
     border-right: 1px solid var(--border);
     padding: 22px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: hidden;
 }
 
 .brand {
@@ -67,6 +77,10 @@ body {
     font-size: 12px;
 }
 
+.menu {
+    position: relative;
+}
+
 .menu p {
     color: var(--gold-light);
     font-size: 11px;
@@ -74,7 +88,13 @@ body {
     margin-bottom: 15px;
 }
 
-.menu a {
+.menu-links {
+    position: relative;
+}
+
+.menu-links a {
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -83,13 +103,33 @@ body {
     padding: 13px 14px;
     border-radius: 12px;
     margin-bottom: 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    transition: color 0.18s ease;
 }
 
-.menu a:hover,
-.menu a.active {
+.menu-links a:hover,
+.menu-links a.active {
+    color: white;
+}
+
+.menu-indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 48px;
+    border-radius: 12px;
     background: rgba(178, 162, 27, 0.16);
     border: 1px solid rgba(223, 204, 61, 0.35);
-    color: white;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(0);
+    transition:
+        transform 0.26s ease,
+        opacity 0.18s ease,
+        height 0.18s ease;
+    pointer-events: none;
 }
 
 .sidebar-user {
@@ -122,7 +162,10 @@ body {
 
 .main-content {
     flex: 1;
+    height: 100vh;
     padding: 28px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .topbar {
@@ -154,6 +197,10 @@ body {
     padding: 10px 16px;
     border-radius: 12px;
     font-weight: bold;
+}
+
+.logout-btn:hover {
+    background: var(--gold-light);
 }
 
 .hero-panel {
@@ -208,7 +255,10 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    transition: 0.2s ease;
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
     position: relative;
     overflow: hidden;
 }
@@ -224,8 +274,9 @@ body {
 }
 
 .module-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-3px);
     border-color: var(--gold-light);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
 }
 
 .module-card span {
@@ -240,5 +291,69 @@ body {
 @media (max-width: 1000px) {
     .module-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sidebar {
+        width: 250px;
+        min-width: 250px;
+    }
+}
+
+@media (max-width: 750px) {
+    html,
+    body {
+        overflow: auto;
+    }
+
+    .dashboard-layout {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        overflow: visible;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-width: 100%;
+        height: auto;
+    }
+
+    .main-content {
+        height: auto;
+        overflow: visible;
+    }
+
+    .module-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-panel {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .topbar {
+        height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 20px 28px;
+    }
+}
+.app-content-enter {
+    animation: appContentEnter 0.26s ease;
+}
+
+@keyframes appContentEnter {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.985);
+        filter: blur(2px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
     }
 }

@@ -1,0 +1,68 @@
+{% load static %}
+
+<header class="topbar">
+
+    <div>
+        <h1>Dashboard</h1>
+        <p>Bienvenido, {{ request.user.username }}</p>
+    </div>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">
+            Cerrar sesión
+        </button>
+    </form>
+
+</header>
+
+<div class="page-body">
+
+    <section class="hero-panel">
+
+        <img src="{% static 'img/campbell_logo.png' %}" alt="Logo Colegio">
+
+        <div>
+            <h2>Colegio Alexander Campbell</h2>
+            <h3>Control IT</h3>
+        </div>
+
+    </section>
+
+    <section class="module-grid">
+
+        <a
+            href="{% url 'inventario:lista' %}"
+            class="module-card"
+            data-page="inventario"
+            hx-get="{% url 'inventario:lista' %}"
+            hx-target="#app-main"
+            hx-swap="innerHTML"
+            hx-push-url="true">
+            <span>💻</span>
+            <h3>Inventario</h3>
+        </a>
+
+        <a href="#" class="module-card">
+            <span>📋</span>
+            <h3>Préstamos</h3>
+        </a>
+
+        <a href="#" class="module-card">
+            <span>🛠</span>
+            <h3>Averías</h3>
+        </a>
+
+        <a href="#" class="module-card">
+            <span>📚</span>
+            <h3>Historial</h3>
+        </a>
+
+        <a href="#" class="module-card">
+            <span>🔔</span>
+            <h3>Alertas</h3>
+        </a>
+
+    </section>
+
+</div>

@@ -1,0 +1,17 @@
+.page-enter {
+    animation: pageEnter 0.35s ease;
+}
+
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.985);
+        filter: blur(3px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}

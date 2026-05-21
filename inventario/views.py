@@ -1,11 +1,20 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+
 from .forms import EquipoForm
 
 
 @login_required
 def inventario_lista(request):
-    return render(request, 'pages/inventario/lista.html')
+    context = {
+        'active_page': 'inventario',
+        'content_template': 'pages/inventario/lista_content.html',
+    }
+
+    if request.headers.get('HX-Request'):
+        return render(request, 'pages/inventario/lista_content.html', context)
+
+    return render(request, 'pages/app_layout.html', context)
 
 
 @login_required
@@ -26,6 +35,7 @@ def equipo_crear(request):
                 })
 
             return redirect('inventario:lista')
+
     else:
         form = EquipoForm()
 
