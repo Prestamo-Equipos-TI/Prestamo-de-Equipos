@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="dashboard-layout">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <img src="{% static 'img/campbell_logo.png' %}" alt="Logo Colegio">
+
+            <div>
+                <h4>Control IT</h4>
+                <span>Alexander Campbell</span>
+            </div>
+        </div>
+
+        <nav class="menu">
+            <p>MENÚ PRINCIPAL</p>
+
+            <a href="{% url 'dashboard' %}">
+                <span>▦</span>
+                Dashboard
+            </a>
+
+            <a href="{% url 'inventario:lista' %}" class="active">
+                <span>💻</span>
+                Inventario
+            </a>
+
+            <a href="#">
+                <span>📋</span>
+                Préstamos
+            </a>
+
+            <a href="#">
+                <span>🛠</span>
+                Averías
+            </a>
+
+            <a href="#">
+                <span>📚</span>
+                Historial
+            </a>
+
+            <a href="#">
+                <span>🔔</span>
+                Alertas
+            </a>
+        </nav>
+
+        <div class="sidebar-user">
+            <div class="avatar">
+                {{ request.user.username|slice:":1"|upper }}
+            </div>
+
+            <div>
+                <strong>{{ request.user.username }}</strong>
+                <small>Usuario activo</small>
+            </div>
+        </div>
+
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+                <h1>Registrar equipo</h1>
+                <p>Agrega un nuevo equipo al inventario tecnológico.</p>
+            </div>
+
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">
+                    Cerrar sesión
+                </button>
+            </form>
+
+        </header>
+
+        <section class="form-card">
+
+            <div class="form-header">
+                <h2>Datos del equipo</h2>
+                <p>Completa la información requerida para registrar el equipo.</p>
+            </div>
+
+            <form method="post" class="equipment-form">
+                {% csrf_token %}
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="{{ form.codigo.id_for_label }}">Código</label>
+                        {{ form.codigo }}
+                        {{ form.codigo.errors }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.nombre.id_for_label }}">Nombre del equipo</label>
+                        {{ form.nombre }}
+                        {{ form.nombre.errors }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.categoria.id_for_label }}">Categoría</label>
+                        {{ form.categoria }}
+                        {{ form.categoria.errors }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.marca.id_for_label }}">Marca</label>
+                        {{ form.marca }}
+                        {{ form.marca.errors }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.modelo.id_for_label }}">Modelo</label>
+                        {{ form.modelo }}
+                        {{ form.modelo.errors }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.numero_serie.id_for_label }}">Número de serie</label>
+                        {{ form.numero_serie }}
+                        {{ form.numero_serie.errors }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.estado.id_for_label }}">Estado</label>
+                        {{ form.estado }}
+                        {{ form.estado.errors }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.ubicacion.id_for_label }}">Ubicación</label>
+                        {{ form.ubicacion }}
+                        {{ form.ubicacion.errors }}
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="{{ form.observaciones.id_for_label }}">Observaciones</label>
+                        {{ form.observaciones }}
+                        {{ form.observaciones.errors }}
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <a href="{% url 'inventario:lista' %}" class="secondary-action">
+                        Cancelar
+                    </a>
+
+                    <button type="submit" class="primary-action">
+                        Guardar equipo
+                    </button>
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</div>
+
+{% endblock %}
