@@ -1,0 +1,132 @@
+.inventory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.inventory-header h2 {
+    font-size: 28px;
+    margin-bottom: 6px;
+}
+
+.inventory-header p {
+    color: var(--gray);
+}
+
+.primary-action {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: #111;
+    text-decoration: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.inventory-tools {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    flex: 1;
+    min-width: 320px;
+}
+
+.search-box input,
+.inventory-tools select {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: #1a1a1a;
+    color: white;
+    font-size: 14px;
+}
+
+.inventory-table-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.inventory-table thead {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.inventory-table th {
+    text-align: left;
+    padding: 18px;
+    font-size: 14px;
+    color: var(--gold-light);
+    border-bottom: 1px solid var(--border);
+}
+
+.inventory-table td {
+    padding: 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.status {
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.available {
+    background: rgba(0, 200, 83, 0.18);
+    color: #65ff9a;
+}
+
+.loaned {
+    background: rgba(20, 87, 255, 0.18);
+    color: #8ab0ff;
+}
+
+.damaged {
+    background: rgba(255, 77, 77, 0.18);
+    color: #ff9d9d;
+}
+
+.table-btn {
+    border: 1px solid var(--border);
+    background: #202020;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.table-btn:hover {
+    border-color: var(--gold-light);
+}
+
+@media (max-width: 900px) {
+    .inventory-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .inventory-tools {
+        flex-direction: column;
+    }
+
+    .search-box {
+        min-width: 100%;
+    }
+
+    .inventory-table {
+        font-size: 13px;
+    }
+}
