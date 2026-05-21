@@ -3,6 +3,86 @@
 
 {% block content %}
 
+{% if es_modal %}
+
+<div class="modal-backdrop-custom" id="equipment-modal">
+
+    <script>
+        document.body.classList.add('modal-open');
+    </script>
+
+    <div class="modal-panel">
+
+        {% if guardado %}
+
+            <div class="modal-success">
+                <h2>Equipo registrado</h2>
+                <p>El equipo fue agregado correctamente al inventario.</p>
+
+                <button
+                    type="button"
+                    class="primary-action"
+                    onclick="window.location.href='{% url 'inventario:lista' %}'">
+                    Volver al inventario
+                </button>
+            </div>
+
+        {% else %}
+
+            <div class="modal-header-custom">
+                <div>
+                    <h2>Registrar equipo</h2>
+                    <p>Completa los datos del nuevo equipo tecnológico.</p>
+                </div>
+
+                <button
+                    type="button"
+                    class="modal-close-btn"
+                    onclick="
+                        document.body.classList.remove('modal-open');
+                        document.getElementById('modal-container').innerHTML = '';
+                    ">
+                    ×
+                </button>
+            </div>
+
+            <form
+                method="post"
+                class="equipment-form"
+                hx-post="{% url 'inventario:crear' %}"
+                hx-target="#modal-container"
+                hx-swap="innerHTML">
+
+                {% csrf_token %}
+
+                {% include 'pages/inventario/includes/campos_formulario.html' %}
+
+                <div class="form-actions">
+                    <button
+                        type="button"
+                        class="secondary-action"
+                        onclick="
+                            document.body.classList.remove('modal-open');
+                            document.getElementById('modal-container').innerHTML = '';
+                        ">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="primary-action">
+                        Guardar equipo
+                    </button>
+                </div>
+
+            </form>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% else %}
+
 <div class="dashboard-layout">
 
     <aside class="sidebar">
@@ -91,63 +171,7 @@
             <form method="post" class="equipment-form">
                 {% csrf_token %}
 
-                <div class="form-grid">
-
-                    <div class="form-group">
-                        <label for="{{ form.codigo.id_for_label }}">Código</label>
-                        {{ form.codigo }}
-                        {{ form.codigo.errors }}
-                    </div>
-
-                    <div class="form-group">
-                        <label for="{{ form.nombre.id_for_label }}">Nombre del equipo</label>
-                        {{ form.nombre }}
-                        {{ form.nombre.errors }}
-                    </div>
-
-                    <div class="form-group">
-                        <label for="{{ form.categoria.id_for_label }}">Categoría</label>
-                        {{ form.categoria }}
-                        {{ form.categoria.errors }}
-                    </div>
-
-                    <div class="form-group">
-                        <label for="{{ form.marca.id_for_label }}">Marca</label>
-                        {{ form.marca }}
-                        {{ form.marca.errors }}
-                    </div>
-
-                    <div class="form-group">
-                        <label for="{{ form.modelo.id_for_label }}">Modelo</label>
-                        {{ form.modelo }}
-                        {{ form.modelo.errors }}
-                    </div>
-
-                    <div class="form-group">
-                        <label for="{{ form.numero_serie.id_for_label }}">Número de serie</label>
-                        {{ form.numero_serie }}
-                        {{ form.numero_serie.errors }}
-                    </div>
-
-                    <div class="form-group">
-                        <label for="{{ form.estado.id_for_label }}">Estado</label>
-                        {{ form.estado }}
-                        {{ form.estado.errors }}
-                    </div>
-
-                    <div class="form-group">
-                        <label for="{{ form.ubicacion.id_for_label }}">Ubicación</label>
-                        {{ form.ubicacion }}
-                        {{ form.ubicacion.errors }}
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label for="{{ form.observaciones.id_for_label }}">Observaciones</label>
-                        {{ form.observaciones }}
-                        {{ form.observaciones.errors }}
-                    </div>
-
-                </div>
+                {% include 'pages/inventario/includes/campos_formulario.html' %}
 
                 <div class="form-actions">
                     <a href="{% url 'inventario:lista' %}" class="secondary-action">
@@ -166,5 +190,7 @@
     </main>
 
 </div>
+
+{% endif %}
 
 {% endblock %}

@@ -88,9 +88,14 @@
                 <p>Consulta, filtra y administra los equipos tecnológicos.</p>
             </div>
 
-            <a href="{% url 'inventario:crear' %}" class="primary-action">
-                + Registrar equipo
-            </a>
+          <button
+             type="button"
+             class="primary-action"
+             hx-get="{% url 'inventario:crear' %}"
+             hx-target="#modal-container"
+             hx-swap="innerHTML">
+            + Registrar equipo
+          </button>
 
         </section>
 
@@ -180,5 +185,5 @@
     </main>
 
 </div>
-
+<div id="modal-container"></div>
 {% endblock %}
