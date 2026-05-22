@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/transitions.css' %}">
 </head>
 
-<body>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
     {% block content %}
     {% endblock %}

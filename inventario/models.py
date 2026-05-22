@@ -26,6 +26,7 @@ class Equipo(models.Model):
     estado = models.CharField(max_length=20, choices=ESTADOS, default='disponible')
     ubicacion = models.CharField(max_length=100)
     observaciones = models.TextField(blank=True)
+    activo = models.BooleanField(default=True)
     fecha_registro = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

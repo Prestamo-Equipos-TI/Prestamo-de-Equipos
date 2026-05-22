@@ -36,6 +36,15 @@ function volverInventario(url) {
     }, 220);
 }
 
+function refrescarInventario() {
+    if (window.htmx) {
+        htmx.ajax('GET', '/inventario/', {
+            target: '#app-main',
+            swap: 'innerHTML'
+        });
+    }
+}
+
 document.body.addEventListener('htmx:afterRequest', function (event) {
     const elemento = event.detail.elt;
     const statusCode = event.detail.xhr.status;
@@ -45,16 +54,14 @@ document.body.addEventListener('htmx:afterRequest', function (event) {
     }
 
     const esFormularioEquipo = elemento.id === 'equipo-form';
-    const fueGuardadoCorrectamente = statusCode === 204;
+    const esDesactivarEquipo = elemento.classList.contains('danger');
+    const fueCorrecto = statusCode === 204;
 
-    if (esFormularioEquipo && fueGuardadoCorrectamente) {
+    if ((esFormularioEquipo || esDesactivarEquipo) && fueCorrecto) {
         cerrarModal(true);
 
         setTimeout(function () {
-            htmx.ajax('GET', '/inventario/', {
-                target: '#app-main',
-                swap: 'innerHTML'
-            });
+            refrescarInventario();
         }, 240);
     }
 });

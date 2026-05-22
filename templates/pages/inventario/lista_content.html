@@ -87,16 +87,34 @@
             </td>
             <td>{{ equipo.ubicacion }}</td>
             <td>
-                <button class="table-btn">Ver</button>
-                <button
-                    type="button"
-                    class="table-btn"
-                    hx-get="{% url 'inventario:editar' equipo.id %}"
-                    hx-target="#modal-container"
-                    hx-swap="innerHTML">
-    Editar
+    <button
+        type="button"
+        class="table-btn"
+        hx-get="{% url 'inventario:detalle' equipo.id %}"
+        hx-target="#modal-container"
+        hx-swap="innerHTML">
+        Ver
+    </button>
+
+    <button
+        type="button"
+        class="table-btn"
+        hx-get="{% url 'inventario:editar' equipo.id %}"
+        hx-target="#modal-container"
+        hx-swap="innerHTML">
+        Editar
+    </button>
+
+    <button
+    type="button"
+    class="table-btn danger"
+    hx-post="{% url 'inventario:desactivar' equipo.id %}"
+    hx-confirm="¿Seguro que deseas retirar este equipo del inventario activo?"
+    hx-target="#app-main"
+    hx-swap="innerHTML">
+    eliminar
 </button>
-            </td>
+</td>
         </tr>
     {% empty %}
         <tr>

@@ -5,10 +5,9 @@ from django.http import HttpResponse
 from .forms import EquipoForm
 from .models import Equipo
 
-
 @login_required
 def inventario_lista(request):
-    equipos = Equipo.objects.all().order_by('-fecha_registro')
+    equipos = Equipo.objects.filter(activo=True).order_by('-fecha_registro')
 
     context = {
         'active_page': 'inventario',
@@ -20,7 +19,6 @@ def inventario_lista(request):
         return render(request, 'pages/inventario/lista_content.html', context)
 
     return render(request, 'pages/app_layout.html', context)
-
 
 @login_required
 def equipo_crear(request):
@@ -86,3 +84,26 @@ def equipo_editar(request, equipo_id):
         'modo': 'editar',
         'equipo': equipo,
     })
+@login_required
+def equipo_detalle(request, equipo_id):
+    equipo = get_object_or_404(Equipo, id=equipo_id)
+
+    return render(request, 'pages/inventario/detalle.html', {
+        'equipo': equipo,
+        'es_modal': bool(request.headers.get('HX-Request')),
+    })
+
+@login_required
+def equipo_desactivar(request, equipo_id):
+    equipo = get_object_or_404(Equipo, id=equipo_id)
+
+    if request.method == 'POST':
+        equipo.activo = False
+        equipo.save()
+
+        if request.headers.get('HX-Request'):
+            return HttpResponse(status=204)
+
+        return redirect('inventario:lista')
+
+    return redirect('inventario:lista')
