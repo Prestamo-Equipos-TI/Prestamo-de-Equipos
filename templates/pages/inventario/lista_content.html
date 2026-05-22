@@ -14,61 +14,73 @@
 
 </header>
 
-<div class="page-body">
+<section class="inventory-header">
+    <div>
+        <h2>Equipos registrados</h2>
+        <p>Consulta, filtra y administra los equipos tecnológicos.</p>
+    </div>
 
-    <section class="inventory-header">
+    <button
+        type="button"
+        class="primary-action"
+        hx-get="{% url 'inventario:crear' %}"
+        hx-target="#modal-container"
+        hx-swap="innerHTML">
+        + Registrar equipo
+    </button>
+</section>
 
-        <div>
-            <h2>Equipos registrados</h2>
-            <p>Consulta, filtra y administra los equipos tecnológicos.</p>
-        </div>
+<section class="inventory-tools" id="inventory-filters">
 
-        <button
-            type="button"
-            class="primary-action"
-            hx-get="{% url 'inventario:crear' %}"
-            hx-target="#modal-container"
-            hx-swap="innerHTML">
-            + Registrar equipo
-        </button>
+    <div class="search-box">
+        <input
+            type="text"
+            name="q"
+            value="{{ busqueda }}"
+            placeholder="Buscar por nombre, código, marca o ubicación..."
+            hx-get="{% url 'inventario:lista' %}"
+            hx-target="#inventory-table-wrapper"
+            hx-trigger="keyup changed delay:350ms"
+            hx-include="#inventory-filters"
+            hx-vals='{"partial": "tabla"}'>
+    </div>
 
-    </section>
+    <select
+        name="estado"
+        hx-get="{% url 'inventario:lista' %}"
+        hx-target="#inventory-table-wrapper"
+        hx-trigger="change"
+        hx-include="#inventory-filters"
+        hx-vals='{"partial": "tabla"}'>
 
-    <section class="inventory-tools">
+        <option value="">Todos los estados</option>
 
-        <div class="search-box">
-           <input
-                type="text"
-                name="q"
-                value="{{ busqueda }}"
-                placeholder="Buscar por nombre, código, marca o ubicación..."
-                hx-get="{% url 'inventario:lista' %}"
-                hx-target="#inventory-table-wrapper"
-                hx-trigger="keyup changed delay:350ms"
-                hx-include="this"
-                hx-vals='{"partial": "tabla"}'>
-        </div>
+        {% for valor, texto in estados %}
+            <option value="{{ valor }}" {% if estado == valor %}selected{% endif %}>
+                {{ texto }}
+            </option>
+        {% endfor %}
+    </select>
 
-        <select>
-            <option>Todos los estados</option>
-            <option>Disponible</option>
-            <option>Prestado</option>
-            <option>Averiado</option>
-            <option>Mantenimiento</option>
-        </select>
+    <select
+        name="categoria"
+        hx-get="{% url 'inventario:lista' %}"
+        hx-target="#inventory-table-wrapper"
+        hx-trigger="change"
+        hx-include="#inventory-filters"
+        hx-vals='{"partial": "tabla"}'>
 
-        <select>
-            <option>Todas las categorías</option>
-            <option>Laptop</option>
-            <option>Proyector</option>
-            <option>Tablet</option>
-            <option>Accesorio</option>
-        </select>
+        <option value="">Todas las categorías</option>
 
-    </section>
+        {% for valor, texto in categorias %}
+            <option value="{{ valor }}" {% if categoria == valor %}selected{% endif %}>
+                {{ texto }}
+            </option>
+        {% endfor %}
+    </select>
 
-    {% include 'pages/inventario/includes/tabla_equipos.html' %}
+</section>
 
-    <div id="modal-container"></div>
+{% include 'pages/inventario/includes/tabla_equipos.html' %}
 
-</div>
+<div id="modal-container"></div>

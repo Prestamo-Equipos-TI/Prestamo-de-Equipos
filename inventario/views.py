@@ -5,25 +5,28 @@ from django.http import HttpResponse
 from .forms import EquipoForm
 from .models import Equipo
 
-
 @login_required
 def inventario_lista(request):
     busqueda = request.GET.get('q', '').strip()
+    estado = request.GET.get('estado', '').strip()
+    categoria = request.GET.get('categoria', '').strip()
 
     equipos = Equipo.objects.filter(activo=True)
 
     if busqueda:
-        equipos = equipos.filter(
-            codigo__icontains=busqueda
-        ) | equipos.filter(
-            nombre__icontains=busqueda
-        ) | equipos.filter(
-            categoria__icontains=busqueda
-        ) | equipos.filter(
-            marca__icontains=busqueda
-        ) | equipos.filter(
-            ubicacion__icontains=busqueda
+        equipos = (
+            equipos.filter(codigo__icontains=busqueda)
+            | equipos.filter(nombre__icontains=busqueda)
+            | equipos.filter(categoria__icontains=busqueda)
+            | equipos.filter(marca__icontains=busqueda)
+            | equipos.filter(ubicacion__icontains=busqueda)
         )
+
+    if estado:
+        equipos = equipos.filter(estado=estado)
+
+    if categoria:
+        equipos = equipos.filter(categoria=categoria)
 
     equipos = equipos.order_by('-fecha_registro')
 
@@ -32,6 +35,10 @@ def inventario_lista(request):
         'content_template': 'pages/inventario/lista_content.html',
         'equipos': equipos,
         'busqueda': busqueda,
+        'estado': estado,
+        'categoria': categoria,
+        'estados': Equipo.ESTADOS,
+        'categorias': Equipo.CATEGORIAS,
     }
 
     if request.headers.get('HX-Request'):
