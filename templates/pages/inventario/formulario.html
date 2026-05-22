@@ -31,8 +31,13 @@
 
             <div class="modal-header-custom">
                 <div>
-                    <h2>Registrar equipo</h2>
-                    <p>Completa los datos del nuevo equipo tecnológico.</p>
+                    {% if modo == 'editar' %}
+                         <h2>Editar equipo</h2>
+                         <p>Actualiza los datos del equipo seleccionado.</p>
+                    {% else %}
+                         <h2>Registrar equipo</h2>
+                         <p>Completa los datos del nuevo equipo tecnológico.</p>
+                    {% endif %}
                 </div>
 
                 <button
@@ -47,7 +52,7 @@
                 id="equipo-form"
                 method="post"
                 class="equipment-form"
-                hx-post="{% url 'inventario:crear' %}"
+                hx-post="{% if modo == 'editar' %}{% url 'inventario:editar' equipo.id %}{% else %}{% url 'inventario:crear' %}{% endif %}"
                 hx-target="#modal-container"
                 hx-swap="innerHTML">
 
@@ -64,7 +69,11 @@
                     </button>
 
                     <button type="submit" class="primary-action">
-                        Guardar equipo
+                       {% if modo == 'editar' %}
+                            Guardar cambios
+                       {% else %}
+                            Guardar equipo
+                       {% endif %}
                     </button>
                 </div>
 

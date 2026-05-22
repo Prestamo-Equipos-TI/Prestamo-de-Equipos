@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
@@ -51,4 +51,38 @@ def equipo_crear(request):
         'form': form,
         'es_modal': bool(es_htmx),
         'guardado': False,
+    })
+
+@login_required
+def equipo_editar(request, equipo_id):
+    equipo = get_object_or_404(Equipo, id=equipo_id)
+    es_htmx = request.headers.get('HX-Request')
+
+    if request.method == 'POST':
+        form = EquipoForm(request.POST, instance=equipo)
+
+        if form.is_valid():
+            form.save()
+
+            if es_htmx:
+                return HttpResponse(status=204)
+
+            return redirect('inventario:lista')
+
+        if es_htmx:
+            return render(request, 'pages/inventario/formulario.html', {
+                'form': form,
+                'es_modal': True,
+                'modo': 'editar',
+                'equipo': equipo,
+            }, status=422)
+
+    else:
+        form = EquipoForm(instance=equipo)
+
+    return render(request, 'pages/inventario/formulario.html', {
+        'form': form,
+        'es_modal': bool(es_htmx),
+        'modo': 'editar',
+        'equipo': equipo,
     })
