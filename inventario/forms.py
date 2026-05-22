@@ -63,3 +63,39 @@ class EquipoForm(forms.ModelForm):
                 'rows': 4
             }),
         }
+
+    def clean_codigo(self):
+        codigo = self.cleaned_data.get('codigo')
+
+        if codigo:
+            codigo = codigo.strip()
+
+            existe = Equipo.objects.filter(codigo__iexact=codigo)
+
+            if self.instance and self.instance.pk:
+                existe = existe.exclude(pk=self.instance.pk)
+
+            if existe.exists():
+                raise forms.ValidationError(
+                    'Este código ya está utilizado por otro equipo.'
+                )
+
+        return codigo
+
+    def clean_numero_serie(self):
+        numero_serie = self.cleaned_data.get('numero_serie')
+
+        if numero_serie:
+            numero_serie = numero_serie.strip()
+
+            existe = Equipo.objects.filter(numero_serie__iexact=numero_serie)
+
+            if self.instance and self.instance.pk:
+                existe = existe.exclude(pk=self.instance.pk)
+
+            if existe.exists():
+                raise forms.ValidationError(
+                    'Este número de serie ya está utilizado por otro equipo.'
+                )
+
+        return numero_serie

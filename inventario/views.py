@@ -5,17 +5,39 @@ from django.http import HttpResponse
 from .forms import EquipoForm
 from .models import Equipo
 
+
 @login_required
 def inventario_lista(request):
-    equipos = Equipo.objects.filter(activo=True).order_by('-fecha_registro')
+    busqueda = request.GET.get('q', '').strip()
+
+    equipos = Equipo.objects.filter(activo=True)
+
+    if busqueda:
+        equipos = equipos.filter(
+            codigo__icontains=busqueda
+        ) | equipos.filter(
+            nombre__icontains=busqueda
+        ) | equipos.filter(
+            categoria__icontains=busqueda
+        ) | equipos.filter(
+            marca__icontains=busqueda
+        ) | equipos.filter(
+            ubicacion__icontains=busqueda
+        )
+
+    equipos = equipos.order_by('-fecha_registro')
 
     context = {
         'active_page': 'inventario',
         'content_template': 'pages/inventario/lista_content.html',
         'equipos': equipos,
+        'busqueda': busqueda,
     }
 
     if request.headers.get('HX-Request'):
+        if request.GET.get('partial') == 'tabla':
+            return render(request, 'pages/inventario/includes/tabla_equipos.html', context)
+
         return render(request, 'pages/inventario/lista_content.html', context)
 
     return render(request, 'pages/app_layout.html', context)

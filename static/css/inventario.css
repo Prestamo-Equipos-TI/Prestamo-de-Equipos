@@ -544,3 +544,16 @@ body.modal-open {
     background: rgba(255, 77, 77, 0.12);
     border-color: #ff9d9d;
 }
+.modal-panel {
+    transition:
+        opacity 0.18s ease,
+        transform 0.18s ease;
+}
+
+.htmx-request .modal-panel {
+    opacity: 0.88;
+    transform: scale(0.992);
+}
+.modal-panel {
+    animation-duration: 0.22s;
+}

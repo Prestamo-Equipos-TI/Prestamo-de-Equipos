@@ -37,7 +37,16 @@
     <section class="inventory-tools">
 
         <div class="search-box">
-            <input type="text" placeholder="Buscar por nombre, código o categoría...">
+           <input
+                type="text"
+                name="q"
+                value="{{ busqueda }}"
+                placeholder="Buscar por nombre, código, marca o ubicación..."
+                hx-get="{% url 'inventario:lista' %}"
+                hx-target="#inventory-table-wrapper"
+                hx-trigger="keyup changed delay:350ms"
+                hx-include="this"
+                hx-vals='{"partial": "tabla"}'>
         </div>
 
         <select>
@@ -58,75 +67,7 @@
 
     </section>
 
-    <section class="inventory-table-card">
-
-        <table class="inventory-table">
-            <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Equipo</th>
-                    <th>Categoría</th>
-                    <th>Marca</th>
-                    <th>Estado</th>
-                    <th>Ubicación</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-
-            <tbody>
-    {% for equipo in equipos %}
-        <tr>
-            <td>{{ equipo.codigo }}</td>
-            <td>{{ equipo.nombre }}</td>
-            <td>{{ equipo.get_categoria_display }}</td>
-            <td>{{ equipo.marca }}</td>
-            <td>
-                <span class="status {{ equipo.estado }}">
-                    {{ equipo.get_estado_display }}
-                </span>
-            </td>
-            <td>{{ equipo.ubicacion }}</td>
-            <td>
-    <button
-        type="button"
-        class="table-btn"
-        hx-get="{% url 'inventario:detalle' equipo.id %}"
-        hx-target="#modal-container"
-        hx-swap="innerHTML">
-        Ver
-    </button>
-
-    <button
-        type="button"
-        class="table-btn"
-        hx-get="{% url 'inventario:editar' equipo.id %}"
-        hx-target="#modal-container"
-        hx-swap="innerHTML">
-        Editar
-    </button>
-
-    <button
-    type="button"
-    class="table-btn danger"
-    hx-post="{% url 'inventario:desactivar' equipo.id %}"
-    hx-confirm="¿Seguro que deseas retirar este equipo del inventario activo?"
-    hx-target="#app-main"
-    hx-swap="innerHTML">
-    eliminar
-</button>
-</td>
-        </tr>
-    {% empty %}
-        <tr>
-            <td colspan="7" class="empty-table">
-                No hay equipos registrados todavía.
-            </td>
-        </tr>
-    {% endfor %}
-</tbody>
-        </table>
-
-    </section>
+    {% include 'pages/inventario/includes/tabla_equipos.html' %}
 
     <div id="modal-container"></div>
 

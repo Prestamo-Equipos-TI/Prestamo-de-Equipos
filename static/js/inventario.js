@@ -45,6 +45,15 @@ function refrescarInventario() {
     }
 }
 
+document.body.addEventListener('htmx:beforeSwap', function (event) {
+    const statusCode = event.detail.xhr.status;
+
+    if (statusCode === 422) {
+        event.detail.shouldSwap = true;
+        event.detail.isError = false;
+    }
+});
+
 document.body.addEventListener('htmx:afterRequest', function (event) {
     const elemento = event.detail.elt;
     const statusCode = event.detail.xhr.status;

@@ -47,7 +47,7 @@
                 class="equipment-form"
                 hx-post="{% if modo == 'editar' %}{% url 'inventario:editar' equipo.id %}{% else %}{% url 'inventario:crear' %}{% endif %}"
                 hx-target="#modal-container"
-                hx-swap="innerHTML">
+                hx-swap="innerHTML settle:120ms">
 
                 {% csrf_token %}
 
