@@ -1,14 +1,19 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 from .forms import EquipoForm
+from .models import Equipo
 
 
 @login_required
 def inventario_lista(request):
+    equipos = Equipo.objects.all().order_by('-fecha_registro')
+
     context = {
         'active_page': 'inventario',
         'content_template': 'pages/inventario/lista_content.html',
+        'equipos': equipos,
     }
 
     if request.headers.get('HX-Request'):
@@ -28,13 +33,16 @@ def equipo_crear(request):
             form.save()
 
             if es_htmx:
-                return render(request, 'pages/inventario/formulario.html', {
-                    'form': EquipoForm(),
-                    'es_modal': True,
-                    'guardado': True,
-                })
+                return HttpResponse(status=204)
 
             return redirect('inventario:lista')
+
+        if es_htmx:
+            return render(request, 'pages/inventario/formulario.html', {
+                'form': form,
+                'es_modal': True,
+                'guardado': False,
+            }, status=422)
 
     else:
         form = EquipoForm()

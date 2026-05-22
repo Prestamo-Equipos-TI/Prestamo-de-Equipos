@@ -74,45 +74,31 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td>EQ-001</td>
-                    <td>Laptop Dell Latitude</td>
-                    <td>Laptop</td>
-                    <td>Dell</td>
-                    <td><span class="status available">Disponible</span></td>
-                    <td>Laboratorio IT</td>
-                    <td>
-                        <button class="table-btn">Ver</button>
-                        <button class="table-btn">Editar</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>EQ-002</td>
-                    <td>Proyector Epson</td>
-                    <td>Proyector</td>
-                    <td>Epson</td>
-                    <td><span class="status loaned">Prestado</span></td>
-                    <td>Aula 4</td>
-                    <td>
-                        <button class="table-btn">Ver</button>
-                        <button class="table-btn">Editar</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>EQ-003</td>
-                    <td>Tablet Samsung A8</td>
-                    <td>Tablet</td>
-                    <td>Samsung</td>
-                    <td><span class="status damaged">Averiado</span></td>
-                    <td>Coordinación</td>
-                    <td>
-                        <button class="table-btn">Ver</button>
-                        <button class="table-btn">Editar</button>
-                    </td>
-                </tr>
-            </tbody>
+    {% for equipo in equipos %}
+        <tr>
+            <td>{{ equipo.codigo }}</td>
+            <td>{{ equipo.nombre }}</td>
+            <td>{{ equipo.get_categoria_display }}</td>
+            <td>{{ equipo.marca }}</td>
+            <td>
+                <span class="status {{ equipo.estado }}">
+                    {{ equipo.get_estado_display }}
+                </span>
+            </td>
+            <td>{{ equipo.ubicacion }}</td>
+            <td>
+                <button class="table-btn">Ver</button>
+                <button class="table-btn">Editar</button>
+            </td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="7" class="empty-table">
+                No hay equipos registrados todavía.
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
         </table>
 
     </section>
