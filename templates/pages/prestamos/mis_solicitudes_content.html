@@ -1,0 +1,62 @@
+<header class="topbar">
+
+    <div>
+        <h1>Mis solicitudes</h1>
+        <p>Consulta el estado de tus solicitudes de préstamo.</p>
+    </div>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">
+            Cerrar sesión
+        </button>
+    </form>
+
+</header>
+
+<section class="inventory-header">
+
+    <div>
+        <h2>Solicitudes realizadas</h2>
+        <p>Historial de solicitudes enviadas por tu usuario.</p>
+    </div>
+
+</section>
+
+<section class="inventory-table-card">
+
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Equipo</th>
+                <th>Código</th>
+                <th>Fecha solicitada</th>
+                <th>Estado</th>
+                <th>Fecha de envío</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for solicitud in solicitudes %}
+                <tr>
+                    <td>{{ solicitud.equipo.nombre }}</td>
+                    <td>{{ solicitud.equipo.codigo }}</td>
+                    <td>{{ solicitud.fecha_prestamo|date:"d/m/Y" }}</td>
+                    <td>
+                        <span class="status {{ solicitud.estado }}">
+                            {{ solicitud.get_estado_display }}
+                        </span>
+                    </td>
+                    <td>{{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5" class="empty-table">
+                        Aún no has realizado solicitudes de préstamo.
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>

@@ -1,0 +1,71 @@
+<header class="topbar">
+
+    <div>
+        <h1>Solicitar préstamo</h1>
+        <p>Selecciona un equipo disponible y envía tu solicitud.</p>
+    </div>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">
+            Cerrar sesión
+        </button>
+    </form>
+
+</header>
+
+<section class="inventory-header">
+
+    <div>
+        <h2>Equipos disponibles</h2>
+        <p>Solo se muestran equipos activos y disponibles para préstamo.</p>
+    </div>
+
+</section>
+
+<section class="inventory-table-card">
+
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Equipo</th>
+                <th>Categoría</th>
+                <th>Marca</th>
+                <th>Ubicación</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for equipo in equipos %}
+                <tr>
+                    <td>{{ equipo.codigo }}</td>
+                    <td>{{ equipo.nombre }}</td>
+                    <td>{{ equipo.get_categoria_display }}</td>
+                    <td>{{ equipo.marca }}</td>
+                    <td>{{ equipo.ubicacion }}</td>
+                    <td>
+                        <button
+                            type="button"
+                            class="table-btn"
+                            hx-get="{% url 'prestamos:crear' equipo.id %}"
+                            hx-target="#modal-container"
+                            hx-swap="innerHTML">
+                            Solicitar
+                        </button>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6" class="empty-table">
+                        No hay equipos disponibles para préstamo en este momento.
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+
+<div id="modal-container"></div>

@@ -36,9 +36,9 @@ function volverInventario(url) {
     }, 220);
 }
 
-function refrescarInventario() {
+function refrescarVistaActual() {
     if (window.htmx) {
-        htmx.ajax('GET', '/inventario/', {
+        htmx.ajax('GET', window.location.pathname, {
             target: '#app-main',
             swap: 'innerHTML'
         });
@@ -63,14 +63,15 @@ document.body.addEventListener('htmx:afterRequest', function (event) {
     }
 
     const esFormularioEquipo = elemento.id === 'equipo-form';
+    const esFormularioPrestamo = elemento.id === 'prestamo-form';
     const esDesactivarEquipo = elemento.classList.contains('danger');
     const fueCorrecto = statusCode === 204;
 
-    if ((esFormularioEquipo || esDesactivarEquipo) && fueCorrecto) {
+    if ((esFormularioEquipo || esFormularioPrestamo || esDesactivarEquipo) && fueCorrecto) {
         cerrarModal(true);
 
         setTimeout(function () {
-            refrescarInventario();
+            refrescarVistaActual();
         }, 240);
     }
 });

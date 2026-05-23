@@ -35,34 +35,52 @@
                     Dashboard
                 </a>
 
+                {% if request.user.perfil.rol == 'admin_ti' %}
+
+                    <a
+                        href="{% url 'inventario:lista' %}"
+                        class="{% if active_page == 'inventario' %}active{% endif %}"
+                        data-page="inventario"
+                        hx-get="{% url 'inventario:lista' %}"
+                        hx-target="#app-main"
+                        hx-swap="innerHTML"
+                        hx-push-url="true">
+                        <span>💻</span>
+                        Inventario
+                    </a>
+
+                {% elif request.user.perfil.rol == 'usuario' %}
+
                 <a
-                    href="{% url 'inventario:lista' %}"
-                    class="{% if active_page == 'inventario' %}active{% endif %}"
-                    data-page="inventario"
-                    hx-get="{% url 'inventario:lista' %}"
-                    hx-target="#app-main"
-                    hx-swap="innerHTML"
-                    hx-push-url="true">
-                    <span>💻</span>
-                    Inventario
+                     href="{% url 'prestamos:solicitar' %}"
+                     class="{% if active_page == 'solicitar_prestamo' %}active{% endif %}"
+                     data-page="solicitar_prestamo"
+                     hx-get="{% url 'prestamos:solicitar' %}"
+                     hx-target="#app-main"
+                     hx-swap="innerHTML"
+                     hx-push-url="true">
+                     <span>📩</span>
+                     Solicitar préstamo
                 </a>
 
-                <a href="#">
-                    <span>📋</span>
-                    Préstamos
+                <a
+                 href="{% url 'prestamos:mis_solicitudes' %}"
+                 class="{% if active_page == 'mis_solicitudes' %}active{% endif %}"
+                 data-page="mis_solicitudes"
+                 hx-get="{% url 'prestamos:mis_solicitudes' %}"
+                 hx-target="#app-main"
+                 hx-swap="innerHTML"
+                 hx-push-url="true">
+                 <span>📋</span>
+                 Mis solicitudes
                 </a>
 
-                <a href="#">
-                    <span>🛠</span>
-                    Averías
-                </a>
+                {% endif %}
 
-                <a href="#">
-                    <span>📚</span>
-                    Historial
-                </a>
-
-                <a href="#">
+                <a
+                    href="#"
+                    class="{% if active_page == 'alertas' %}active{% endif %}"
+                    data-page="alertas">
                     <span>🔔</span>
                     Alertas
                 </a>
@@ -77,7 +95,14 @@
 
             <div>
                 <strong>{{ request.user.username }}</strong>
-                <small>Usuario activo</small>
+
+                {% if request.user.perfil.rol == 'admin_ti' %}
+                    <small>Administrador TI</small>
+                {% elif request.user.perfil.rol == 'usuario' %}
+                    <small>Usuario solicitante</small>
+                {% else %}
+                    <small>Usuario activo</small>
+                {% endif %}
             </div>
         </div>
 

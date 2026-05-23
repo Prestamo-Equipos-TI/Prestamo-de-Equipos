@@ -1,0 +1,84 @@
+{% if es_modal %}
+
+<div class="modal-backdrop-custom" id="loan-modal">
+
+    <script>
+        abrirModal();
+    </script>
+
+    <div class="modal-panel">
+
+        <div class="modal-header-custom">
+            <div>
+                <h2>Solicitar préstamo</h2>
+                <p>Completa la información para solicitar este equipo.</p>
+            </div>
+        </div>
+
+        <section class="equipment-detail-card">
+
+            <div class="equipment-detail-top">
+                <div>
+                    <span class="equipment-code">{{ equipo.codigo }}</span>
+                    <h3>{{ equipo.nombre }}</h3>
+                    <p>{{ equipo.get_categoria_display }} · {{ equipo.marca }}</p>
+                </div>
+
+                <span class="status disponible">
+                    Disponible
+                </span>
+            </div>
+
+        </section>
+
+        <form
+            id="prestamo-form"
+            method="post"
+            class="equipment-form"
+            hx-post="{% url 'prestamos:crear' equipo.id %}"
+            hx-target="#modal-container"
+            hx-swap="innerHTML settle:120ms">
+
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+              <div class="form-alert-error">
+                 {{ form.non_field_errors }}
+              </div>
+            {% endif %}
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="{{ form.fecha_prestamo.id_for_label }}">Fecha del préstamo</label>
+                    {{ form.fecha_prestamo }}
+                    {{ form.fecha_prestamo.errors }}
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="{{ form.observaciones.id_for_label }}">Observaciones</label>
+                    {{ form.observaciones }}
+                    {{ form.observaciones.errors }}
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button
+                    type="button"
+                    class="secondary-action"
+                    onclick="cerrarModal(true)">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="primary-action">
+                    Enviar solicitud
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endif %}
