@@ -12,6 +12,7 @@ class Equipo(models.Model):
 
     ESTADOS = [
         ('disponible', 'Disponible'),
+        ('reservado', 'Reservado'),
         ('prestado', 'Prestado'),
         ('averiado', 'Averiado'),
         ('mantenimiento', 'Mantenimiento'),

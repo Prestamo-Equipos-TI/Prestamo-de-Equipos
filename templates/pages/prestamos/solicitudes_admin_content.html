@@ -1,0 +1,116 @@
+<header class="topbar">
+
+    <div>
+        <h1>Solicitudes de préstamo</h1>
+        <p>Revisa y gestiona las solicitudes enviadas por los usuarios.</p>
+    </div>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">
+            Cerrar sesión
+        </button>
+    </form>
+
+</header>
+
+<section class="inventory-header">
+
+    <div>
+        <h2>Solicitudes registradas</h2>
+        <p>Aprueba o rechaza las solicitudes pendientes de préstamo.</p>
+    </div>
+
+    <button
+        type="button"
+        class="secondary-action"
+        hx-get="{% url 'prestamos:admin_inicio' %}"
+        hx-target="#app-main"
+        hx-swap="innerHTML"
+        hx-push-url="true">
+        ← Volver a préstamos
+    </button>
+
+</section>
+
+<section class="inventory-table-card">
+
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Solicitante</th>
+                <th>Carnet</th>
+                <th>Equipo</th>
+                <th>Fecha solicitada</th>
+                <th>Estado</th>
+                <th>Enviada</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for solicitud in solicitudes %}
+                <tr>
+                    <td>
+                        {{ solicitud.usuario.perfil.nombre_completo }}
+                    </td>
+
+                    <td>
+                        {{ solicitud.usuario.perfil.carnet }}
+                    </td>
+
+                    <td>
+                        {{ solicitud.equipo.nombre }}
+                        <br>
+                        <small>{{ solicitud.equipo.codigo }}</small>
+                    </td>
+
+                    <td>{{ solicitud.fecha_prestamo|date:"d/m/Y" }}</td>
+
+                    <td>
+                        <span class="status {{ solicitud.estado }}">
+                            {{ solicitud.get_estado_display }}
+                        </span>
+                    </td>
+
+                    <td>{{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</td>
+
+                    <td>
+                        {% if solicitud.estado == 'pendiente' %}
+                            <button
+                                type="button"
+                                class="table-btn success"
+                                hx-get="{% url 'prestamos:aprobar_modal' solicitud.id %}"
+                                hx-target="#modal-container"
+                                hx-swap="innerHTML">
+                                Aprobar
+                            </button>
+
+                            <button
+                                type="button"
+                                class="table-btn danger"
+                                data-action="rechazar-solicitud"
+                                hx-post="{% url 'prestamos:rechazar' solicitud.id %}"
+                                hx-confirm="¿Seguro que deseas rechazar esta solicitud?"
+                                hx-target="#app-main"
+                                hx-swap="innerHTML">
+                                Rechazar
+                            </button>
+                        {% else %}
+                            <span class="muted-text">Sin acciones</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="7" class="empty-table">
+                        No hay solicitudes de préstamo registradas.
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+
+<div id="modal-container"></div>

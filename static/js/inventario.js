@@ -64,10 +64,28 @@ document.body.addEventListener('htmx:afterRequest', function (event) {
 
     const esFormularioEquipo = elemento.id === 'equipo-form';
     const esFormularioPrestamo = elemento.id === 'prestamo-form';
+    const esFormularioAprobacion = elemento.id === 'aprobar-solicitud-form';
+    const esFormularioEntrega = elemento.id === 'entrega-form';
+
+  
     const esDesactivarEquipo = elemento.classList.contains('danger');
+
+    const accion = elemento.dataset.action;
+    const esRechazarSolicitud = accion === 'rechazar-solicitud';
+
     const fueCorrecto = statusCode === 204;
 
-    if ((esFormularioEquipo || esFormularioPrestamo || esDesactivarEquipo) && fueCorrecto) {
+    if (
+        (
+            esFormularioEquipo ||
+            esFormularioPrestamo ||
+            esFormularioAprobacion ||
+            esFormularioEntrega ||
+            esDesactivarEquipo ||
+            esRechazarSolicitud
+        ) &&
+        fueCorrecto
+    ) {
         cerrarModal(true);
 
         setTimeout(function () {

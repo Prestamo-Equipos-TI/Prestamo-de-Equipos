@@ -48,7 +48,17 @@
                         <span>💻</span>
                         Inventario
                     </a>
-
+                    <a
+                     href="{% url 'prestamos:admin_inicio' %}"
+                     class="{% if active_page == 'prestamos_admin' %}active{% endif %}"
+                     data-page="prestamos_admin"
+                     hx-get="{% url 'prestamos:admin_inicio' %}"
+                     hx-target="#app-main"
+                     hx-swap="innerHTML"
+                     hx-push-url="true">
+                     <span>📦</span>
+                     Préstamos
+                     </a>
                 {% elif request.user.perfil.rol == 'usuario' %}
 
                 <a
@@ -78,11 +88,15 @@
                 {% endif %}
 
                 <a
-                    href="#"
-                    class="{% if active_page == 'alertas' %}active{% endif %}"
-                    data-page="alertas">
-                    <span>🔔</span>
-                    Alertas
+    href="{% url 'alertas:lista' %}"
+                class="{% if active_page == 'alertas' %}active{% endif %}"
+                data-page="alertas"
+                hx-get="{% url 'alertas:lista' %}"
+                hx-target="#app-main"
+                hx-swap="innerHTML"
+                hx-push-url="true">
+                <span>🔔</span>
+                 Alertas
                 </a>
 
             </div>

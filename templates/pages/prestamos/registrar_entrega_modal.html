@@ -1,0 +1,127 @@
+{% if es_modal %}
+
+<div class="modal-backdrop-custom" id="modal-registrar-entrega">
+
+    <script>
+        abrirModal();
+    </script>
+
+    <div class="modal-panel">
+
+        <div class="modal-header-custom">
+            <div>
+                <h2>Registrar entrega</h2>
+                <p>Confirma la entrega física del equipo aprobado.</p>
+            </div>
+        </div>
+
+        <section class="equipment-detail-card">
+
+            <div class="equipment-detail-top">
+                <div>
+                    <span class="equipment-code">{{ solicitud.equipo.codigo }}</span>
+                    <h3>{{ solicitud.equipo.nombre }}</h3>
+                    <p>{{ solicitud.equipo.get_categoria_display }} · {{ solicitud.equipo.marca }}</p>
+                </div>
+
+                <span class="status reservado">
+                    Reservado
+                </span>
+            </div>
+
+        </section>
+
+        <section class="equipment-detail-card">
+
+            <div class="equipment-detail-grid">
+
+                <div class="equipment-detail-item">
+                    <span>Solicitante</span>
+                    <strong>{{ solicitud.usuario.perfil.nombre_completo }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Carnet</span>
+                    <strong>{{ solicitud.usuario.perfil.carnet }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Teléfono</span>
+                    <strong>{{ solicitud.usuario.perfil.telefono|default:"No registrado" }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Correo</span>
+                    <strong>{{ solicitud.usuario.email }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Entrega programada</span>
+                    <strong>{{ solicitud.fecha_entrega_programada|date:"d/m/Y" }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Días de préstamo</span>
+                    <strong>{{ solicitud.dias_prestamo }}</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+        <form
+            id="entrega-form"
+            method="post"
+            class="equipment-form"
+            hx-post="{% url 'prestamos:confirmar_entrega' solicitud.id %}"
+            hx-target="#modal-container"
+            hx-swap="innerHTML settle:120ms">
+
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="form-alert-error">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="{{ form.fecha_entrega_real.id_for_label }}">
+                        Fecha real de entrega
+                    </label>
+                    {{ form.fecha_entrega_real }}
+                    {{ form.fecha_entrega_real.errors }}
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="{{ form.observaciones_entrega.id_for_label }}">
+                        Observaciones de entrega
+                    </label>
+                    {{ form.observaciones_entrega }}
+                    {{ form.observaciones_entrega.errors }}
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button
+                    type="button"
+                    class="secondary-action"
+                    onclick="cerrarModal(true)">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="primary-action">
+                    Confirmar entrega
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endif %}

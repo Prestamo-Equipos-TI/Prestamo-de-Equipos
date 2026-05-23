@@ -1,0 +1,98 @@
+<header class="topbar">
+
+    <div>
+        <h1>Equipos prestados</h1>
+        <p>Consulta los equipos actualmente entregados en préstamo.</p>
+    </div>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">
+            Cerrar sesión
+        </button>
+    </form>
+
+</header>
+
+<section class="inventory-header">
+
+    <div>
+        <h2>Préstamos activos</h2>
+        <p>Equipos entregados físicamente y pendientes de devolución.</p>
+    </div>
+
+    <button
+        type="button"
+        class="secondary-action"
+        hx-get="{% url 'prestamos:admin_inicio' %}"
+        hx-target="#app-main"
+        hx-swap="innerHTML"
+        hx-push-url="true">
+        ← Volver a préstamos
+    </button>
+
+</section>
+
+<section class="inventory-table-card">
+
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Equipo</th>
+                <th>Solicitante</th>
+                <th>Entrega</th>
+                <th>Devolución estimada</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for solicitud in solicitudes %}
+                <tr>
+                    <td>
+                        <strong>{{ solicitud.equipo.nombre }}</strong>
+                        <br>
+                        <small>{{ solicitud.equipo.codigo }}</small>
+                    </td>
+
+                    <td>
+                        {{ solicitud.usuario.perfil.nombre_completo }}
+                        <br>
+                        <small>{{ solicitud.usuario.perfil.carnet }}</small>
+                    </td>
+
+                    <td>{{ solicitud.fecha_entrega_real|date:"d/m/Y" }}</td>
+
+                    <td>{{ solicitud.fecha_devolucion_estimada|date:"d/m/Y" }}</td>
+
+                    <td>
+                        <span class="status prestado">
+                            Prestado
+                        </span>
+                    </td>
+
+                    <td>
+                        <button
+                            type="button"
+                            class="table-btn"
+                            hx-get="{% url 'prestamos:detalle_prestamo' solicitud.id %}"
+                            hx-target="#modal-container"
+                            hx-swap="innerHTML">
+                            Ver
+                        </button>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6" class="empty-table">
+                        No hay equipos prestados actualmente.
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+
+<div id="modal-container"></div>

@@ -7,11 +7,13 @@ class SolicitudPrestamo(models.Model):
     ESTADO_PENDIENTE = 'pendiente'
     ESTADO_APROBADO = 'aprobado'
     ESTADO_RECHAZADO = 'rechazado'
+    ESTADO_ENTREGADO = 'entregado'
 
     ESTADOS = [
         (ESTADO_PENDIENTE, 'Pendiente'),
         (ESTADO_APROBADO, 'Aprobado'),
         (ESTADO_RECHAZADO, 'Rechazado'),
+        (ESTADO_ENTREGADO, 'Entregado'),
     ]
 
     usuario = models.ForeignKey(
@@ -32,8 +34,32 @@ class SolicitudPrestamo(models.Model):
 
     fecha_prestamo = models.DateField()
 
+    fecha_entrega_programada = models.DateField(
+    null=True,
+    blank=True
+    )
+
+    dias_prestamo = models.PositiveIntegerField(
+    null=True,
+    blank=True
+    )
+
+    fecha_entrega_real = models.DateField(
+    null=True,
+    blank=True
+    )
+
+    fecha_devolucion_estimada = models.DateField(
+    null=True,
+    blank=True
+    )
+
+    observaciones_entrega = models.TextField(
+    blank=True
+    )
+
     observaciones = models.TextField(
-        blank=True
+    blank=True
     )
 
     estado = models.CharField(

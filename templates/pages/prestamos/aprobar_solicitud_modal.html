@@ -1,0 +1,122 @@
+{% if es_modal %}
+
+<div class="modal-backdrop-custom" id="modal-aprobar-solicitud">
+
+    <script>
+        abrirModal();
+    </script>
+
+    <div class="modal-panel">
+
+        <div class="modal-header-custom">
+            <div>
+                <h2>Aprobar solicitud</h2>
+                <p>Programa la entrega del equipo solicitado.</p>
+            </div>
+        </div>
+
+        <section class="equipment-detail-card">
+
+            <div class="equipment-detail-top">
+                <div>
+                    <span class="equipment-code">{{ solicitud.equipo.codigo }}</span>
+                    <h3>{{ solicitud.equipo.nombre }}</h3>
+                    <p>{{ solicitud.equipo.get_categoria_display }} · {{ solicitud.equipo.marca }}</p>
+                </div>
+
+                <span class="status pendiente">
+                    Solicitud pendiente
+                </span>
+            </div>
+
+        </section>
+
+        <section class="equipment-detail-card">
+
+            <div class="detail-grid">
+
+                <div class="detail-item">
+                    <span>Solicitante</span>
+                    <strong>{{ solicitud.usuario.perfil.nombre_completo }}</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span>Carnet</span>
+                    <strong>{{ solicitud.usuario.perfil.carnet }}</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span>Teléfono</span>
+                    <strong>{{ solicitud.usuario.perfil.telefono|default:"No registrado" }}</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span>Correo</span>
+                    <strong>{{ solicitud.usuario.email }}</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span>Fecha solicitada</span>
+                    <strong>{{ solicitud.fecha_prestamo|date:"d/m/Y" }}</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+        <form
+            id="aprobar-solicitud-form"
+            method="post"
+            class="equipment-form"
+            hx-post="{% url 'prestamos:confirmar_aprobacion' solicitud.id %}"
+            hx-target="#modal-container"
+            hx-swap="innerHTML settle:120ms">
+
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="form-alert-error">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="{{ form.fecha_entrega_programada.id_for_label }}">
+                        Fecha de entrega
+                    </label>
+                    {{ form.fecha_entrega_programada }}
+                    {{ form.fecha_entrega_programada.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.dias_prestamo.id_for_label }}">
+                        Días de préstamo
+                    </label>
+                    {{ form.dias_prestamo }}
+                    {{ form.dias_prestamo.errors }}
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button
+                    type="button"
+                    class="secondary-action"
+                    onclick="cerrarModal(true)">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="primary-action">
+                    Aprobar solicitud
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endif %}

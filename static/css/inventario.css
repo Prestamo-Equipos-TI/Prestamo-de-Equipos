@@ -124,6 +124,11 @@
     color: #65ff9a;
     border-color: rgba(101, 255, 154, 0.18);
 }
+.status.reservado {
+    background: rgba(255, 152, 0, 0.18);
+    color: #ffcc80;
+    border-color: rgba(255, 204, 128, 0.18);
+}
 
 .status.prestado {
     background: rgba(20, 87, 255, 0.18);

@@ -1,0 +1,67 @@
+<header class="topbar">
+
+    <div>
+        <h1>Préstamos</h1>
+        <p>Gestión administrativa de préstamos de equipos.</p>
+    </div>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">
+            Cerrar sesión
+        </button>
+    </form>
+
+</header>
+
+<section class="inventory-header">
+
+    <div>
+        <h2>Módulo de préstamos</h2>
+        <p>Administra solicitudes, entregas, devoluciones y equipos prestados.</p>
+    </div>
+
+</section>
+
+<section class="module-grid loans-grid">
+
+    <a
+        href="{% url 'prestamos:solicitudes_admin' %}"
+        class="module-card"
+        data-page="solicitudes_admin"
+        hx-get="{% url 'prestamos:solicitudes_admin' %}"
+        hx-target="#app-main"
+        hx-swap="innerHTML"
+        hx-push-url="true">
+        <span>📋</span>
+        <h3>Solicitudes de préstamo</h3>
+    </a>
+
+    <a
+    href="{% url 'prestamos:entregas' %}"
+    class="module-card"
+    hx-get="{% url 'prestamos:entregas' %}"
+    hx-target="#app-main"
+    hx-swap="innerHTML"
+    hx-push-url="true">
+      <span>📦</span>
+      <h3>Entregas</h3>
+    </a>
+
+    <a href="#" class="module-card">
+        <span>↩️</span>
+        <h3>Devoluciónes</h3>
+    </a>
+
+    <a
+        href="{% url 'prestamos:equipos_prestados' %}"
+        class="module-card"
+        hx-get="{% url 'prestamos:equipos_prestados' %}"
+        hx-target="#app-main"
+        hx-swap="innerHTML"
+        hx-push-url="true">
+            <span>💼</span>
+            <h3>Equipos prestados</h3>
+    </a>
+
+</section>

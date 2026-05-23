@@ -262,6 +262,20 @@ body {
     position: relative;
     overflow: hidden;
 }
+.loans-grid .module-card {
+    min-height: 190px;
+    padding: 34px 30px;
+}
+.loans-grid .module-card span {
+    font-size: 34px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.loans-grid .module-card h3 {
+    font-size: 30px;
+    font-weight: 700;
+}
 
 .module-card::after {
     content: "";
@@ -356,4 +370,25 @@ body {
         transform: translateY(0) scale(1);
         filter: blur(0);
     }
+}
+.loans-grid {
+    grid-template-columns: repeat(2, minmax(380px, 1fr));
+    max-width: 1250px;
+    width: 100%;
+    margin: 28px auto 0;
+    gap: 32px;
+}
+.table-btn.success {
+    border-color: rgba(0, 200, 83, 0.35);
+    color: #65ff9a;
+}
+
+.table-btn.success:hover {
+    background: rgba(0, 200, 83, 0.12);
+    border-color: #65ff9a;
+}
+
+.muted-text {
+    color: var(--gray);
+    font-size: 13px;
 }

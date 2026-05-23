@@ -1,0 +1,109 @@
+{% if es_modal %}
+
+<div class="modal-backdrop-custom" id="modal-detalle-prestamo">
+
+    <script>
+        abrirModal();
+    </script>
+
+    <div class="modal-panel equipment-detail-modal">
+
+        <div class="modal-header-custom">
+            <div>
+                <h2>Detalle del préstamo</h2>
+                <p>Información completa del equipo actualmente prestado.</p>
+            </div>
+
+            <button
+                type="button"
+                class="modal-close-btn"
+                onclick="cerrarModal(true)">
+                ×
+            </button>
+        </div>
+
+        <section class="equipment-detail-card">
+
+            <div class="equipment-detail-top">
+                <div>
+                    <span class="equipment-code">{{ solicitud.equipo.codigo }}</span>
+                    <h3>{{ solicitud.equipo.nombre }}</h3>
+                    <p>{{ solicitud.equipo.get_categoria_display }} · {{ solicitud.equipo.marca }}</p>
+                </div>
+
+                <span class="status prestado">
+                    Prestado
+                </span>
+            </div>
+
+            <div class="equipment-detail-grid">
+
+                <div class="equipment-detail-item">
+                    <span>Solicitante</span>
+                    <strong>{{ solicitud.usuario.perfil.nombre_completo }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Carnet</span>
+                    <strong>{{ solicitud.usuario.perfil.carnet }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Teléfono</span>
+                    <strong>{{ solicitud.usuario.perfil.telefono|default:"No registrado" }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Correo</span>
+                    <strong>{{ solicitud.usuario.email }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Fecha de solicitud</span>
+                    <strong>{{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Fecha solicitada</span>
+                    <strong>{{ solicitud.fecha_prestamo|date:"d/m/Y" }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Entrega programada</span>
+                    <strong>{{ solicitud.fecha_entrega_programada|date:"d/m/Y" }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Entrega real</span>
+                    <strong>{{ solicitud.fecha_entrega_real|date:"d/m/Y" }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Días préstamo</span>
+                    <strong>{{ solicitud.dias_prestamo }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Devolución estimada</span>
+                    <strong>{{ solicitud.fecha_devolucion_estimada|date:"d/m/Y" }}</strong>
+                </div>
+
+            </div>
+
+            <div class="equipment-observations">
+                <span>Observaciones del usuario</span>
+                <p>{{ solicitud.observaciones|default:"Sin observaciones registradas." }}</p>
+            </div>
+
+            <div class="equipment-observations">
+                <span>Observaciones de entrega</span>
+                <p>{{ solicitud.observaciones_entrega|default:"Sin observaciones de entrega." }}</p>
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+
+{% endif %}

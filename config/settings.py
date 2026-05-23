@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'inventario',
     'usuarios',
     'prestamos',
+    'alertas',
 ]
 
 MIDDLEWARE = [
