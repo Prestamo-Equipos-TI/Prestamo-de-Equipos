@@ -60,7 +60,7 @@ class SolicitudPrestamo(models.Model):
     null=True,
     blank=True
     )
-
+    alerta_vencimiento_enviada = models.BooleanField(default=False)
     observaciones_entrega = models.TextField(
     blank=True
     )

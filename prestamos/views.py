@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from alertas.models import Alerta
 from inventario.models import Equipo
 from usuarios.models import PerfilUsuario
-
+from .services import detectar_prestamos_vencidos
 from .forms import SolicitudPrestamoForm
 from .forms_aprobacion import AprobarSolicitudForm
 from .forms_devolucion import RegistrarDevolucionForm
@@ -151,6 +151,8 @@ def solicitudes_admin(request):
 
 @login_required
 def prestamos_admin_inicio(request):
+    detectar_prestamos_vencidos()
+
     context = {
         'active_page': 'prestamos_admin',
         'content_template': 'pages/prestamos/prestamos_admin_content.html',
