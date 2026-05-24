@@ -8,12 +8,14 @@ class SolicitudPrestamo(models.Model):
     ESTADO_APROBADO = 'aprobado'
     ESTADO_RECHAZADO = 'rechazado'
     ESTADO_ENTREGADO = 'entregado'
+    ESTADO_DEVUELTO = 'devuelto'
 
     ESTADOS = [
         (ESTADO_PENDIENTE, 'Pendiente'),
         (ESTADO_APROBADO, 'Aprobado'),
         (ESTADO_RECHAZADO, 'Rechazado'),
         (ESTADO_ENTREGADO, 'Entregado'),
+        (ESTADO_DEVUELTO, 'Devuelto'),
     ]
 
     usuario = models.ForeignKey(
@@ -47,9 +49,14 @@ class SolicitudPrestamo(models.Model):
     fecha_entrega_real = models.DateField(
     null=True,
     blank=True
-    )
+     )
 
     fecha_devolucion_estimada = models.DateField(
+    null=True,
+    blank=True
+    )
+
+    fecha_devolucion_real = models.DateField(
     null=True,
     blank=True
     )
@@ -57,6 +64,11 @@ class SolicitudPrestamo(models.Model):
     observaciones_entrega = models.TextField(
     blank=True
     )
+
+    observaciones_devolucion = models.TextField(
+    blank=True
+    )
+    
 
     observaciones = models.TextField(
     blank=True
@@ -67,6 +79,37 @@ class SolicitudPrestamo(models.Model):
         choices=ESTADOS,
         default=ESTADO_PENDIENTE
     )
+    aprobado_por = models.ForeignKey(
+    User,
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name='solicitudes_aprobadas'
+)
+
+    rechazado_por = models.ForeignKey(
+    User,
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name='solicitudes_rechazadas'
+)
+
+    entregado_por = models.ForeignKey(
+    User,
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name='solicitudes_entregadas'
+)
+
+    devuelto_por = models.ForeignKey(
+    User,
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name='solicitudes_devueltas'
+)
 
     def __str__(self):
         return f'{self.usuario.username} - {self.equipo.nombre}'

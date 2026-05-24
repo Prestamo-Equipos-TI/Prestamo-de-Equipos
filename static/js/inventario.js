@@ -66,6 +66,7 @@ document.body.addEventListener('htmx:afterRequest', function (event) {
     const esFormularioPrestamo = elemento.id === 'prestamo-form';
     const esFormularioAprobacion = elemento.id === 'aprobar-solicitud-form';
     const esFormularioEntrega = elemento.id === 'entrega-form';
+    const esFormularioDevolucion = elemento.id === 'devolucion-form';
 
   
     const esDesactivarEquipo = elemento.classList.contains('danger');
@@ -82,6 +83,7 @@ document.body.addEventListener('htmx:afterRequest', function (event) {
             esFormularioAprobacion ||
             esFormularioEntrega ||
             esDesactivarEquipo ||
+            esFormularioDevolucion ||
             esRechazarSolicitud
         ) &&
         fueCorrecto

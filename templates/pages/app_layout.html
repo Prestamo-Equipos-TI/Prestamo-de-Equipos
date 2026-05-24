@@ -88,15 +88,19 @@
                 {% endif %}
 
                 <a
-    href="{% url 'alertas:lista' %}"
-                class="{% if active_page == 'alertas' %}active{% endif %}"
-                data-page="alertas"
-                hx-get="{% url 'alertas:lista' %}"
-                hx-target="#app-main"
-                hx-swap="innerHTML"
-                hx-push-url="true">
-                <span>🔔</span>
-                 Alertas
+                    href="{% url 'alertas:lista' %}"
+                    class="{% if active_page == 'alertas' %}active{% endif %}"
+                    data-page="alertas"
+                    hx-get="{% url 'alertas:lista' %}"
+                    hx-target="#app-main"
+                    hx-swap="innerHTML"
+                    hx-push-url="true">
+                    <span>🔔</span>
+                    Alertas
+
+                    {% if tiene_alertas_nuevas %}
+                        <span class="sidebar-notification-dot"></span>
+                    {% endif %}
                 </a>
 
             </div>

@@ -392,3 +392,21 @@ body {
     color: var(--gray);
     font-size: 13px;
 }
+.notification-dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    background: var(--gold-light);
+    border-radius: 50%;
+    margin-left: 8px;
+    vertical-align: middle;
+    box-shadow: 0 0 10px rgba(223, 204, 61, 0.85);
+}
+.sidebar-notification-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--gold-light);
+    border-radius: 50%;
+    margin-left: auto;
+    box-shadow: 0 0 10px rgba(223, 204, 61, 0.9);
+}

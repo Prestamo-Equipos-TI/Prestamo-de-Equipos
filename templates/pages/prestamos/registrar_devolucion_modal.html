@@ -1,0 +1,127 @@
+{% if es_modal %}
+
+<div class="modal-backdrop-custom" id="modal-registrar-devolucion">
+
+    <script>
+        abrirModal();
+    </script>
+
+    <div class="modal-panel">
+
+        <div class="modal-header-custom">
+            <div>
+                <h2>Registrar devolución</h2>
+                <p>Confirma la recepción del equipo prestado.</p>
+            </div>
+        </div>
+
+        <section class="equipment-detail-card">
+
+            <div class="equipment-detail-top">
+                <div>
+                    <span class="equipment-code">{{ solicitud.equipo.codigo }}</span>
+                    <h3>{{ solicitud.equipo.nombre }}</h3>
+                    <p>{{ solicitud.equipo.get_categoria_display }} · {{ solicitud.equipo.marca }}</p>
+                </div>
+
+                <span class="status prestado">
+                    Prestado
+                </span>
+            </div>
+
+        </section>
+
+        <section class="equipment-detail-card">
+
+            <div class="equipment-detail-grid">
+
+                <div class="equipment-detail-item">
+                    <span>Solicitante</span>
+                    <strong>{{ solicitud.usuario.perfil.nombre_completo }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Carnet</span>
+                    <strong>{{ solicitud.usuario.perfil.carnet }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Teléfono</span>
+                    <strong>{{ solicitud.usuario.perfil.telefono|default:"No registrado" }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Correo</span>
+                    <strong>{{ solicitud.usuario.email }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Entrega real</span>
+                    <strong>{{ solicitud.fecha_entrega_real|date:"d/m/Y" }}</strong>
+                </div>
+
+                <div class="equipment-detail-item">
+                    <span>Devolución estimada</span>
+                    <strong>{{ solicitud.fecha_devolucion_estimada|date:"d/m/Y" }}</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+        <form
+            id="devolucion-form"
+            method="post"
+            class="equipment-form"
+            hx-post="{% url 'prestamos:confirmar_devolucion' solicitud.id %}"
+            hx-target="#modal-container"
+            hx-swap="innerHTML settle:120ms">
+
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="form-alert-error">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="{{ form.fecha_devolucion_real.id_for_label }}">
+                        Fecha devolución
+                    </label>
+                    {{ form.fecha_devolucion_real }}
+                    {{ form.fecha_devolucion_real.errors }}
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="{{ form.observaciones_devolucion.id_for_label }}">
+                        Observaciones devolución
+                    </label>
+                    {{ form.observaciones_devolucion }}
+                    {{ form.observaciones_devolucion.errors }}
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button
+                    type="button"
+                    class="secondary-action"
+                    onclick="cerrarModal(true)">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="primary-action">
+                    Confirmar devolución
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endif %}

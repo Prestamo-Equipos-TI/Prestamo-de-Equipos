@@ -7,12 +7,13 @@ class Alerta(models.Model):
     TIPO_PRESTAMO_APROBADO = 'prestamo_aprobado'
     TIPO_PRESTAMO_RECHAZADO = 'prestamo_rechazado'
     TIPO_PRESTAMO_ENTREGADO = 'prestamo_entregado'
-
+    TIPO_PRESTAMO_DEVUELTO = 'prestamo_devuelto'
     TIPOS = [
     (TIPO_SISTEMA, 'Sistema'),
     (TIPO_PRESTAMO_APROBADO, 'Préstamo aprobado'),
     (TIPO_PRESTAMO_RECHAZADO, 'Préstamo rechazado'),
     (TIPO_PRESTAMO_ENTREGADO, 'Préstamo entregado'),
+    (TIPO_PRESTAMO_DEVUELTO, 'Préstamo devuelto'),
     ]
 
     usuario = models.ForeignKey(

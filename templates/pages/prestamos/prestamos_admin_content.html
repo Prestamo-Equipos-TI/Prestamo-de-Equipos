@@ -48,9 +48,15 @@
       <h3>Entregas</h3>
     </a>
 
-    <a href="#" class="module-card">
+    <a
+      href="{% url 'prestamos:devoluciones' %}"
+      class="module-card"
+      hx-get="{% url 'prestamos:devoluciones' %}"
+      hx-target="#app-main"
+      hx-swap="innerHTML"
+      hx-push-url="true">
         <span>↩️</span>
-        <h3>Devoluciónes</h3>
+        <h3>Devolución</h3>
     </a>
 
     <a

@@ -10,6 +10,11 @@ def alertas_lista(request):
         usuario=request.user
     ).order_by('-fecha_creacion')
 
+    Alerta.objects.filter(
+        usuario=request.user,
+        leida=False
+    ).update(leida=True)
+
     context = {
         'active_page': 'alertas',
         'content_template': 'pages/alertas/lista_content.html',

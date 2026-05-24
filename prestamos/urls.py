@@ -13,6 +13,9 @@ from .views import (
     confirmar_entrega,
     equipos_prestados,
     detalle_prestamo,
+    devoluciones_lista,
+    registrar_devolucion_modal,
+    confirmar_devolucion,
 )
 
 app_name = 'prestamos'
@@ -89,5 +92,22 @@ path(
     'equipos-prestados/<int:solicitud_id>/detalle/',
     detalle_prestamo,
     name='detalle_prestamo'
+),
+path(
+    'devoluciones/',
+    devoluciones_lista,
+    name='devoluciones'
+),
+
+path(
+    'devoluciones/<int:solicitud_id>/registrar/',
+    registrar_devolucion_modal,
+    name='registrar_devolucion_modal'
+),
+
+path(
+    'devoluciones/<int:solicitud_id>/confirmar/',
+    confirmar_devolucion,
+    name='confirmar_devolucion'
 ),
 ]

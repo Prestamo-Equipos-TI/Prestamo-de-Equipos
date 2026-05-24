@@ -29,40 +29,103 @@
 
     </section>
 
-    <section class="module-grid">
+    {% if request.user.perfil.rol == 'admin_ti' %}
 
-        <a
-            href="{% url 'inventario:lista' %}"
-            class="module-card"
-            data-page="inventario"
-            hx-get="{% url 'inventario:lista' %}"
-            hx-target="#app-main"
-            hx-swap="innerHTML"
-            hx-push-url="true">
-            <span>💻</span>
-            <h3>Inventario</h3>
-        </a>
+        <section class="module-grid">
 
-        <a href="#" class="module-card">
-            <span>📋</span>
-            <h3>Préstamos</h3>
-        </a>
+            <a
+                href="{% url 'inventario:lista' %}"
+                class="module-card"
+                data-page="inventario"
+                hx-get="{% url 'inventario:lista' %}"
+                hx-target="#app-main"
+                hx-swap="innerHTML"
+                hx-push-url="true">
+                <span>💻</span>
+                <h3>Inventario</h3>
+            </a>
 
-        <a href="#" class="module-card">
-            <span>🛠</span>
-            <h3>Averías</h3>
-        </a>
+            <a
+                href="{% url 'prestamos:admin_inicio' %}"
+                class="module-card"
+                data-page="prestamos_admin"
+                hx-get="{% url 'prestamos:admin_inicio' %}"
+                hx-target="#app-main"
+                hx-swap="innerHTML"
+                hx-push-url="true">
+                <span>📋</span>
+                <h3>Préstamos</h3>
+            </a>
 
-        <a href="#" class="module-card">
-            <span>📚</span>
-            <h3>Historial</h3>
-        </a>
+            <a href="#" class="module-card">
+                <span>🛠</span>
+                <h3>Averías</h3>
+            </a>
 
-        <a href="#" class="module-card">
-            <span>🔔</span>
-            <h3>Alertas</h3>
-        </a>
+            <a href="#" class="module-card">
+                <span>📚</span>
+                <h3>Historial</h3>
+            </a>
 
-    </section>
+            <a
+                href="{% url 'alertas:lista' %}"
+                class="module-card"
+                data-page="alertas"
+                hx-get="{% url 'alertas:lista' %}"
+                hx-target="#app-main"
+                hx-swap="innerHTML"
+                hx-push-url="true">
+                <span>🔔</span>
+                <h3>
+                    Alertas
+                    {% if tiene_alertas_nuevas %}
+                        <span class="notification-dot"></span>
+                    {% endif %}
+                </h3>
+            </a>
+
+        </section>
+
+    {% elif request.user.perfil.rol == 'usuario' %}
+
+        <section class="module-grid">
+
+            <a href="#" class="module-card">
+                <span>📚</span>
+                <h3>Historial de mis préstamos</h3>
+            </a>
+
+            <a
+                href="{% url 'prestamos:mis_solicitudes' %}"
+                class="module-card"
+                data-page="mis_solicitudes"
+                hx-get="{% url 'prestamos:mis_solicitudes' %}"
+                hx-target="#app-main"
+                hx-swap="innerHTML"
+                hx-push-url="true">
+                <span>📋</span>
+                <h3>Mis solicitudes</h3>
+            </a>
+
+            <a
+                href="{% url 'alertas:lista' %}"
+                class="module-card"
+                data-page="alertas"
+                hx-get="{% url 'alertas:lista' %}"
+                hx-target="#app-main"
+                hx-swap="innerHTML"
+                hx-push-url="true">
+                <span>🔔</span>
+               <h3>
+                    Alertas
+                    {% if tiene_alertas_nuevas %}
+                         <span class="notification-dot"></span>
+                    {% endif %}
+               </h3>
+            </a>
+
+        </section>
+
+    {% endif %}
 
 </div>

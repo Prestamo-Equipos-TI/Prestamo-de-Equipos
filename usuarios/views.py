@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from alertas.models import Alerta
 
 
 @login_required
@@ -7,6 +8,10 @@ def dashboard(request):
     context = {
         'active_page': 'dashboard',
         'content_template': 'pages/dashboard_content.html',
+        'tiene_alertas_nuevas': Alerta.objects.filter(
+            usuario=request.user,
+            leida=False
+        ).exists(),
     }
 
     if request.headers.get('HX-Request'):
