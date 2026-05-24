@@ -1,0 +1,136 @@
+<header class="topbar">
+
+    <div>
+        <h1>Reportes de averías</h1>
+        <p>Consulta y gestiona reportes técnicos registrados.</p>
+    </div>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">
+            Cerrar sesión
+        </button>
+    </form>
+
+</header>
+
+<section class="inventory-header">
+
+    <div>
+        <h2>Listado de reportes</h2>
+        <p>Administra reportes pendientes, en revisión o resueltos.</p>
+    </div>
+
+    <button
+        type="button"
+        class="secondary-action"
+        hx-get="{% url 'averias:admin_inicio' %}"
+        hx-target="#app-main"
+        hx-swap="innerHTML"
+        hx-push-url="true">
+        ← Volver a averías
+    </button>
+
+</section>
+
+<section class="inventory-table-card">
+
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Equipo</th>
+                <th>Reportado por</th>
+                <th>Descripción</th>
+                <th>Estado</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for reporte in reportes %}
+                <tr>
+                    <td>
+                        <strong>{{ reporte.equipo.nombre }}</strong>
+                        <br>
+                        <small>{{ reporte.equipo.codigo }}</small>
+                    </td>
+
+                    <td>
+                        {% if reporte.reportado_por %}
+                            {% if reporte.reportado_por.perfil %}
+                                {{ reporte.reportado_por.perfil.nombre_completo }}
+                                <br>
+                                <small>{{ reporte.reportado_por.perfil.carnet }}</small>
+                            {% else %}
+                                {{ reporte.reportado_por.username }}
+                            {% endif %}
+                        {% else %}
+                            Sistema
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {{ reporte.descripcion_falla }}
+                    </td>
+
+                    <td>
+                        <span class="status {{ reporte.estado }}">
+                            {{ reporte.get_estado_display }}
+                        </span>
+                    </td>
+
+                    <td>
+                        {{ reporte.fecha_reporte|date:"d/m/Y H:i" }}
+                    </td>
+
+                    <td>
+                        {% if reporte.estado == 'pendiente' %}
+                            <button
+                              type="button"
+                              class="table-btn success"
+                              hx-get="{% url 'averias:gestionar_modal' reporte.id %}"
+                              hx-target="#modal-container"
+                              hx-swap="innerHTML">
+                              Gestionar
+                                </button>
+
+                        {% elif reporte.estado == 'en_revision' %}
+                            <div class="table-actions">
+                                 <button
+                                     type="button"
+                                     class="table-btn success"
+                                     hx-get="{% url 'averias:gestionar_modal' reporte.id %}"
+                                     hx-target="#modal-container"
+                                     hx-swap="innerHTML">
+                                     Gestionar
+                                 </button>
+
+                                 <button
+                                     type="button"
+                                     class="table-btn warning"
+                                     hx-get="{% url 'averias:resolver_modal' reporte.id %}"
+                                     hx-target="#modal-container"
+                                     hx-swap="innerHTML">
+                                     Resolver
+                                 </button>
+                                </div>
+
+                            {% elif reporte.estado == 'resuelta' %}
+                                <span class="muted-text">Resuelta</span>
+                            {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6" class="empty-table">
+                        No hay reportes de avería registrados.
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+
+<div id="modal-container"></div>

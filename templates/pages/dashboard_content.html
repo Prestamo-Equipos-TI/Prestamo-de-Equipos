@@ -57,9 +57,16 @@
                 <h3>Préstamos</h3>
             </a>
 
-            <a href="#" class="module-card">
-                <span>🛠</span>
-                <h3>Averías</h3>
+            <a
+                 href="{% url 'averias:admin_lista' %}"
+                 class="module-card"
+                 data-page="averias_admin"
+                 hx-get="{% url 'averias:admin_lista' %}"
+                 hx-target="#app-main"
+                 hx-swap="innerHTML"
+                 hx-push-url="true">
+                 <span>🛠</span>
+                 <h3>Averías</h3>
             </a>
 
             <a href="#" class="module-card">
@@ -106,7 +113,17 @@
                 <span>📋</span>
                 <h3>Mis solicitudes</h3>
             </a>
-
+            <a
+                 href="{% url 'averias:reportar' %}"
+                 class="module-card"
+                 data-page="reportar_averia"
+                 hx-get="{% url 'averias:reportar' %}"
+                 hx-target="#app-main"
+                 hx-swap="innerHTML"
+                 hx-push-url="true">
+                <span>🛠</span>
+                <h3>Reportar avería</h3>
+            </a>
             <a
                 href="{% url 'alertas:lista' %}"
                 class="module-card"

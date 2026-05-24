@@ -1,0 +1,81 @@
+{% if es_modal %}
+
+<div class="modal-backdrop-custom" id="modal-reportar-averia">
+
+    <script>
+        abrirModal();
+    </script>
+
+    <div class="modal-panel">
+
+        <div class="modal-header-custom">
+            <div>
+                <h2>Reportar avería</h2>
+                <p>Describe la falla detectada en el equipo.</p>
+            </div>
+        </div>
+
+        <section class="equipment-detail-card">
+
+            <div class="equipment-detail-top">
+                <div>
+                    <span class="equipment-code">{{ solicitud.equipo.codigo }}</span>
+                    <h3>{{ solicitud.equipo.nombre }}</h3>
+                    <p>{{ solicitud.equipo.get_categoria_display }} · {{ solicitud.equipo.marca }}</p>
+                </div>
+
+                <span class="status prestado">
+                    Prestado
+                </span>
+            </div>
+
+        </section>
+
+        <form
+            id="averia-form"
+            method="post"
+            class="equipment-form"
+            hx-post="{% url 'averias:confirmar_reporte' solicitud.id %}"
+            hx-target="#modal-container"
+            hx-swap="innerHTML settle:120ms">
+
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="form-alert-error">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <div class="form-grid">
+
+                <div class="form-group full-width">
+                    <label for="{{ form.descripcion_falla.id_for_label }}">
+                        Descripción de la falla
+                    </label>
+                    {{ form.descripcion_falla }}
+                    {{ form.descripcion_falla.errors }}
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button
+                    type="button"
+                    class="secondary-action"
+                    onclick="cerrarModal(true)">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="primary-action">
+                    Enviar reporte
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endif %}

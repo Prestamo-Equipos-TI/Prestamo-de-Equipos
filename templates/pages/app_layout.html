@@ -59,6 +59,17 @@
                      <span>📦</span>
                      Préstamos
                      </a>
+                   <a
+                    href="{% url 'averias:admin_inicio' %}"
+                    class="{% if active_page == 'averias_admin' %}active{% endif %}"
+                    data-page="averias_admin"
+                    hx-get="{% url 'averias:admin_inicio' %}"
+                    hx-target="#app-main"
+                    hx-swap="innerHTML"
+                    hx-push-url="true">
+                    <span>🛠</span>
+                    Averías
+                    </a>
                 {% elif request.user.perfil.rol == 'usuario' %}
 
                 <a
@@ -84,7 +95,17 @@
                  <span>📋</span>
                  Mis solicitudes
                 </a>
-
+                <a
+                 href="{% url 'averias:reportar' %}"
+                 class="{% if active_page == 'reportar_averia' %}active{% endif %}"
+                 data-page="reportar_averia"
+                 hx-get="{% url 'averias:reportar' %}"
+                 hx-target="#app-main"
+                 hx-swap="innerHTML"
+                 hx-push-url="true">
+                <span>🛠</span>
+                 Reportar avería
+                </a>
                 {% endif %}
 
                 <a

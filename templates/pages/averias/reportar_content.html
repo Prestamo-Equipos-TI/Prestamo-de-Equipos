@@ -1,0 +1,88 @@
+<header class="topbar">
+
+    <div>
+        <h1>Reportar avería</h1>
+        <p>Selecciona un equipo prestado para reportar una falla.</p>
+    </div>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">
+            Cerrar sesión
+        </button>
+    </form>
+
+</header>
+
+<section class="inventory-header">
+
+    <div>
+        <h2>Mis equipos prestados</h2>
+        <p>Solo puedes reportar averías de equipos actualmente en tu poder.</p>
+    </div>
+
+    <button
+        type="button"
+        class="secondary-action"
+        hx-get="{% url 'dashboard' %}"
+        hx-target="#app-main"
+        hx-swap="innerHTML"
+        hx-push-url="true">
+        ← Volver
+    </button>
+
+</section>
+
+<section class="inventory-table-card">
+
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Equipo</th>
+                <th>Entrega</th>
+                <th>Devolución estimada</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for solicitud in prestamos_activos %}
+                <tr>
+                    <td>
+                        <strong>{{ solicitud.equipo.nombre }}</strong>
+                        <br>
+                        <small>{{ solicitud.equipo.codigo }}</small>
+                    </td>
+
+                    <td>
+                        {{ solicitud.fecha_entrega_real|date:"d/m/Y" }}
+                    </td>
+
+                    <td>
+                        {{ solicitud.fecha_devolucion_estimada|date:"d/m/Y" }}
+                    </td>
+
+                    <td>
+                        <button
+                            type="button"
+                            class="table-btn warning"
+                            hx-get="{% url 'averias:reportar_modal' solicitud.id %}"
+                            hx-target="#modal-container"
+                            hx-swap="innerHTML">
+                            Reportar avería
+                        </button>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4" class="empty-table">
+                        No tienes equipos prestados actualmente.
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+
+<div id="modal-container"></div>

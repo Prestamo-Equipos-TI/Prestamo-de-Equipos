@@ -1,0 +1,50 @@
+<header class="topbar">
+
+    <div>
+        <h1>Averías</h1>
+        <p>Gestión de reportes técnicos y seguimiento de fallas.</p>
+    </div>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">
+            Cerrar sesión
+        </button>
+    </form>
+
+</header>
+
+<section class="inventory-header">
+
+    <div>
+        <h2>Módulo de averías</h2>
+        <p>Consulta reportes o genera reportes administrativos.</p>
+    </div>
+
+</section>
+
+<section class="module-grid loans-grid">
+
+    <a
+        href="{% url 'averias:admin_lista' %}"
+        class="module-card"
+        hx-get="{% url 'averias:admin_lista' %}"
+        hx-target="#app-main"
+        hx-swap="innerHTML"
+        hx-push-url="true">
+        <span>📋</span>
+        <h3>Reportes de averías</h3>
+    </a>
+
+    <a
+        href="{% url 'averias:reporte_administrativo' %}"
+        class="module-card"
+        hx-get="{% url 'averias:reporte_administrativo' %}"
+        hx-target="#app-main"
+        hx-swap="innerHTML"
+        hx-push-url="true">
+        <span>🛠</span>
+        <h3>Reporte administrativo</h3>
+    </a>
+
+</section>

@@ -1,0 +1,86 @@
+{% if es_modal %}
+
+<div class="modal-backdrop-custom" id="modal-gestionar-averia">
+
+    <script>
+        abrirModal();
+    </script>
+
+    <div class="modal-panel">
+
+        <div class="modal-header-custom">
+            <div>
+                <h2>Gestionar avería</h2>
+                <p>Registra la acción inicial tomada por el área de TI.</p>
+            </div>
+        </div>
+
+        <section class="equipment-detail-card">
+            <div class="equipment-detail-top">
+                <div>
+                    <span class="equipment-code">{{ reporte.equipo.codigo }}</span>
+                    <h3>{{ reporte.equipo.nombre }}</h3>
+                    <p>{{ reporte.equipo.get_categoria_display }} · {{ reporte.equipo.marca }}</p>
+                </div>
+
+                <span class="status {{ reporte.estado }}">
+                    {{ reporte.get_estado_display }}
+                </span>
+            </div>
+        </section>
+
+        <section class="equipment-detail-card">
+            <div class="equipment-observations">
+                <span>Falla reportada</span>
+                <p>{{ reporte.descripcion_falla }}</p>
+            </div>
+        </section>
+
+        <form
+            id="gestionar-averia-form"
+            method="post"
+            class="equipment-form"
+            hx-post="{% url 'averias:confirmar_gestion' reporte.id %}"
+            hx-target="#modal-container"
+            hx-swap="innerHTML settle:120ms">
+
+            {% csrf_token %}
+
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label for="{{ form.accion_tomada.id_for_label }}">
+                        Acción tomada
+                    </label>
+                    {{ form.accion_tomada }}
+                    {{ form.accion_tomada.errors }}
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="{{ form.observaciones_revision.id_for_label }}">
+                        Observaciones de revisión
+                    </label>
+                    {{ form.observaciones_revision }}
+                    {{ form.observaciones_revision.errors }}
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button
+                    type="button"
+                    class="secondary-action"
+                    onclick="cerrarModal(true)">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="primary-action">
+                    Guardar gestión
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endif %}

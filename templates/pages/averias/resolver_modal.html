@@ -1,0 +1,96 @@
+{% if es_modal %}
+
+<div class="modal-backdrop-custom" id="modal-resolver-averia">
+
+    <script>
+        abrirModal();
+    </script>
+
+    <div class="modal-panel">
+
+        <div class="modal-header-custom">
+            <div>
+                <h2>Resolver avería</h2>
+                <p>Registrar cierre del caso técnico.</p>
+            </div>
+        </div>
+
+        <section class="equipment-detail-card">
+            <div class="equipment-detail-top">
+                <div>
+                    <span class="equipment-code">{{ reporte.equipo.codigo }}</span>
+                    <h3>{{ reporte.equipo.nombre }}</h3>
+                    <p>{{ reporte.equipo.get_categoria_display }} · {{ reporte.equipo.marca }}</p>
+                </div>
+
+                <span class="status {{ reporte.estado }}">
+                    {{ reporte.get_estado_display }}
+                </span>
+            </div>
+        </section>
+
+        <section class="equipment-detail-card">
+            <div class="equipment-observations">
+                <span>Falla reportada</span>
+                <p>{{ reporte.descripcion_falla }}</p>
+            </div>
+        </section>
+
+        <form
+            id="resolver-averia-form"
+            method="post"
+            class="equipment-form"
+            hx-post="{% url 'averias:confirmar_resolucion' reporte.id %}"
+            hx-target="#modal-container"
+            hx-swap="innerHTML settle:120ms">
+
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="form-alert-error">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <div class="form-grid">
+
+                {% if reporte.solicitud_prestamo is None %}
+                <div class="form-group full-width">
+                    <label for="{{ form.estado_final_equipo.id_for_label }}">
+                        Estado final del equipo
+                    </label>
+                    {{ form.estado_final_equipo }}
+                    {{ form.estado_final_equipo.errors }}
+                </div>
+                {% endif %}
+
+                <div class="form-group full-width">
+                    <label for="{{ form.observaciones_resolucion.id_for_label }}">
+                        Observaciones de resolución
+                    </label>
+                    {{ form.observaciones_resolucion }}
+                    {{ form.observaciones_resolucion.errors }}
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button
+                    type="button"
+                    class="secondary-action"
+                    onclick="cerrarModal(true)">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="primary-action">
+                    Resolver avería
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endif %}
