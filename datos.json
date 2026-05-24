@@ -1,0 +1,1254 @@
+[
+  {
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+      "action_time": "2026-05-23T02:44:20.489Z",
+      "user": 1,
+      "content_type": 4,
+      "object_id": "2",
+      "object_repr": "admin_ti",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+      "action_time": "2026-05-23T02:45:04.165Z",
+      "user": 1,
+      "content_type": 8,
+      "object_id": "1",
+      "object_repr": "ricardo erazo - Administrador TI",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+      "action_time": "2026-05-23T02:46:29.542Z",
+      "user": 1,
+      "content_type": 4,
+      "object_id": "3",
+      "object_repr": "dc20026",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+      "action_time": "2026-05-23T02:47:09.508Z",
+      "user": 1,
+      "content_type": 8,
+      "object_id": "2",
+      "object_repr": "usuario de prueba - Usuario",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$pXMruWjHLEEsudTCNKZKUU$ZFuj3qTzNiT5YYl2KhusH0rqcDBWbhmomDXoFXHh7UU=",
+      "last_login": "2026-05-23T06:28:21.077Z",
+      "is_superuser": true,
+      "username": "administradorit",
+      "first_name": "",
+      "last_name": "",
+      "email": "admin@controlit.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2026-05-20T05:21:07.321Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$XVRC4KMOiLX3XTxB9DRowa$R7+1oXf/Xzf6zkJnUTvPrkfJvmOSuXKv+KZpQpFZJMo=",
+      "last_login": "2026-05-24T04:02:24.756Z",
+      "is_superuser": false,
+      "username": "admin_ti",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-05-23T02:44:19.522Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$5AqIfSCnp4O6c94Ub4qWQB$+Ew3qIv4xuQ2ajdS07A8CSW9ziz816Yj3eBeEy2BkGQ=",
+      "last_login": "2026-05-24T03:19:49.231Z",
+      "is_superuser": false,
+      "username": "dc20026",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-05-23T02:46:28.576Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "iobslkm2f1le0uy49hd8exzxy98940l1",
+    "fields": {
+      "session_data": ".eJxVjEEOwiAQAP-yZ0OwCLv06N03EFhYqRqalPZk_Ltp0oNeZybzhhC3tYatlyVMGUYwcPplKfKztF3kR2z3WfHc1mVKak_UYbu6zbm8rkf7N6ixVxhBHEZ0BQfRWqxDEhYrhbXnhCTZELH2gsxlIEqkMUd_JmsSi7noDJ8v_kw4jA:1wQyzj:CS46yX7iGziIryGtRPFLfeU786RcY847ZXTEs_cXWP0",
+      "expire_date": "2026-06-07T02:55:15.047Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "lb6kvwegrr6yil5gfqxljq420oov3brn",
+    "fields": {
+      "session_data": ".eJxVjMsKwjAQAP9lzxLYPDZJj979hpDXmqqk0LQn8d-l0INeZ4Z5Q4j71sI-6hrmAhNIuPyyFPOz9kOUR-z3ReSlb-ucxJGI0w5xW0p9Xc_2b9DiaDABk5Y6K4toXFGOInmZlbY2e2RjiBANkkFGnZll8Y5jQvasiavTCj5fsFM3AA:1wR02i:mkt7ncLn5YTIlmPS21qEEL1Gp1W4BjuYxlE8MxZtNrU",
+      "expire_date": "2026-06-07T04:02:24.760Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "r9e9cmfum7wu8jjt8wlv16lecrf1pa57",
+    "fields": {
+      "session_data": ".eJxVjEEOwiAQRe_C2pAyIBSX7j0DGZhBqgaS0q6MdzckXej2v_f-WwTctxL2zmtYSFyEEqffLWJ6ch2AHljvTaZWt3WJcijyoF3eGvHrerh_BwV7GTUqH3NO4AA0zWyN9miIpqw5w-wSuKSjBjd5skDsgIw9ExhUYHIE8fkC9LQ3_A:1wPZnK:45pTUyRI57vuRAtOuYbuDUfxxMB5xbUQzRV0cI5mAJc",
+      "expire_date": "2026-06-03T05:48:38.001Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 1,
+    "fields": {
+      "codigo": "LAPCAMP0125",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "Latitude 5450",
+      "numero_serie": "14545DLES",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "EQUIPO NUEVO",
+      "activo": false,
+      "fecha_registro": "2026-05-22T02:44:00.887Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 2,
+    "fields": {
+      "codigo": "LAPCAMP0126",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "Latitude 5450",
+      "numero_serie": "14545DLEY",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "EQUIPO NUEVO",
+      "activo": false,
+      "fecha_registro": "2026-05-22T02:44:58.830Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 3,
+    "fields": {
+      "codigo": "LAPCAMP0127",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "Latitude 5450",
+      "numero_serie": "14545DLEc",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "equipo nuevo",
+      "activo": false,
+      "fecha_registro": "2026-05-22T02:49:09.199Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 4,
+    "fields": {
+      "codigo": "LAPCAMP0128",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "Latitude 5450",
+      "numero_serie": "14545DLE5",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "equipo nuevo",
+      "activo": false,
+      "fecha_registro": "2026-05-22T02:49:23.758Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 5,
+    "fields": {
+      "codigo": "LAPCAMP0129",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "Latitude 5450",
+      "numero_serie": "14545DLEk",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "equipo nuevo",
+      "activo": false,
+      "fecha_registro": "2026-05-22T02:50:59.607Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 6,
+    "fields": {
+      "codigo": "LAPCAMP0130",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "Latitude 5450",
+      "numero_serie": "14545DLE8",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "equipo nuevo",
+      "activo": false,
+      "fecha_registro": "2026-05-22T02:56:13.216Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 7,
+    "fields": {
+      "codigo": "LAPCAMP0131",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "Latitude 5450",
+      "numero_serie": "14545DLEZ",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "EQUIPO NUEVO",
+      "activo": false,
+      "fecha_registro": "2026-05-22T03:02:50.295Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 8,
+    "fields": {
+      "codigo": "LAPCAMP0132",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "Latitude 5450",
+      "numero_serie": "14545DLKS",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "EQUIPO NUEVO",
+      "activo": false,
+      "fecha_registro": "2026-05-22T03:03:26.335Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 9,
+    "fields": {
+      "codigo": "LAPCAMP0133",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "Latitude 5450",
+      "numero_serie": "14545DLZZ",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "EQUIPO NUEVO",
+      "activo": false,
+      "fecha_registro": "2026-05-22T03:04:08.943Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 10,
+    "fields": {
+      "codigo": "LAPCAMP0134",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "Latitude 5450",
+      "numero_serie": "14545Dzzz",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "equipo nuevo",
+      "activo": false,
+      "fecha_registro": "2026-05-22T03:08:49.905Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 11,
+    "fields": {
+      "codigo": "LAPCAMP0135",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "Latitude 5450",
+      "numero_serie": "14545Dzzl",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "equipo nuevo",
+      "activo": false,
+      "fecha_registro": "2026-05-22T03:09:24.392Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 12,
+    "fields": {
+      "codigo": "LAPCAMP0136",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "Latitude 5450",
+      "numero_serie": "14545Dzzk",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "equipo nuevo",
+      "activo": false,
+      "fecha_registro": "2026-05-22T04:31:19.178Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 13,
+    "fields": {
+      "codigo": "LAPCAMP0150",
+      "nombre": "nelson erazo",
+      "categoria": "tablet",
+      "marca": "DELL",
+      "modelo": "Latitude 5450",
+      "numero_serie": "14545Dz66",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "nuevo equipo",
+      "activo": false,
+      "fecha_registro": "2026-05-22T05:04:17.571Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 14,
+    "fields": {
+      "codigo": "LAPCAMP0160",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "Latitude 5450",
+      "numero_serie": "14545Dassd",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "equipo nuevo",
+      "activo": false,
+      "fecha_registro": "2026-05-22T05:23:34.810Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 15,
+    "fields": {
+      "codigo": "LAPCAMP0161",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "latitude 5450",
+      "numero_serie": "14545Dz48",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "equipo nuevo",
+      "activo": true,
+      "fecha_registro": "2026-05-22T06:03:16.141Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 16,
+    "fields": {
+      "codigo": "projcamp02",
+      "nombre": "GooDee Proyector Inteligente",
+      "categoria": "proyector",
+      "marca": "GooDee",
+      "modelo": "3000",
+      "numero_serie": "145asas10",
+      "estado": "prestado",
+      "ubicacion": "BODEGA",
+      "observaciones": "equipo nuevo",
+      "activo": true,
+      "fecha_registro": "2026-05-22T06:04:42.741Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 17,
+    "fields": {
+      "codigo": "Tabcamp01",
+      "nombre": "Samsung Galaxy Tab S10 Lite",
+      "categoria": "tablet",
+      "marca": "Samsung",
+      "modelo": "Galaxy Tab s10 lite",
+      "numero_serie": "14542425263105485",
+      "estado": "averiado",
+      "ubicacion": "BODEGA",
+      "observaciones": "equipo nuevo",
+      "activo": true,
+      "fecha_registro": "2026-05-22T06:06:33.557Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 18,
+    "fields": {
+      "codigo": "LAPCAMP0165",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "latitude 5450",
+      "numero_serie": "14545Dz87",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "equipo nuevo",
+      "activo": true,
+      "fecha_registro": "2026-05-22T06:19:00.564Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 19,
+    "fields": {
+      "codigo": "LAPCAMP0200",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "latitude 5450",
+      "numero_serie": "14574Dzzl",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "equipo nuevo",
+      "activo": true,
+      "fecha_registro": "2026-05-22T06:28:24.094Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 20,
+    "fields": {
+      "codigo": "LAPCAMP0211",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "DELL",
+      "modelo": "latitude 5450",
+      "numero_serie": "14545asfg",
+      "estado": "mantenimiento",
+      "ubicacion": "BODEGA",
+      "observaciones": "equipo nuevo",
+      "activo": true,
+      "fecha_registro": "2026-05-23T06:23:48.390Z"
+    }
+  },
+  {
+    "model": "inventario.equipo",
+    "pk": 21,
+    "fields": {
+      "codigo": "LAPCAMP0210",
+      "nombre": "Laptop dell latitude 5450",
+      "categoria": "laptop",
+      "marca": "GooDee",
+      "modelo": "latitude 5450",
+      "numero_serie": "14545Dzzo",
+      "estado": "disponible",
+      "ubicacion": "BODEGA",
+      "observaciones": "equipo nuevo",
+      "activo": true,
+      "fecha_registro": "2026-05-23T07:39:51.938Z"
+    }
+  },
+  {
+    "model": "usuarios.perfilusuario",
+    "pk": 1,
+    "fields": {
+      "user": 2,
+      "rol": "admin_ti",
+      "carnet": "admin001",
+      "nombre_completo": "ricardo erazo",
+      "telefono": "64584433"
+    }
+  },
+  {
+    "model": "usuarios.perfilusuario",
+    "pk": 2,
+    "fields": {
+      "user": 3,
+      "rol": "usuario",
+      "carnet": "dc20026",
+      "nombre_completo": "usuario de prueba",
+      "telefono": "64584434"
+    }
+  },
+  {
+    "model": "prestamos.solicitudprestamo",
+    "pk": 1,
+    "fields": {
+      "usuario": 3,
+      "equipo": 18,
+      "fecha_solicitud": "2026-05-23T03:26:07.452Z",
+      "fecha_prestamo": "2026-05-22",
+      "fecha_entrega_programada": null,
+      "dias_prestamo": null,
+      "fecha_entrega_real": null,
+      "fecha_devolucion_estimada": null,
+      "fecha_devolucion_real": null,
+      "alerta_vencimiento_enviada": false,
+      "observaciones_entrega": "",
+      "observaciones_devolucion": "",
+      "observaciones": "",
+      "estado": "rechazado",
+      "aprobado_por": null,
+      "rechazado_por": null,
+      "entregado_por": null,
+      "devuelto_por": null
+    }
+  },
+  {
+    "model": "prestamos.solicitudprestamo",
+    "pk": 2,
+    "fields": {
+      "usuario": 3,
+      "equipo": 18,
+      "fecha_solicitud": "2026-05-23T03:26:12.648Z",
+      "fecha_prestamo": "2026-05-23",
+      "fecha_entrega_programada": null,
+      "dias_prestamo": null,
+      "fecha_entrega_real": null,
+      "fecha_devolucion_estimada": null,
+      "fecha_devolucion_real": null,
+      "alerta_vencimiento_enviada": false,
+      "observaciones_entrega": "",
+      "observaciones_devolucion": "",
+      "observaciones": "",
+      "estado": "rechazado",
+      "aprobado_por": null,
+      "rechazado_por": null,
+      "entregado_por": null,
+      "devuelto_por": null
+    }
+  },
+  {
+    "model": "prestamos.solicitudprestamo",
+    "pk": 3,
+    "fields": {
+      "usuario": 3,
+      "equipo": 18,
+      "fecha_solicitud": "2026-05-23T03:26:12.872Z",
+      "fecha_prestamo": "2026-05-23",
+      "fecha_entrega_programada": null,
+      "dias_prestamo": null,
+      "fecha_entrega_real": null,
+      "fecha_devolucion_estimada": null,
+      "fecha_devolucion_real": null,
+      "alerta_vencimiento_enviada": false,
+      "observaciones_entrega": "",
+      "observaciones_devolucion": "",
+      "observaciones": "",
+      "estado": "rechazado",
+      "aprobado_por": null,
+      "rechazado_por": null,
+      "entregado_por": null,
+      "devuelto_por": null
+    }
+  },
+  {
+    "model": "prestamos.solicitudprestamo",
+    "pk": 4,
+    "fields": {
+      "usuario": 3,
+      "equipo": 18,
+      "fecha_solicitud": "2026-05-23T03:26:24.072Z",
+      "fecha_prestamo": "2026-05-23",
+      "fecha_entrega_programada": null,
+      "dias_prestamo": null,
+      "fecha_entrega_real": null,
+      "fecha_devolucion_estimada": null,
+      "fecha_devolucion_real": null,
+      "alerta_vencimiento_enviada": false,
+      "observaciones_entrega": "",
+      "observaciones_devolucion": "",
+      "observaciones": "",
+      "estado": "rechazado",
+      "aprobado_por": null,
+      "rechazado_por": null,
+      "entregado_por": null,
+      "devuelto_por": null
+    }
+  },
+  {
+    "model": "prestamos.solicitudprestamo",
+    "pk": 5,
+    "fields": {
+      "usuario": 3,
+      "equipo": 18,
+      "fecha_solicitud": "2026-05-23T03:28:42.231Z",
+      "fecha_prestamo": "2026-05-22",
+      "fecha_entrega_programada": "2026-05-22",
+      "dias_prestamo": 4,
+      "fecha_entrega_real": "2026-05-23",
+      "fecha_devolucion_estimada": "2026-05-27",
+      "fecha_devolucion_real": "2026-05-23",
+      "alerta_vencimiento_enviada": false,
+      "observaciones_entrega": "",
+      "observaciones_devolucion": "",
+      "observaciones": "solicitar equipo para exposicion",
+      "estado": "devuelto",
+      "aprobado_por": null,
+      "rechazado_por": null,
+      "entregado_por": null,
+      "devuelto_por": null
+    }
+  },
+  {
+    "model": "prestamos.solicitudprestamo",
+    "pk": 6,
+    "fields": {
+      "usuario": 3,
+      "equipo": 20,
+      "fecha_solicitud": "2026-05-23T06:25:09.598Z",
+      "fecha_prestamo": "2026-05-24",
+      "fecha_entrega_programada": null,
+      "dias_prestamo": null,
+      "fecha_entrega_real": null,
+      "fecha_devolucion_estimada": null,
+      "fecha_devolucion_real": null,
+      "alerta_vencimiento_enviada": false,
+      "observaciones_entrega": "",
+      "observaciones_devolucion": "",
+      "observaciones": "",
+      "estado": "rechazado",
+      "aprobado_por": null,
+      "rechazado_por": null,
+      "entregado_por": null,
+      "devuelto_por": null
+    }
+  },
+  {
+    "model": "prestamos.solicitudprestamo",
+    "pk": 7,
+    "fields": {
+      "usuario": 3,
+      "equipo": 20,
+      "fecha_solicitud": "2026-05-23T06:44:39.641Z",
+      "fecha_prestamo": "2026-05-24",
+      "fecha_entrega_programada": "2026-05-24",
+      "dias_prestamo": 3,
+      "fecha_entrega_real": "2026-05-24",
+      "fecha_devolucion_estimada": "2026-05-27",
+      "fecha_devolucion_real": null,
+      "alerta_vencimiento_enviada": false,
+      "observaciones_entrega": "",
+      "observaciones_devolucion": "",
+      "observaciones": "",
+      "estado": "entregado",
+      "aprobado_por": null,
+      "rechazado_por": null,
+      "entregado_por": null,
+      "devuelto_por": null
+    }
+  },
+  {
+    "model": "prestamos.solicitudprestamo",
+    "pk": 8,
+    "fields": {
+      "usuario": 3,
+      "equipo": 21,
+      "fecha_solicitud": "2026-05-23T07:40:34.064Z",
+      "fecha_prestamo": "2026-05-24",
+      "fecha_entrega_programada": null,
+      "dias_prestamo": null,
+      "fecha_entrega_real": null,
+      "fecha_devolucion_estimada": null,
+      "fecha_devolucion_real": null,
+      "alerta_vencimiento_enviada": false,
+      "observaciones_entrega": "",
+      "observaciones_devolucion": "",
+      "observaciones": "prestamo de 3 dias",
+      "estado": "rechazado",
+      "aprobado_por": null,
+      "rechazado_por": null,
+      "entregado_por": null,
+      "devuelto_por": null
+    }
+  },
+  {
+    "model": "prestamos.solicitudprestamo",
+    "pk": 9,
+    "fields": {
+      "usuario": 3,
+      "equipo": 18,
+      "fecha_solicitud": "2026-05-24T00:51:51.148Z",
+      "fecha_prestamo": "2026-05-24",
+      "fecha_entrega_programada": null,
+      "dias_prestamo": null,
+      "fecha_entrega_real": null,
+      "fecha_devolucion_estimada": null,
+      "fecha_devolucion_real": null,
+      "alerta_vencimiento_enviada": false,
+      "observaciones_entrega": "",
+      "observaciones_devolucion": "",
+      "observaciones": "",
+      "estado": "rechazado",
+      "aprobado_por": null,
+      "rechazado_por": 2,
+      "entregado_por": null,
+      "devuelto_por": null
+    }
+  },
+  {
+    "model": "prestamos.solicitudprestamo",
+    "pk": 10,
+    "fields": {
+      "usuario": 3,
+      "equipo": 21,
+      "fecha_solicitud": "2026-05-24T00:53:04.975Z",
+      "fecha_prestamo": "2026-05-24",
+      "fecha_entrega_programada": null,
+      "dias_prestamo": null,
+      "fecha_entrega_real": null,
+      "fecha_devolucion_estimada": null,
+      "fecha_devolucion_real": null,
+      "alerta_vencimiento_enviada": false,
+      "observaciones_entrega": "",
+      "observaciones_devolucion": "",
+      "observaciones": "",
+      "estado": "rechazado",
+      "aprobado_por": null,
+      "rechazado_por": 2,
+      "entregado_por": null,
+      "devuelto_por": null
+    }
+  },
+  {
+    "model": "prestamos.solicitudprestamo",
+    "pk": 11,
+    "fields": {
+      "usuario": 3,
+      "equipo": 18,
+      "fecha_solicitud": "2026-05-24T02:20:07.706Z",
+      "fecha_prestamo": "2026-05-24",
+      "fecha_entrega_programada": null,
+      "dias_prestamo": null,
+      "fecha_entrega_real": null,
+      "fecha_devolucion_estimada": null,
+      "fecha_devolucion_real": null,
+      "alerta_vencimiento_enviada": false,
+      "observaciones_entrega": "",
+      "observaciones_devolucion": "",
+      "observaciones": "",
+      "estado": "pendiente",
+      "aprobado_por": null,
+      "rechazado_por": null,
+      "entregado_por": null,
+      "devuelto_por": null
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 1,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Solicitud de pr�stamo aprobada",
+      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido aprobada. Entrega programada: 2026-05-22. Duraci�n: 4 d�a(s).",
+      "tipo": "prestamo_aprobado",
+      "leida": true,
+      "fecha_creacion": "2026-05-23T05:40:38.038Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 2,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Solicitud de pr�stamo rechazada",
+      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 fue rechazada porque el equipo ya fue reservado.",
+      "tipo": "prestamo_rechazado",
+      "leida": true,
+      "fecha_creacion": "2026-05-23T05:40:38.038Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 3,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Solicitud de pr�stamo rechazada",
+      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 fue rechazada porque el equipo ya fue reservado.",
+      "tipo": "prestamo_rechazado",
+      "leida": true,
+      "fecha_creacion": "2026-05-23T05:40:38.039Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 4,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Solicitud de pr�stamo rechazada",
+      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 fue rechazada porque el equipo ya fue reservado.",
+      "tipo": "prestamo_rechazado",
+      "leida": true,
+      "fecha_creacion": "2026-05-23T05:40:38.039Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 5,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Solicitud de pr�stamo rechazada",
+      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 fue rechazada porque el equipo ya fue reservado.",
+      "tipo": "prestamo_rechazado",
+      "leida": true,
+      "fecha_creacion": "2026-05-23T05:40:38.039Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 6,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Solicitud de pr�stamo rechazada",
+      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido rechazada por el administrador.",
+      "tipo": "prestamo_rechazado",
+      "leida": true,
+      "fecha_creacion": "2026-05-23T06:25:41.899Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 7,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Solicitud de pr�stamo aprobada",
+      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido aprobada. Entrega programada: 2026-05-24. Duraci�n: 3 d�a(s).",
+      "tipo": "prestamo_aprobado",
+      "leida": true,
+      "fecha_creacion": "2026-05-23T06:45:38.250Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 8,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Equipo entregado",
+      "mensaje": "Se registr� la entrega del equipo Laptop dell latitude 5450. Fecha estimada de devoluci�n: 2026-05-27.",
+      "tipo": "prestamo_entregado",
+      "leida": true,
+      "fecha_creacion": "2026-05-23T07:11:52.980Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 9,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Equipo entregado",
+      "mensaje": "Se registr� la entrega del equipo Laptop dell latitude 5450. Fecha estimada de devoluci�n: 2026-05-27.",
+      "tipo": "prestamo_entregado",
+      "leida": true,
+      "fecha_creacion": "2026-05-23T07:38:58.869Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 10,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Solicitud de pr�stamo rechazada",
+      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido rechazada por el administrador.",
+      "tipo": "prestamo_rechazado",
+      "leida": true,
+      "fecha_creacion": "2026-05-23T07:41:20.832Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 11,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Equipo devuelto",
+      "mensaje": "Se registr� correctamente la devoluci�n del equipo Laptop dell latitude 5450. Gracias por completar el pr�stamo.",
+      "tipo": "prestamo_devuelto",
+      "leida": true,
+      "fecha_creacion": "2026-05-23T23:18:51.982Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 12,
+    "fields": {
+      "usuario": 2,
+      "titulo": "Nueva solicitud de pr�stamo",
+      "mensaje": "Hay una nueva solicitud pendiente para el equipo Laptop dell latitude 5450.",
+      "tipo": "sistema",
+      "leida": true,
+      "fecha_creacion": "2026-05-24T00:51:51.157Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 13,
+    "fields": {
+      "usuario": 2,
+      "titulo": "Nueva solicitud de pr�stamo",
+      "mensaje": "Hay una nueva solicitud pendiente para el equipo Laptop dell latitude 5450.",
+      "tipo": "sistema",
+      "leida": true,
+      "fecha_creacion": "2026-05-24T00:53:04.984Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 14,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Solicitud de pr�stamo rechazada",
+      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido rechazada por el �rea de TI.",
+      "tipo": "prestamo_rechazado",
+      "leida": true,
+      "fecha_creacion": "2026-05-24T01:14:57.913Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 15,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Solicitud de pr�stamo rechazada",
+      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido rechazada por el �rea de TI.",
+      "tipo": "prestamo_rechazado",
+      "leida": true,
+      "fecha_creacion": "2026-05-24T01:14:59.768Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 16,
+    "fields": {
+      "usuario": 2,
+      "titulo": "Nueva solicitud de pr�stamo",
+      "mensaje": "Hay una nueva solicitud pendiente para el equipo Laptop dell latitude 5450.",
+      "tipo": "sistema",
+      "leida": true,
+      "fecha_creacion": "2026-05-24T02:20:07.712Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 17,
+    "fields": {
+      "usuario": 2,
+      "titulo": "Nueva aver�a reportada",
+      "mensaje": "Se report� una aver�a para el equipo Laptop dell latitude 5450.",
+      "tipo": "sistema",
+      "leida": true,
+      "fecha_creacion": "2026-05-24T02:46:22.725Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 18,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Reporte de aver�a enviado",
+      "mensaje": "Tu reporte de aver�a para el equipo Laptop dell latitude 5450 fue enviado correctamente. El �rea de TI revisar� el caso.",
+      "tipo": "sistema",
+      "leida": false,
+      "fecha_creacion": "2026-05-24T03:19:57.687Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 19,
+    "fields": {
+      "usuario": 2,
+      "titulo": "Nueva aver�a reportada",
+      "mensaje": "Se report� una aver�a para el equipo Laptop dell latitude 5450.",
+      "tipo": "sistema",
+      "leida": true,
+      "fecha_creacion": "2026-05-24T03:19:57.692Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 20,
+    "fields": {
+      "usuario": 2,
+      "titulo": "Reporte administrativo registrado",
+      "mensaje": "Se registr� correctamente un reporte administrativo para el equipo Laptop dell latitude 5450.",
+      "tipo": "sistema",
+      "leida": true,
+      "fecha_creacion": "2026-05-24T04:08:15.929Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 21,
+    "fields": {
+      "usuario": 2,
+      "titulo": "Reporte administrativo registrado",
+      "mensaje": "Se registr� correctamente un reporte administrativo para el equipo Laptop dell latitude 5450.",
+      "tipo": "sistema",
+      "leida": true,
+      "fecha_creacion": "2026-05-24T04:08:28.665Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 22,
+    "fields": {
+      "usuario": 2,
+      "titulo": "Reporte administrativo registrado",
+      "mensaje": "Se registr� correctamente un reporte administrativo para el equipo Samsung Galaxy Tab S10 Lite.",
+      "tipo": "sistema",
+      "leida": true,
+      "fecha_creacion": "2026-05-24T04:08:39.448Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 23,
+    "fields": {
+      "usuario": 2,
+      "titulo": "Aver�a en revisi�n",
+      "mensaje": "El reporte de aver�a del equipo Samsung Galaxy Tab S10 Lite ha sido tomado en revisi�n por el �rea de TI.",
+      "tipo": "sistema",
+      "leida": false,
+      "fecha_creacion": "2026-05-24T04:19:25.505Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 24,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Aver�a en revisi�n",
+      "mensaje": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido tomado en revisi�n por el �rea de TI.",
+      "tipo": "sistema",
+      "leida": false,
+      "fecha_creacion": "2026-05-24T04:20:40.665Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 25,
+    "fields": {
+      "usuario": 2,
+      "titulo": "Aver�a en revisi�n",
+      "mensaje": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido tomado en revisi�n por el �rea de TI.",
+      "tipo": "sistema",
+      "leida": false,
+      "fecha_creacion": "2026-05-24T04:34:34.201Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 26,
+    "fields": {
+      "usuario": 2,
+      "titulo": "Aver�a en revisi�n",
+      "mensaje": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido tomado en revisi�n por el �rea de TI.",
+      "tipo": "sistema",
+      "leida": false,
+      "fecha_creacion": "2026-05-24T04:37:29.160Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 27,
+    "fields": {
+      "usuario": 2,
+      "titulo": "Aver�a resuelta",
+      "mensaje": "El reporte de aver�a del equipo Samsung Galaxy Tab S10 Lite ha sido marcado como resuelto por el �rea de TI.",
+      "tipo": "sistema",
+      "leida": false,
+      "fecha_creacion": "2026-05-24T05:07:18.197Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 28,
+    "fields": {
+      "usuario": 2,
+      "titulo": "Aver�a resuelta",
+      "mensaje": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el �rea de TI.",
+      "tipo": "sistema",
+      "leida": false,
+      "fecha_creacion": "2026-05-24T05:07:25.666Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 29,
+    "fields": {
+      "usuario": 2,
+      "titulo": "Aver�a resuelta",
+      "mensaje": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el �rea de TI.",
+      "tipo": "sistema",
+      "leida": false,
+      "fecha_creacion": "2026-05-24T05:07:30.400Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 30,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Aver�a resuelta",
+      "mensaje": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el �rea de TI.",
+      "tipo": "sistema",
+      "leida": false,
+      "fecha_creacion": "2026-05-24T05:07:34.707Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 31,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Aver�a en revisi�n",
+      "mensaje": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido tomado en revisi�n por el �rea de TI.",
+      "tipo": "sistema",
+      "leida": false,
+      "fecha_creacion": "2026-05-24T05:07:48.664Z"
+    }
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 32,
+    "fields": {
+      "usuario": 3,
+      "titulo": "Aver�a resuelta",
+      "mensaje": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el �rea de TI.",
+      "tipo": "sistema",
+      "leida": false,
+      "fecha_creacion": "2026-05-24T05:07:51.395Z"
+    }
+  },
+  {
+    "model": "averias.reporteaveria",
+    "pk": 1,
+    "fields": {
+      "equipo": 20,
+      "solicitud_prestamo": 7,
+      "reportado_por": 3,
+      "descripcion_falla": "el mouse no hace click",
+      "estado": "resuelta",
+      "fecha_reporte": "2026-05-24T02:46:22.718Z",
+      "revisado_por": 2,
+      "fecha_revision": "2026-05-24T05:07:48.653Z",
+      "accion_tomada": "mantenimiento",
+      "observaciones_revision": "",
+      "resuelto_por": 2,
+      "fecha_resolucion": "2026-05-24T05:07:51.389Z",
+      "observaciones_resolucion": ""
+    }
+  },
+  {
+    "model": "averias.reporteaveria",
+    "pk": 2,
+    "fields": {
+      "equipo": 20,
+      "solicitud_prestamo": 7,
+      "reportado_por": 3,
+      "descripcion_falla": "el mouse falla",
+      "estado": "resuelta",
+      "fecha_reporte": "2026-05-24T03:19:57.679Z",
+      "revisado_por": 2,
+      "fecha_revision": "2026-05-24T04:20:40.658Z",
+      "accion_tomada": "se verfico equipo",
+      "observaciones_revision": "se solvento con exito la falla",
+      "resuelto_por": 2,
+      "fecha_resolucion": "2026-05-24T05:07:34.701Z",
+      "observaciones_resolucion": ""
+    }
+  },
+  {
+    "model": "averias.reporteaveria",
+    "pk": 3,
+    "fields": {
+      "equipo": 15,
+      "solicitud_prestamo": null,
+      "reportado_por": 2,
+      "descripcion_falla": "equipo reparandose",
+      "estado": "resuelta",
+      "fecha_reporte": "2026-05-24T04:08:15.921Z",
+      "revisado_por": 2,
+      "fecha_revision": "2026-05-24T04:37:29.147Z",
+      "accion_tomada": "averiado",
+      "observaciones_revision": "",
+      "resuelto_por": 2,
+      "fecha_resolucion": "2026-05-24T05:07:30.389Z",
+      "observaciones_resolucion": ""
+    }
+  },
+  {
+    "model": "averias.reporteaveria",
+    "pk": 4,
+    "fields": {
+      "equipo": 19,
+      "solicitud_prestamo": null,
+      "reportado_por": 2,
+      "descripcion_falla": "da�o en pantalla",
+      "estado": "resuelta",
+      "fecha_reporte": "2026-05-24T04:08:28.657Z",
+      "revisado_por": 2,
+      "fecha_revision": "2026-05-24T04:34:34.188Z",
+      "accion_tomada": "visita_externa",
+      "observaciones_revision": "se procedera a hacer uso de garantia contra accidentes",
+      "resuelto_por": 2,
+      "fecha_resolucion": "2026-05-24T05:07:25.653Z",
+      "observaciones_resolucion": ""
+    }
+  },
+  {
+    "model": "averias.reporteaveria",
+    "pk": 5,
+    "fields": {
+      "equipo": 17,
+      "solicitud_prestamo": null,
+      "reportado_por": 2,
+      "descripcion_falla": "motherboard da�ada",
+      "estado": "resuelta",
+      "fecha_reporte": "2026-05-24T04:08:39.440Z",
+      "revisado_por": 2,
+      "fecha_revision": "2026-05-24T04:19:25.499Z",
+      "accion_tomada": "se verificacion de la motherboar",
+      "observaciones_revision": "se realizaron pruebas y la motherboard no reacciona a ninguna de las pruebas realizadas se procedera a hacer uso de la garantia",
+      "resuelto_por": 2,
+      "fecha_resolucion": "2026-05-24T05:07:18.190Z",
+      "observaciones_resolucion": ""
+    }
+  }
+]
