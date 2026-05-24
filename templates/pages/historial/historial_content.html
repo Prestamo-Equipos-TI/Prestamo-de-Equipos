@@ -1,0 +1,50 @@
+<header class="topbar">
+
+    <div>
+        <h1>Historial</h1>
+        <p>Consulta historial de usuarios y equipos.</p>
+    </div>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">
+            Cerrar sesión
+        </button>
+    </form>
+
+</header>
+
+<section class="inventory-header">
+
+    <div>
+        <h2>Módulo de historial</h2>
+        <p>Consulta préstamos y trazabilidad histórica.</p>
+    </div>
+
+</section>
+
+<section class="module-grid loans-grid">
+
+    <a
+        href="{% url 'historial:usuarios' %}"
+        class="module-card"
+        hx-get="{% url 'historial:usuarios' %}"
+        hx-target="#app-main"
+        hx-swap="innerHTML"
+        hx-push-url="true">
+        <span>👤</span>
+        <h3>Historial por usuario</h3>
+    </a>
+
+   <a
+        href="{% url 'historial:equipos' %}"
+        class="module-card"
+        hx-get="{% url 'historial:equipos' %}"
+        hx-target="#app-main"
+        hx-swap="innerHTML"
+        hx-push-url="true">
+        <span>💻</span>
+        <h3>Historial por equipo</h3>
+    </a>
+
+</section>

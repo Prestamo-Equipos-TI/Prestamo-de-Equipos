@@ -1,0 +1,93 @@
+<header class="topbar">
+
+    <div>
+        <h1>Historial por equipo</h1>
+        <p>Consulta uso, averías y último usuario de cada equipo.</p>
+    </div>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">
+            Cerrar sesión
+        </button>
+    </form>
+
+</header>
+
+<section class="inventory-header">
+
+    <div>
+        <h2>Equipos registrados</h2>
+        <p>Selecciona un equipo para consultar su historial.</p>
+    </div>
+
+    <button
+        type="button"
+        class="secondary-action"
+        hx-get="{% url 'historial:inicio' %}"
+        hx-target="#app-main"
+        hx-swap="innerHTML"
+        hx-push-url="true">
+        ← Volver a historial
+    </button>
+
+</section>
+
+<section class="inventory-table-card">
+
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Equipo</th>
+                <th>Categoría</th>
+                <th>Marca</th>
+                <th>Estado</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for equipo in equipos %}
+                <tr>
+                    <td>{{ equipo.codigo }}</td>
+
+                    <td>
+                        <strong>{{ equipo.nombre }}</strong>
+                        <br>
+                        <small>{{ equipo.numero_serie }}</small>
+                    </td>
+
+                    <td>{{ equipo.get_categoria_display }}</td>
+
+                    <td>{{ equipo.marca }}</td>
+
+                    <td>
+                        <span class="status {{ equipo.estado }}">
+                            {{ equipo.get_estado_display }}
+                        </span>
+                    </td>
+
+                    <td>
+                        <button
+                            type="button"
+                            class="table-btn"
+                            hx-get="{% url 'historial:equipo_detalle' equipo.id %}"
+                            hx-target="#app-main"
+                            hx-swap="innerHTML"
+                            hx-push-url="true">
+                            Ver historial
+                        </button>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6" class="empty-table">
+                        No hay equipos registrados.
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>

@@ -70,6 +70,17 @@
                     <span>🛠</span>
                     Averías
                     </a>
+                    <a
+                    href="{% url 'historial:inicio' %}"
+                    class="{% if active_page == 'historial' %}active{% endif %}"
+                    data-page="historial"
+                    hx-get="{% url 'historial:inicio' %}"
+                    hx-target="#app-main"
+                    hx-swap="innerHTML"
+                    hx-push-url="true">
+                    <span>📚</span>
+                    Historial
+                    </a>
                 {% elif request.user.perfil.rol == 'usuario' %}
 
                 <a

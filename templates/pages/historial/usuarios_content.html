@@ -1,0 +1,102 @@
+<header class="topbar">
+
+    <div>
+        <h1>Historial por usuario</h1>
+        <p>Consulta los préstamos solicitados por cada usuario.</p>
+    </div>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">
+            Cerrar sesión
+        </button>
+    </form>
+
+</header>
+
+<section class="inventory-header">
+
+    <div>
+        <h2>Usuarios solicitantes</h2>
+        <p>Selecciona un usuario para revisar su historial de préstamos.</p>
+    </div>
+
+    <button
+        type="button"
+        class="secondary-action"
+        hx-get="{% url 'historial:inicio' %}"
+        hx-target="#app-main"
+        hx-swap="innerHTML"
+        hx-push-url="true">
+        ← Volver a historial
+    </button>
+
+</section>
+
+<section class="inventory-table-card">
+
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Carnet</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Solicitudes</th>
+                <th>Estado actual</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for usuario in usuarios %}
+                <tr>
+                    <td>
+                        <strong>{{ usuario.perfil.nombre_completo }}</strong>
+                        <br>
+                        <small>{{ usuario.username }}</small>
+                    </td>
+
+                    <td>{{ usuario.perfil.carnet }}</td>
+
+                    <td>{{ usuario.email }}</td>
+
+                    <td>{{ usuario.perfil.telefono|default:"Sin teléfono" }}</td>
+
+                    <td>{{ usuario.total_solicitudes }}</td>
+
+                    <td>
+                        {% if usuario.tiene_prestamo_activo %}
+                            <span class="status prestado">
+                                Con préstamo activo
+                            </span>
+                        {% else %}
+                            <span class="status disponible">
+                                Sin préstamo activo
+                            </span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <button
+                            type="button"
+                            class="table-btn"
+                            hx-get="{% url 'historial:usuario_detalle' usuario.id %}"
+                            hx-target="#app-main"
+                            hx-swap="innerHTML"
+                            hx-push-url="true">
+                            Ver historial
+                        </button>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="7" class="empty-table">
+                        No hay usuarios solicitantes registrados.
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>

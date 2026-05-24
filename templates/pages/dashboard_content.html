@@ -69,9 +69,16 @@
                  <h3>Averías</h3>
             </a>
 
-            <a href="#" class="module-card">
-                <span>📚</span>
-                <h3>Historial</h3>
+            <a
+                 href="{% url 'historial:inicio' %}"
+                 class="module-card"
+                 data-page="historial"
+                 hx-get="{% url 'historial:inicio' %}"
+                 hx-target="#app-main"
+                 hx-swap="innerHTML"
+                 hx-push-url="true">
+                 <span>📚</span>
+                 <h3>Historial</h3>
             </a>
 
             <a

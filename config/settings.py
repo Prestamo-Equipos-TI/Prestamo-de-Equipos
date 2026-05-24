@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'prestamos',
     'alertas',
     'averias',
+    'historial',
 ]
 
 MIDDLEWARE = [
