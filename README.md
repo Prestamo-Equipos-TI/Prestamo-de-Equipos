@@ -25,11 +25,11 @@ El sistema se implementará bajo una arquitectura MVC (Modelo–Vista–Controla
 
 Backend: Python utilizando el framework Django.
 
-Frontend: JavaScript (React o Angular) para interfaces dinámicas, con diseño responsivo apoyado en Bootstrap o TailwindCSS.
+Frontend: JavaScript para interfaces dinámicas, con diseño responsivo apoyado en Bootstrap o TailwindCSS.
 
 Base de Datos: PostgreSQL con extensión PostGIS (o MySQL como alternativa).
 
-Autenticación: JSON Web Tokens (JWT) para seguridad basada en roles.
+Autenticación: middlewares django
 
 Infraestructura: Despliegue en servidores en la nube (AWS o Azure) utilizando contenedores con Docker para mayor portabilidad.
 
