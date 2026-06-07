@@ -21,6 +21,7 @@ class AprobarSolicitudForm(forms.Form):
     )
 
     def clean_fecha_entrega_programada(self):
+        # Valida que la fecha de entrega programada no sea pasada
         fecha = self.cleaned_data.get('fecha_entrega_programada')
 
         if fecha and fecha < date.today():

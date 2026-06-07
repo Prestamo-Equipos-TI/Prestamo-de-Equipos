@@ -10,6 +10,7 @@ def alertas_lista(request):
         usuario=request.user
     ).order_by('-fecha_creacion')
 
+    # Marca todas las alertas del usuario como leídas al acceder a la lista
     Alerta.objects.filter(
         usuario=request.user,
         leida=False

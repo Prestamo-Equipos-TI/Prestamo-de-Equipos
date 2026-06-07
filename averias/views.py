@@ -13,6 +13,7 @@ from .models import ReporteAveria
 
 
 def existe_reporte_activo(equipo):
+    # Verifica si existe reporte pendiente o en revisión para evitar duplicados
     return ReporteAveria.objects.filter(
         equipo=equipo,
         estado__in=[
@@ -335,6 +336,7 @@ def confirmar_gestion_averia(request, reporte_id):
 
             equipo = reporte.equipo
 
+            # Cambia estado del equipo según la acción de gestión
             if accion_tomada == GestionarAveriaForm.ACCION_MANTENIMIENTO:
                 equipo.estado = 'mantenimiento'
                 equipo.save()
@@ -347,6 +349,7 @@ def confirmar_gestion_averia(request, reporte_id):
                 equipo.estado = 'mantenimiento'
                 equipo.save()
 
+            # Notifica al reportador que su avería está en revisión
             if reporte.reportado_por:
                 Alerta.objects.create(
                     usuario=reporte.reportado_por,
@@ -419,6 +422,7 @@ def confirmar_resolucion_averia(request, reporte_id):
             reporte.observaciones_resolucion = form.cleaned_data['observaciones_resolucion']
             reporte.save()
 
+            # Si no hay préstamo asociado, permite cambiar estado final del equipo
             if reporte.solicitud_prestamo is None:
                 estado_final_equipo = form.cleaned_data['estado_final_equipo']
 
@@ -427,6 +431,7 @@ def confirmar_resolucion_averia(request, reporte_id):
                     equipo.estado = estado_final_equipo
                     equipo.save()
 
+            # Notifica al reportador que la avería fue resuelta
             if reporte.reportado_por:
                 Alerta.objects.create(
                     usuario=reporte.reportado_por,

@@ -25,6 +25,7 @@ class SolicitudPrestamoForm(forms.ModelForm):
         }
 
     def clean_fecha_prestamo(self):
+        # Valida que la fecha de préstamo no sea anterior a hoy
         fecha = self.cleaned_data.get('fecha_prestamo')
 
         if fecha:

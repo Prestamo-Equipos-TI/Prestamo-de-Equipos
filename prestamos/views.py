@@ -18,6 +18,7 @@ from .models import SolicitudPrestamo
 
 @login_required
 def solicitar_prestamo_lista(request):
+    # Lista equipos disponibles para solicitar préstamo
     equipos = Equipo.objects.filter(
         activo=True,
         estado='disponible'
@@ -50,6 +51,7 @@ def crear_solicitud_prestamo(request, equipo_id):
         form = SolicitudPrestamoForm(request.POST)
 
         if form.is_valid():
+            # Evita duplicados: un usuario no puede tener 2 solicitudes pendientes del mismo equipo
             solicitud_pendiente = SolicitudPrestamo.objects.filter(
                 usuario=request.user,
                 equipo=equipo,
@@ -74,6 +76,7 @@ def crear_solicitud_prestamo(request, equipo_id):
             solicitud.estado = SolicitudPrestamo.ESTADO_PENDIENTE
             solicitud.save()
 
+            # Notifica a administradores TI sobre nueva solicitud
             administradores_ti = PerfilUsuario.objects.filter(
                 rol=PerfilUsuario.ROL_ADMIN_TI
             ).select_related('user')
@@ -210,10 +213,12 @@ def confirmar_aprobacion_solicitud(request, solicitud_id):
             solicitud.aprobado_por = request.user
             solicitud.save()
 
+            # Cambia estado del equipo a reservado
             equipo = solicitud.equipo
             equipo.estado = 'reservado'
             equipo.save()
 
+            # Rechaza automáticamente otras solicitudes pendientes del mismo equipo
             solicitudes_rechazadas = SolicitudPrestamo.objects.filter(
                 equipo=equipo,
                 estado=SolicitudPrestamo.ESTADO_PENDIENTE
@@ -230,6 +235,7 @@ def confirmar_aprobacion_solicitud(request, solicitud_id):
                 rechazado_por=request.user
             )
 
+            # Notifica al solicitante aprobado
             Alerta.objects.create(
                 usuario=solicitud.usuario,
                 titulo='Solicitud de préstamo aprobada',
@@ -241,6 +247,7 @@ def confirmar_aprobacion_solicitud(request, solicitud_id):
                 tipo=Alerta.TIPO_PRESTAMO_APROBADO
             )
 
+            # Notifica a los demás solicitantes que fueron rechazados
             for solicitud_rechazada in usuarios_rechazados:
                 Alerta.objects.create(
                     usuario=solicitud_rechazada.usuario,
@@ -371,6 +378,7 @@ def confirmar_entrega(request, solicitud_id):
             observaciones = form.cleaned_data['observaciones_entrega']
 
             solicitud.fecha_entrega_real = fecha_real
+            # Calcula fecha estimada de devolución sumando días de préstamo
             solicitud.fecha_devolucion_estimada = fecha_real + timedelta(
                 days=solicitud.dias_prestamo
             )
@@ -379,10 +387,12 @@ def confirmar_entrega(request, solicitud_id):
             solicitud.entregado_por = request.user
             solicitud.save()
 
+            # Cambia estado del equipo a prestado
             equipo = solicitud.equipo
             equipo.estado = 'prestado'
             equipo.save()
 
+            # Notifica al usuario sobre la entrega y fecha estimada de devolución
             Alerta.objects.create(
                 usuario=solicitud.usuario,
                 titulo='Equipo entregado',
@@ -522,10 +532,12 @@ def confirmar_devolucion(request, solicitud_id):
             solicitud.devuelto_por = request.user
             solicitud.save()
 
+            # Libera el equipo cambiando su estado a disponible
             equipo = solicitud.equipo
             equipo.estado = 'disponible'
             equipo.save()
 
+            # Notifica al usuario que la devolución fue registrada correctamente
             Alerta.objects.create(
                 usuario=solicitud.usuario,
                 titulo='Equipo devuelto',

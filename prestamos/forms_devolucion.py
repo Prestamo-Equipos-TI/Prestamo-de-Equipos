@@ -22,6 +22,7 @@ class RegistrarDevolucionForm(forms.Form):
     )
 
     def clean_fecha_devolucion_real(self):
+        # Valida que la fecha de devolución no sea futura
         fecha = self.cleaned_data.get('fecha_devolucion_real')
 
         if fecha and fecha > date.today():
