@@ -7,6 +7,7 @@ from .models import SolicitudPrestamo
 
 
 def detectar_prestamos_vencidos():
+    # Detecta préstamos entregados con fecha de devolución vencida sin alerta previa
     hoy = timezone.localdate()
 
     prestamos_vencidos = SolicitudPrestamo.objects.select_related(
@@ -25,6 +26,7 @@ def detectar_prestamos_vencidos():
     ).select_related('user')
 
     for prestamo in prestamos_vencidos:
+        # Notifica al usuario sobre su préstamo vencido
         Alerta.objects.create(
             usuario=prestamo.usuario,
             titulo='Préstamo vencido',
@@ -35,6 +37,7 @@ def detectar_prestamos_vencidos():
             tipo=Alerta.TIPO_SISTEMA
         )
 
+        # Notifica a administradores TI para seguimiento
         for admin in administradores_ti:
             Alerta.objects.create(
                 usuario=admin.user,
@@ -46,5 +49,6 @@ def detectar_prestamos_vencidos():
                 tipo=Alerta.TIPO_SISTEMA
             )
 
+        # Marca alerta como enviada para evitar duplicados
         prestamo.alerta_vencimiento_enviada = True
         prestamo.save(update_fields=['alerta_vencimiento_enviada'])

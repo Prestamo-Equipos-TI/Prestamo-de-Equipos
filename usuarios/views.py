@@ -5,6 +5,7 @@ from alertas.models import Alerta
 
 @login_required
 def dashboard(request):
+    # Verifica si el usuario tiene alertas no leídas para mostrar badge
     context = {
         'active_page': 'dashboard',
         'content_template': 'pages/dashboard_content.html',

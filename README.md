@@ -39,8 +39,6 @@ Para el ecosistema de Python y el trabajo colaborativo, se utilizarán las sigui
 
 Gestión de dependencias: pip.
 
-Pruebas y calidad: PyTest.
-
 Control de versiones: Git con repositorio en GitHub.
 
 🔄 Metodología y Flujo de Trabajo (GitFlow)

@@ -13,6 +13,7 @@ def inventario_lista(request):
 
     equipos = Equipo.objects.filter(activo=True)
 
+    # Búsqueda multi-campo: código, nombre, categoría, marca, ubicación
     if busqueda:
         equipos = (
             equipos.filter(codigo__icontains=busqueda)

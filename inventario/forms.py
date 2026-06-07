@@ -65,6 +65,7 @@ class EquipoForm(forms.ModelForm):
         }
 
     def clean_codigo(self):
+        # Valida unicidad del código (case-insensitive), excluyendo la instancia actual en edición
         codigo = self.cleaned_data.get('codigo')
 
         if codigo:
@@ -83,6 +84,7 @@ class EquipoForm(forms.ModelForm):
         return codigo
 
     def clean_numero_serie(self):
+        # Valida unicidad del número de serie (case-insensitive), excluyendo la instancia actual en edición
         numero_serie = self.cleaned_data.get('numero_serie')
 
         if numero_serie:

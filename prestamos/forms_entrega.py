@@ -22,6 +22,7 @@ class RegistrarEntregaForm(forms.Form):
     )
 
     def clean_fecha_entrega_real(self):
+        # Valida que la fecha real de entrega no sea pasada
         fecha = self.cleaned_data.get('fecha_entrega_real')
 
         if fecha and fecha < date.today():
