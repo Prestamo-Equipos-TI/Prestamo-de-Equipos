@@ -1,0 +1,704 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$pXMruWjHLEEsudTCNKZKUU$ZFuj3qTzNiT5YYl2KhusH0rqcDBWbhmomDXoFXHh7UU=",
+    "last_login": "2026-05-23T06:28:21.077Z",
+    "is_superuser": true,
+    "username": "administradorit",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@controlit.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-05-20T05:21:07.321Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$XVRC4KMOiLX3XTxB9DRowa$R7+1oXf/Xzf6zkJnUTvPrkfJvmOSuXKv+KZpQpFZJMo=",
+    "last_login": "2026-05-24T07:25:14.092Z",
+    "is_superuser": false,
+    "username": "admin_ti",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-05-23T02:44:19.522Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$5AqIfSCnp4O6c94Ub4qWQB$+Ew3qIv4xuQ2ajdS07A8CSW9ziz816Yj3eBeEy2BkGQ=",
+    "last_login": "2026-05-24T07:12:49.328Z",
+    "is_superuser": false,
+    "username": "dc20026",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-05-23T02:46:28.576Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "usuarios.perfilusuario",
+  "pk": 1,
+  "fields": {
+    "user": 2,
+    "rol": "admin_ti",
+    "carnet": "admin001",
+    "nombre_completo": "ricardo erazo",
+    "telefono": "64584433"
+  }
+},
+{
+  "model": "usuarios.perfilusuario",
+  "pk": 2,
+  "fields": {
+    "user": 3,
+    "rol": "usuario",
+    "carnet": "dc20026",
+    "nombre_completo": "usuario de prueba",
+    "telefono": "64584434"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 1,
+  "fields": {
+    "codigo": "LAPCAMP0125",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "Latitude 5450",
+    "numero_serie": "14545DLES",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "EQUIPO NUEVO",
+    "activo": false,
+    "fecha_registro": "2026-05-22T02:44:00.887Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 2,
+  "fields": {
+    "codigo": "LAPCAMP0126",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "Latitude 5450",
+    "numero_serie": "14545DLEY",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "EQUIPO NUEVO",
+    "activo": false,
+    "fecha_registro": "2026-05-22T02:44:58.830Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 3,
+  "fields": {
+    "codigo": "LAPCAMP0127",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "Latitude 5450",
+    "numero_serie": "14545DLEc",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "equipo nuevo",
+    "activo": false,
+    "fecha_registro": "2026-05-22T02:49:09.199Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 4,
+  "fields": {
+    "codigo": "LAPCAMP0128",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "Latitude 5450",
+    "numero_serie": "14545DLE5",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "equipo nuevo",
+    "activo": false,
+    "fecha_registro": "2026-05-22T02:49:23.758Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 5,
+  "fields": {
+    "codigo": "LAPCAMP0129",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "Latitude 5450",
+    "numero_serie": "14545DLEk",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "equipo nuevo",
+    "activo": false,
+    "fecha_registro": "2026-05-22T02:50:59.607Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 6,
+  "fields": {
+    "codigo": "LAPCAMP0130",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "Latitude 5450",
+    "numero_serie": "14545DLE8",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "equipo nuevo",
+    "activo": false,
+    "fecha_registro": "2026-05-22T02:56:13.216Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 7,
+  "fields": {
+    "codigo": "LAPCAMP0131",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "Latitude 5450",
+    "numero_serie": "14545DLEZ",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "EQUIPO NUEVO",
+    "activo": false,
+    "fecha_registro": "2026-05-22T03:02:50.295Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 8,
+  "fields": {
+    "codigo": "LAPCAMP0132",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "Latitude 5450",
+    "numero_serie": "14545DLKS",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "EQUIPO NUEVO",
+    "activo": false,
+    "fecha_registro": "2026-05-22T03:03:26.335Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 9,
+  "fields": {
+    "codigo": "LAPCAMP0133",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "Latitude 5450",
+    "numero_serie": "14545DLZZ",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "EQUIPO NUEVO",
+    "activo": false,
+    "fecha_registro": "2026-05-22T03:04:08.943Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 10,
+  "fields": {
+    "codigo": "LAPCAMP0134",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "Latitude 5450",
+    "numero_serie": "14545Dzzz",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "equipo nuevo",
+    "activo": false,
+    "fecha_registro": "2026-05-22T03:08:49.905Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 11,
+  "fields": {
+    "codigo": "LAPCAMP0135",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "Latitude 5450",
+    "numero_serie": "14545Dzzl",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "equipo nuevo",
+    "activo": false,
+    "fecha_registro": "2026-05-22T03:09:24.392Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 12,
+  "fields": {
+    "codigo": "LAPCAMP0136",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "Latitude 5450",
+    "numero_serie": "14545Dzzk",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "equipo nuevo",
+    "activo": false,
+    "fecha_registro": "2026-05-22T04:31:19.178Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 13,
+  "fields": {
+    "codigo": "LAPCAMP0150",
+    "nombre": "nelson erazo",
+    "categoria": "tablet",
+    "marca": "DELL",
+    "modelo": "Latitude 5450",
+    "numero_serie": "14545Dz66",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "nuevo equipo",
+    "activo": false,
+    "fecha_registro": "2026-05-22T05:04:17.571Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 14,
+  "fields": {
+    "codigo": "LAPCAMP0160",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "Latitude 5450",
+    "numero_serie": "14545Dassd",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "equipo nuevo",
+    "activo": false,
+    "fecha_registro": "2026-05-22T05:23:34.810Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 15,
+  "fields": {
+    "codigo": "LAPCAMP0161",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "latitude 5450",
+    "numero_serie": "14545Dz48",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "equipo nuevo",
+    "activo": true,
+    "fecha_registro": "2026-05-22T06:03:16.141Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 16,
+  "fields": {
+    "codigo": "projcamp02",
+    "nombre": "GooDee Proyector Inteligente",
+    "categoria": "proyector",
+    "marca": "GooDee",
+    "modelo": "3000",
+    "numero_serie": "145asas10",
+    "estado": "prestado",
+    "ubicacion": "BODEGA",
+    "observaciones": "equipo nuevo",
+    "activo": true,
+    "fecha_registro": "2026-05-22T06:04:42.741Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 17,
+  "fields": {
+    "codigo": "Tabcamp01",
+    "nombre": "Samsung Galaxy Tab S10 Lite",
+    "categoria": "tablet",
+    "marca": "Samsung",
+    "modelo": "Galaxy Tab s10 lite",
+    "numero_serie": "14542425263105485",
+    "estado": "averiado",
+    "ubicacion": "BODEGA",
+    "observaciones": "equipo nuevo",
+    "activo": true,
+    "fecha_registro": "2026-05-22T06:06:33.557Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 18,
+  "fields": {
+    "codigo": "LAPCAMP0165",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "latitude 5450",
+    "numero_serie": "14545Dz87",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "equipo nuevo",
+    "activo": true,
+    "fecha_registro": "2026-05-22T06:19:00.564Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 19,
+  "fields": {
+    "codigo": "LAPCAMP0200",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "latitude 5450",
+    "numero_serie": "14574Dzzl",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "equipo nuevo",
+    "activo": true,
+    "fecha_registro": "2026-05-22T06:28:24.094Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 20,
+  "fields": {
+    "codigo": "LAPCAMP0211",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "DELL",
+    "modelo": "latitude 5450",
+    "numero_serie": "14545asfg",
+    "estado": "mantenimiento",
+    "ubicacion": "BODEGA",
+    "observaciones": "equipo nuevo",
+    "activo": true,
+    "fecha_registro": "2026-05-23T06:23:48.390Z"
+  }
+},
+{
+  "model": "inventario.equipo",
+  "pk": 21,
+  "fields": {
+    "codigo": "LAPCAMP0210",
+    "nombre": "Laptop dell latitude 5450",
+    "categoria": "laptop",
+    "marca": "GooDee",
+    "modelo": "latitude 5450",
+    "numero_serie": "14545Dzzo",
+    "estado": "disponible",
+    "ubicacion": "BODEGA",
+    "observaciones": "equipo nuevo",
+    "activo": true,
+    "fecha_registro": "2026-05-23T07:39:51.938Z"
+  }
+},
+{
+  "model": "prestamos.solicitudprestamo",
+  "pk": 1,
+  "fields": {
+    "usuario": 3,
+    "equipo": 18,
+    "fecha_solicitud": "2026-05-23T03:26:07.452Z",
+    "fecha_prestamo": "2026-05-22",
+    "fecha_entrega_programada": null,
+    "dias_prestamo": null,
+    "fecha_entrega_real": null,
+    "fecha_devolucion_estimada": null,
+    "fecha_devolucion_real": null,
+    "alerta_vencimiento_enviada": false,
+    "observaciones_entrega": "",
+    "observaciones_devolucion": "",
+    "observaciones": "",
+    "estado": "rechazado",
+    "aprobado_por": null,
+    "rechazado_por": null,
+    "entregado_por": null,
+    "devuelto_por": null
+  }
+},
+{
+  "model": "prestamos.solicitudprestamo",
+  "pk": 2,
+  "fields": {
+    "usuario": 3,
+    "equipo": 18,
+    "fecha_solicitud": "2026-05-23T03:26:12.648Z",
+    "fecha_prestamo": "2026-05-23",
+    "fecha_entrega_programada": null,
+    "dias_prestamo": null,
+    "fecha_entrega_real": null,
+    "fecha_devolucion_estimada": null,
+    "fecha_devolucion_real": null,
+    "alerta_vencimiento_enviada": false,
+    "observaciones_entrega": "",
+    "observaciones_devolucion": "",
+    "observaciones": "",
+    "estado": "rechazado",
+    "aprobado_por": null,
+    "rechazado_por": null,
+    "entregado_por": null,
+    "devuelto_por": null
+  }
+},
+{
+  "model": "prestamos.solicitudprestamo",
+  "pk": 3,
+  "fields": {
+    "usuario": 3,
+    "equipo": 18,
+    "fecha_solicitud": "2026-05-23T03:26:12.872Z",
+    "fecha_prestamo": "2026-05-23",
+    "fecha_entrega_programada": null,
+    "dias_prestamo": null,
+    "fecha_entrega_real": null,
+    "fecha_devolucion_estimada": null,
+    "fecha_devolucion_real": null,
+    "alerta_vencimiento_enviada": false,
+    "observaciones_entrega": "",
+    "observaciones_devolucion": "",
+    "observaciones": "",
+    "estado": "rechazado",
+    "aprobado_por": null,
+    "rechazado_por": null,
+    "entregado_por": null,
+    "devuelto_por": null
+  }
+},
+{
+  "model": "prestamos.solicitudprestamo",
+  "pk": 4,
+  "fields": {
+    "usuario": 3,
+    "equipo": 18,
+    "fecha_solicitud": "2026-05-23T03:26:24.072Z",
+    "fecha_prestamo": "2026-05-23",
+    "fecha_entrega_programada": null,
+    "dias_prestamo": null,
+    "fecha_entrega_real": null,
+    "fecha_devolucion_estimada": null,
+    "fecha_devolucion_real": null,
+    "alerta_vencimiento_enviada": false,
+    "observaciones_entrega": "",
+    "observaciones_devolucion": "",
+    "observaciones": "",
+    "estado": "rechazado",
+    "aprobado_por": null,
+    "rechazado_por": null,
+    "entregado_por": null,
+    "devuelto_por": null
+  }
+},
+{
+  "model": "prestamos.solicitudprestamo",
+  "pk": 5,
+  "fields": {
+    "usuario": 3,
+    "equipo": 18,
+    "fecha_solicitud": "2026-05-23T03:28:42.231Z",
+    "fecha_prestamo": "2026-05-22",
+    "fecha_entrega_programada": "2026-05-22",
+    "dias_prestamo": 4,
+    "fecha_entrega_real": "2026-05-23",
+    "fecha_devolucion_estimada": "2026-05-27",
+    "fecha_devolucion_real": "2026-05-23",
+    "alerta_vencimiento_enviada": false,
+    "observaciones_entrega": "",
+    "observaciones_devolucion": "",
+    "observaciones": "solicitar equipo para exposicion",
+    "estado": "devuelto",
+    "aprobado_por": null,
+    "rechazado_por": null,
+    "entregado_por": null,
+    "devuelto_por": null
+  }
+},
+{
+  "model": "prestamos.solicitudprestamo",
+  "pk": 6,
+  "fields": {
+    "usuario": 3,
+    "equipo": 20,
+    "fecha_solicitud": "2026-05-23T06:25:09.598Z",
+    "fecha_prestamo": "2026-05-24",
+    "fecha_entrega_programada": null,
+    "dias_prestamo": null,
+    "fecha_entrega_real": null,
+    "fecha_devolucion_estimada": null,
+    "fecha_devolucion_real": null,
+    "alerta_vencimiento_enviada": false,
+    "observaciones_entrega": "",
+    "observaciones_devolucion": "",
+    "observaciones": "",
+    "estado": "rechazado",
+    "aprobado_por": null,
+    "rechazado_por": null,
+    "entregado_por": null,
+    "devuelto_por": null
+  }
+},
+{
+  "model": "prestamos.solicitudprestamo",
+  "pk": 7,
+  "fields": {
+    "usuario": 3,
+    "equipo": 20,
+    "fecha_solicitud": "2026-05-23T06:44:39.641Z",
+    "fecha_prestamo": "2026-05-24",
+    "fecha_entrega_programada": "2026-05-24",
+    "dias_prestamo": 3,
+    "fecha_entrega_real": "2026-05-24",
+    "fecha_devolucion_estimada": "2026-05-27",
+    "fecha_devolucion_real": null,
+    "alerta_vencimiento_enviada": false,
+    "observaciones_entrega": "",
+    "observaciones_devolucion": "",
+    "observaciones": "",
+    "estado": "entregado",
+    "aprobado_por": null,
+    "rechazado_por": null,
+    "entregado_por": null,
+    "devuelto_por": null
+  }
+},
+{
+  "model": "prestamos.solicitudprestamo",
+  "pk": 8,
+  "fields": {
+    "usuario": 3,
+    "equipo": 21,
+    "fecha_solicitud": "2026-05-23T07:40:34.064Z",
+    "fecha_prestamo": "2026-05-24",
+    "fecha_entrega_programada": null,
+    "dias_prestamo": null,
+    "fecha_entrega_real": null,
+    "fecha_devolucion_estimada": null,
+    "fecha_devolucion_real": null,
+    "alerta_vencimiento_enviada": false,
+    "observaciones_entrega": "",
+    "observaciones_devolucion": "",
+    "observaciones": "prestamo de 3 dias",
+    "estado": "rechazado",
+    "aprobado_por": null,
+    "rechazado_por": null,
+    "entregado_por": null,
+    "devuelto_por": null
+  }
+},
+{
+  "model": "prestamos.solicitudprestamo",
+  "pk": 9,
+  "fields": {
+    "usuario": 3,
+    "equipo": 18,
+    "fecha_solicitud": "2026-05-24T00:51:51.148Z",
+    "fecha_prestamo": "2026-05-24",
+    "fecha_entrega_programada": null,
+    "dias_prestamo": null,
+    "fecha_entrega_real": null,
+    "fecha_devolucion_estimada": null,
+    "fecha_devolucion_real": null,
+    "alerta_vencimiento_enviada": false,
+    "observaciones_entrega": "",
+    "observaciones_devolucion": "",
+    "observaciones": "",
+    "estado": "rechazado",
+    "aprobado_por": null,
+    "rechazado_por": 2,
+    "entregado_por": null,
+    "devuelto_por": null
+  }
+},
+{
+  "model": "prestamos.solicitudprestamo",
+  "pk": 10,
+  "fields": {
+    "usuario": 3,
+    "equipo": 21,
+    "fecha_solicitud": "2026-05-24T00:53:04.975Z",
+    "fecha_prestamo": "2026-05-24",
+    "fecha_entrega_programada": null,
+    "dias_prestamo": null,
+    "fecha_entrega_real": null,
+    "fecha_devolucion_estimada": null,
+    "fecha_devolucion_real": null,
+    "alerta_vencimiento_enviada": false,
+    "observaciones_entrega": "",
+    "observaciones_devolucion": "",
+    "observaciones": "",
+    "estado": "rechazado",
+    "aprobado_por": null,
+    "rechazado_por": 2,
+    "entregado_por": null,
+    "devuelto_por": null
+  }
+},
+{
+  "model": "prestamos.solicitudprestamo",
+  "pk": 11,
+  "fields": {
+    "usuario": 3,
+    "equipo": 18,
+    "fecha_solicitud": "2026-05-24T02:20:07.706Z",
+    "fecha_prestamo": "2026-05-24",
+    "fecha_entrega_programada": null,
+    "dias_prestamo": null,
+    "fecha_entrega_real": null,
+    "fecha_devolucion_estimada": null,
+    "fecha_devolucion_real": null,
+    "alerta_vencimiento_enviada": false,
+    "observaciones_entrega": "",
+    "observaciones_devolucion": "",
+    "observaciones": "",
+    "estado": "pendiente",
+    "aprobado_por": null,
+    "rechazado_por": null,
+    "entregado_por": null,
+    "devuelto_por": null
+  }
+},
+{
+  "model": "alertas.alerta",
+  "pk": 1,
+  "fields": {
+    "usuario": 3,
+    "titulo": 
