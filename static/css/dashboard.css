@@ -410,3 +410,195 @@ body {
     margin-left: auto;
     box-shadow: 0 0 10px rgba(223, 204, 61, 0.9);
 }
+
+/* =========================================================
+   ESTADÍSTICAS DEL DASHBOARD
+   ========================================================= */
+
+.stats-section {
+    width: 100%;
+    margin-bottom: 32px;
+}
+
+.stats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.stats-header h2 {
+    font-size: 24px;
+    color: var(--white);
+    margin-bottom: 5px;
+}
+
+.stats-header p {
+    color: var(--gray);
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   GRID DE ESTADÍSTICAS
+   ========================================================= */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(180px, 1fr));
+    gap: 18px;
+}
+
+
+/* =========================================================
+   TARJETA
+   ========================================================= */
+
+.stat-card {
+    min-height: 120px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 22px;
+
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold-light);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Línea inferior */
+
+.stat-card::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 4px;
+
+    background: var(--gold-light);
+}
+
+
+/* =========================================================
+   ICONO
+   ========================================================= */
+
+.stat-icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    font-size: 27px;
+
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+}
+
+
+/* =========================================================
+   INFORMACIÓN
+   ========================================================= */
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-info span {
+    color: var(--gray);
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.stat-info strong {
+    color: var(--white);
+    font-size: 31px;
+    line-height: 1;
+}
+
+
+/* =========================================================
+   COLORES SEGÚN ESTADO
+   ========================================================= */
+
+.stat-success::after {
+    background: #38c172;
+}
+
+.stat-blue::after {
+    background: var(--blue);
+}
+
+.stat-gold::after {
+    background: var(--gold-light);
+}
+
+.stat-warning::after {
+    background: #f4a62a;
+}
+
+.stat-danger::after {
+    background: #e74c3c;
+}
+
+.stat-maintenance::after {
+    background: #9b59b6;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1250px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+
+@media (max-width: 950px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+.stat-overdue::after {
+    background: #ff6b35;
+}

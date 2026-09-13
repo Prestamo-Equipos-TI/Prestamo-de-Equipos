@@ -31,74 +31,126 @@
 
     {% if request.user.perfil.rol == 'admin_ti' %}
 
-        <section class="module-grid">
+    <!-- ==========================================
+         ESTADÍSTICAS GENERALES
+         ========================================== -->
 
-            <a
-                href="{% url 'inventario:lista' %}"
-                class="module-card"
-                data-page="inventario"
-                hx-get="{% url 'inventario:lista' %}"
-                hx-target="#app-main"
-                hx-swap="innerHTML"
-                hx-push-url="true">
-                <span>💻</span>
-                <h3>Inventario</h3>
-            </a>
+    <section class="stats-section">
 
-            <a
-                href="{% url 'prestamos:admin_inicio' %}"
-                class="module-card"
-                data-page="prestamos_admin"
-                hx-get="{% url 'prestamos:admin_inicio' %}"
-                hx-target="#app-main"
-                hx-swap="innerHTML"
-                hx-push-url="true">
-                <span>📋</span>
-                <h3>Préstamos</h3>
-            </a>
+        <div class="stats-header">
+            <div>
+                <h2>Resumen del sistema</h2>
+                <p>Estado actual del inventario y los préstamos</p>
+            </div>
+        </div>
 
-            <a
-                 href="{% url 'averias:admin_lista' %}"
-                 class="module-card"
-                 data-page="averias_admin"
-                 hx-get="{% url 'averias:admin_lista' %}"
-                 hx-target="#app-main"
-                 hx-swap="innerHTML"
-                 hx-push-url="true">
-                 <span>🛠</span>
-                 <h3>Averías</h3>
-            </a>
+        <div class="stats-grid">
 
-            <a
-                 href="{% url 'historial:inicio' %}"
-                 class="module-card"
-                 data-page="historial"
-                 hx-get="{% url 'historial:inicio' %}"
-                 hx-target="#app-main"
-                 hx-swap="innerHTML"
-                 hx-push-url="true">
-                 <span>📚</span>
-                 <h3>Historial</h3>
-            </a>
+            <!-- TOTAL EQUIPOS -->
+            <div class="stat-card">
+                <div class="stat-icon">
+                    💻
+                </div>
 
-            <a
-                href="{% url 'alertas:lista' %}"
-                class="module-card"
-                data-page="alertas"
-                hx-get="{% url 'alertas:lista' %}"
-                hx-target="#app-main"
-                hx-swap="innerHTML"
-                hx-push-url="true">
-                <span>🔔</span>
-                <h3>
-                    Alertas
-                    {% if tiene_alertas_nuevas %}
-                        <span class="notification-dot"></span>
-                    {% endif %}
-                </h3>
-            </a>
+                <div class="stat-info">
+                    <span>Total de equipos</span>
+                    <strong>{{ total_equipos }}</strong>
+                </div>
+            </div>
 
-        </section>
+            <!-- DISPONIBLES -->
+            <div class="stat-card stat-success">
+                <div class="stat-icon">
+                    ✅
+                </div>
+
+                <div class="stat-info">
+                    <span>Disponibles</span>
+                    <strong>{{ equipos_disponibles }}</strong>
+                </div>
+            </div>
+
+            <!-- PRESTADOS -->
+            <div class="stat-card stat-blue">
+                <div class="stat-icon">
+                    📤
+                </div>
+
+                <div class="stat-info">
+                    <span>Prestados</span>
+                    <strong>{{ equipos_prestados }}</strong>
+                </div>
+            </div>
+
+            <!-- RESERVADOS -->
+            <div class="stat-card stat-gold">
+                <div class="stat-icon">
+                    📌
+                </div>
+
+                <div class="stat-info">
+                    <span>Reservados</span>
+                    <strong>{{ equipos_reservados }}</strong>
+                </div>
+            </div>
+
+            <!-- SOLICITUDES PENDIENTES -->
+            <div class="stat-card stat-warning">
+                <div class="stat-icon">
+                    📋
+                </div>
+
+                <div class="stat-info">
+                    <span>Solicitudes pendientes</span>
+                    <strong>{{ solicitudes_pendientes }}</strong>
+                </div>
+            </div>
+            <!-- PRÉSTAMOS VENCIDOS -->
+<div class="stat-card stat-overdue">
+
+    <div class="stat-icon">
+        ⏰
+    </div>
+
+    <div class="stat-info">
+        <span>Préstamos vencidos</span>
+        <strong>{{ prestamos_vencidos }}</strong>
+    </div>
+
+</div>
+            <!-- AVERIADOS -->
+            <div class="stat-card stat-danger">
+                <div class="stat-icon">
+                    ⚠️
+                </div>
+
+                <div class="stat-info">
+                    <span>Averiados</span>
+                    <strong>{{ equipos_averiados }}</strong>
+                </div>
+            </div>
+
+            <!-- MANTENIMIENTO -->
+            <div class="stat-card stat-maintenance">
+                <div class="stat-icon">
+                    🛠
+                </div>
+
+                <div class="stat-info">
+                    <span>Mantenimiento</span>
+                    <strong>{{ equipos_mantenimiento }}</strong>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ==========================================
+         MÓDULOS DEL ADMINISTRADOR
+         ========================================== -->
+
+    <section class="module-grid">
 
     {% elif request.user.perfil.rol == 'usuario' %}
 
