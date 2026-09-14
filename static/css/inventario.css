@@ -148,7 +148,15 @@
     color: var(--gold-light);
     border-color: rgba(223, 204, 61, 0.18);
 }
-
+.status::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    margin-right: 7px;
+    flex-shrink: 0;
+}
 
 /* =========================
    FORMULARIO
