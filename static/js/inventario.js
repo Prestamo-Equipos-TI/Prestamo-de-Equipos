@@ -118,3 +118,35 @@ document.body.addEventListener('htmx:afterRequest', function (event) {
         }, 240);
     }
 });
+
+// =========================================================
+// BÚSQUEDA AVANZADA DEL INVENTARIO
+// =========================================================
+
+function toggleBusquedaAvanzada() {
+
+    const filtros = document.getElementById('advanced-filters');
+    const boton = document.getElementById('advanced-search-toggle');
+
+    if (!filtros || !boton) {
+        return;
+    }
+
+    const estaAbierto = filtros.classList.contains('show');
+
+    if (estaAbierto) {
+
+        filtros.classList.remove('show');
+
+        boton.innerHTML = '⚙ Búsqueda avanzada';
+        boton.setAttribute('aria-expanded', 'false');
+
+    } else {
+
+        filtros.classList.add('show');
+
+        boton.innerHTML = '▲ Ocultar filtros';
+        boton.setAttribute('aria-expanded', 'true');
+
+    }
+}

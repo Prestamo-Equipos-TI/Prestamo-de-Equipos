@@ -14,7 +14,9 @@
 
 </header>
 
+
 <section class="inventory-header">
+
     <div>
         <h2>Equipos registrados</h2>
         <p>Consulta, filtra y administra los equipos tecnológicos.</p>
@@ -26,61 +28,133 @@
         hx-get="{% url 'inventario:crear' %}"
         hx-target="#modal-container"
         hx-swap="innerHTML">
+
         + Registrar equipo
+
     </button>
+
 </section>
+
+
+<!-- =====================================================
+     HERRAMIENTAS DE BÚSQUEDA
+     ===================================================== -->
 
 <section class="inventory-tools" id="inventory-filters">
 
+    <!-- BÚSQUEDA RÁPIDA -->
+
     <div class="search-box">
+
         <input
             type="text"
             name="q"
             value="{{ busqueda }}"
-            placeholder="Buscar por nombre, código, marca o ubicación..."
+            placeholder="Buscar por código, nombre, marca, modelo, estado o ubicación..."
             hx-get="{% url 'inventario:lista' %}"
             hx-target="#inventory-table-wrapper"
             hx-trigger="keyup changed delay:350ms"
             hx-include="#inventory-filters"
             hx-vals='{"partial": "tabla"}'>
+
     </div>
 
-    <select
-        name="estado"
-        hx-get="{% url 'inventario:lista' %}"
-        hx-target="#inventory-table-wrapper"
-        hx-trigger="change"
-        hx-include="#inventory-filters"
-        hx-vals='{"partial": "tabla"}'>
 
-        <option value="">Todos los estados</option>
+    <!-- BOTÓN BÚSQUEDA AVANZADA -->
 
-        {% for valor, texto in estados %}
-            <option value="{{ valor }}" {% if estado == valor %}selected{% endif %}>
-                {{ texto }}
+  <button
+    type="button"
+    class="advanced-search-btn"
+    id="advanced-search-toggle"
+    onclick="toggleBusquedaAvanzada()"
+    aria-expanded="false">
+
+    ⚙ Búsqueda avanzada
+
+</button>
+
+
+    <!-- =================================================
+         FILTROS AVANZADOS
+         Ocultos inicialmente
+         ================================================= -->
+
+    <div
+        class="advanced-filters"
+        id="advanced-filters"
+        >
+
+        <!-- FILTRO POR ESTADO -->
+
+        <select
+            name="estado"
+            hx-get="{% url 'inventario:lista' %}"
+            hx-target="#inventory-table-wrapper"
+            hx-trigger="change"
+            hx-include="#inventory-filters"
+            hx-vals='{"partial": "tabla"}'>
+
+            <option value="">
+                Todos los estados
             </option>
-        {% endfor %}
-    </select>
 
-    <select
-        name="categoria"
-        hx-get="{% url 'inventario:lista' %}"
-        hx-target="#inventory-table-wrapper"
-        hx-trigger="change"
-        hx-include="#inventory-filters"
-        hx-vals='{"partial": "tabla"}'>
+            {% for valor, texto in estados %}
 
-        <option value="">Todas las categorías</option>
+                <option
+                    value="{{ valor }}"
+                    {% if estado == valor %}selected{% endif %}>
 
-        {% for valor, texto in categorias %}
-            <option value="{{ valor }}" {% if categoria == valor %}selected{% endif %}>
-                {{ texto }}
+                    {{ texto }}
+
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+
+        <!-- FILTRO POR CATEGORÍA -->
+
+        <select
+            name="categoria"
+            hx-get="{% url 'inventario:lista' %}"
+            hx-target="#inventory-table-wrapper"
+            hx-trigger="change"
+            hx-include="#inventory-filters"
+            hx-vals='{"partial": "tabla"}'>
+
+            <option value="">
+                Todas las categorías
             </option>
-        {% endfor %}
-    </select>
+
+            {% for valor, texto in categorias %}
+
+                <option
+                    value="{{ valor }}"
+                    {% if categoria == valor %}selected{% endif %}>
+
+                    {{ texto }}
+
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+    </div>
 
 </section>
 
+
+<!-- =====================================================
+     TABLA DE EQUIPOS
+     ===================================================== -->
+
 {% include 'pages/inventario/includes/tabla_equipos.html' %}
+
+
+<!-- =====================================================
+     CONTENEDOR PARA MODALES
+     ===================================================== -->
 
 <div id="modal-container"></div>

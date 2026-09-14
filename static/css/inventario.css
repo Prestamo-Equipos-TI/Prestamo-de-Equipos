@@ -124,6 +124,7 @@
     color: #65ff9a;
     border-color: rgba(101, 255, 154, 0.18);
 }
+
 .status.reservado {
     background: rgba(255, 152, 0, 0.18);
     color: #ffcc80;
@@ -359,7 +360,11 @@ body.modal-open {
 
 .equipment-detail-card {
     background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015)),
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.045),
+            rgba(255, 255, 255, 0.015)
+        ),
         rgba(10, 10, 10, 0.35);
     border: 1px solid rgba(223, 204, 61, 0.20);
     border-radius: 22px;
@@ -451,6 +456,7 @@ body.modal-open {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -461,6 +467,7 @@ body.modal-open {
         opacity: 0;
         transform: translateY(24px) scale(0.97);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -473,6 +480,7 @@ body.modal-open {
         transform: scale(1);
         backdrop-filter: blur(16px);
     }
+
     to {
         opacity: 0;
         transform: scale(0.985);
@@ -540,6 +548,11 @@ body.modal-open {
     }
 }
 
+
+/* =========================
+   BOTONES DE PELIGRO
+========================= */
+
 .table-btn.danger {
     border-color: rgba(255, 77, 77, 0.35);
     color: #ff9d9d;
@@ -549,6 +562,12 @@ body.modal-open {
     background: rgba(255, 77, 77, 0.12);
     border-color: #ff9d9d;
 }
+
+
+/* =========================
+   TRANSICIONES HTMX / MODAL
+========================= */
+
 .modal-panel {
     transition:
         opacity 0.18s ease,
@@ -559,6 +578,137 @@ body.modal-open {
     opacity: 0.88;
     transform: scale(0.992);
 }
+
 .modal-panel {
     animation-duration: 0.22s;
+}
+
+
+/* =========================================================
+   BÚSQUEDA AVANZADA
+========================================================= */
+
+.advanced-search-btn {
+    padding: 12px 18px;
+    border: 1px solid rgba(223, 204, 61, 0.35);
+    border-radius: 12px;
+
+    background: #1a1a1a;
+    color: var(--gold-light);
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.advanced-search-btn:hover {
+    background: rgba(223, 204, 61, 0.08);
+    border-color: var(--gold-light);
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   CONTENEDOR DE FILTROS AVANZADOS
+========================================================= */
+
+.advanced-filters {
+    width: 100%;
+    flex-basis: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    gap: 16px;
+
+    /*
+       Cerrado inicialmente.
+       No usamos display:none porque display no puede
+       animarse suavemente.
+    */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+
+    transform: translateY(-8px);
+
+    padding-top: 0;
+
+    pointer-events: none;
+
+    transition:
+        max-height 0.30s ease,
+        opacity 0.22s ease,
+        transform 0.30s ease,
+        padding-top 0.30s ease;
+}
+
+
+/* Estado abierto */
+
+.advanced-filters.show {
+    max-height: 100px;
+    opacity: 1;
+
+    transform: translateY(0);
+
+    padding-top: 4px;
+
+    pointer-events: auto;
+}
+
+
+/* Selects */
+
+.advanced-filters select {
+    width: 100%;
+
+    padding: 14px;
+
+    border-radius: 12px;
+    border: 1px solid var(--border);
+
+    background: #1a1a1a;
+    color: white;
+
+    font-size: 14px;
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.advanced-filters select:hover {
+    border-color: rgba(223, 204, 61, 0.45);
+}
+
+.advanced-filters select:focus {
+    outline: none;
+    border-color: var(--gold-light);
+}
+
+
+/* =========================================================
+   RESPONSIVE - BÚSQUEDA AVANZADA
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .advanced-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .advanced-filters.show {
+        max-height: 180px;
+    }
+
+    .advanced-search-btn {
+        width: 100%;
+    }
 }
