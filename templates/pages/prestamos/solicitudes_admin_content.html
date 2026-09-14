@@ -102,12 +102,28 @@
                     </td>
                 </tr>
             {% empty %}
-                <tr>
-                    <td colspan="7" class="empty-table">
-                        No hay solicitudes de préstamo registradas.
-                    </td>
-                </tr>
-            {% endfor %}
+    <tr>
+        <td colspan="7" class="empty-table">
+
+            <div class="empty-state">
+
+                <span class="empty-state-icon">
+                    📋
+                </span>
+
+                <strong>
+                    No hay solicitudes registradas
+                </strong>
+
+                <p>
+                    Las nuevas solicitudes de préstamo aparecerán aquí.
+                </p>
+
+            </div>
+
+        </td>
+    </tr>
+{% endfor %}
         </tbody>
     </table>
 

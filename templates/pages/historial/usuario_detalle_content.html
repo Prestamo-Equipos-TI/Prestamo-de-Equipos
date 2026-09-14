@@ -105,13 +105,29 @@
                         </span>
                     </td>
                 </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="7" class="empty-table">
-                        Este usuario no tiene solicitudes registradas.
-                    </td>
-                </tr>
-            {% endfor %}
+         {% empty %}
+    <tr>
+        <td colspan="7" class="empty-table">
+
+            <div class="empty-state">
+
+                <span class="empty-state-icon">
+                    📋
+                </span>
+
+                <strong>
+                    Este usuario no tiene solicitudes
+                </strong>
+
+                <p>
+                    Las solicitudes de préstamo realizadas por este usuario aparecerán aquí.
+                </p>
+
+            </div>
+
+        </td>
+    </tr>
+{% endfor %}
         </tbody>
     </table>
 

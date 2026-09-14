@@ -56,13 +56,51 @@
                         </button>
                     </td>
                 </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="7" class="empty-table">
-                        No hay equipos registrados.
-                    </td>
-                </tr>
-            {% endfor %}
+           {% empty %}
+    <tr>
+        <td colspan="7" class="empty-table">
+
+            {% if busqueda or estado or categoria %}
+
+                <div class="empty-state">
+
+                    <span class="empty-state-icon">
+                        🔍
+                    </span>
+
+                    <strong>
+                        No se encontraron equipos
+                    </strong>
+
+                    <p>
+                        Intenta modificar los criterios de búsqueda o los filtros aplicados.
+                    </p>
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-state">
+
+                    <span class="empty-state-icon">
+                        📦
+                    </span>
+
+                    <strong>
+                        No hay equipos registrados
+                    </strong>
+
+                    <p>
+                        Los equipos que registres aparecerán aquí.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </td>
+    </tr>
+{% endfor %}
         </tbody>
     </table>
 

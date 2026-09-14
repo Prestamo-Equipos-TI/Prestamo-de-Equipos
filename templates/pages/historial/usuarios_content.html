@@ -89,13 +89,29 @@
                         </button>
                     </td>
                 </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="7" class="empty-table">
-                        No hay usuarios solicitantes registrados.
-                    </td>
-                </tr>
-            {% endfor %}
+           {% empty %}
+    <tr>
+        <td colspan="7" class="empty-table">
+
+            <div class="empty-state">
+
+                <span class="empty-state-icon">
+                    👤
+                </span>
+
+                <strong>
+                    No hay usuarios solicitantes
+                </strong>
+
+                <p>
+                    Los usuarios que realicen solicitudes de préstamo aparecerán aquí.
+                </p>
+
+            </div>
+
+        </td>
+    </tr>
+{% endfor %}
         </tbody>
     </table>
 

@@ -76,13 +76,29 @@
                         </button>
                     </td>
                 </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="5" class="empty-table">
-                        No hay devoluciones pendientes.
-                    </td>
-                </tr>
-            {% endfor %}
+           {% empty %}
+    <tr>
+        <td colspan="5" class="empty-table">
+
+            <div class="empty-state">
+
+                <span class="empty-state-icon">
+                    ↩️
+                </span>
+
+                <strong>
+                    No hay devoluciones pendientes
+                </strong>
+
+                <p>
+                    Los equipos prestados pendientes de devolución aparecerán aquí.
+                </p>
+
+            </div>
+
+        </td>
+    </tr>
+{% endfor %}
         </tbody>
     </table>
 

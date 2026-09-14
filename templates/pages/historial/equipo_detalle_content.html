@@ -116,13 +116,29 @@
                         </span>
                     </td>
                 </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="6" class="empty-table">
-                        Este equipo no tiene préstamos registrados.
-                    </td>
-                </tr>
-            {% endfor %}
+           {% empty %}
+    <tr>
+        <td colspan="6" class="empty-table">
+
+            <div class="empty-state">
+
+                <span class="empty-state-icon">
+                    🔄
+                </span>
+
+                <strong>
+                    Este equipo no tiene préstamos registrados
+                </strong>
+
+                <p>
+                    Los préstamos realizados con este equipo aparecerán aquí.
+                </p>
+
+            </div>
+
+        </td>
+    </tr>
+{% endfor %}
         </tbody>
     </table>
 
@@ -194,13 +210,29 @@
                         {% endif %}
                     </td>
                 </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="6" class="empty-table">
-                        Este equipo no tiene averías registradas.
-                    </td>
-                </tr>
-            {% endfor %}
+           {% empty %}
+    <tr>
+        <td colspan="6" class="empty-table">
+
+            <div class="empty-state">
+
+                <span class="empty-state-icon">
+                    🛠️
+                </span>
+
+                <strong>
+                    Este equipo no tiene averías registradas
+                </strong>
+
+                <p>
+                    Los reportes de fallas asociados a este equipo aparecerán aquí.
+                </p>
+
+            </div>
+
+        </td>
+    </tr>
+{% endfor %}
         </tbody>
     </table>
 

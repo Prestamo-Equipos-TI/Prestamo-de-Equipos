@@ -73,13 +73,29 @@
                         </button>
                     </td>
                 </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="4" class="empty-table">
-                        No tienes equipos prestados actualmente.
-                    </td>
-                </tr>
-            {% endfor %}
+           {% empty %}
+    <tr>
+        <td colspan="4" class="empty-table">
+
+            <div class="empty-state">
+
+                <span class="empty-state-icon">
+                    💻
+                </span>
+
+                <strong>
+                    No tienes equipos prestados
+                </strong>
+
+                <p>
+                    Cuando tengas un equipo en préstamo podrás reportar una avería desde esta sección.
+                </p>
+
+            </div>
+
+        </td>
+    </tr>
+{% endfor %}
         </tbody>
     </table>
 

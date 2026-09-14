@@ -76,13 +76,29 @@
                     </td>
                 </tr>
 
-            {% empty %}
-                <tr>
-                    <td colspan="6" class="empty-table">
-                        No hay entregas pendientes.
-                    </td>
-                </tr>
-            {% endfor %}
+           {% empty %}
+    <tr>
+        <td colspan="6" class="empty-table">
+
+            <div class="empty-state">
+
+                <span class="empty-state-icon">
+                    📦
+                </span>
+
+                <strong>
+                    No hay entregas pendientes
+                </strong>
+
+                <p>
+                    Las solicitudes aprobadas pendientes de entrega aparecerán aquí.
+                </p>
+
+            </div>
+
+        </td>
+    </tr>
+{% endfor %}
         </tbody>
     </table>
 

@@ -122,12 +122,28 @@
                     </td>
                 </tr>
             {% empty %}
-                <tr>
-                    <td colspan="6" class="empty-table">
-                        No hay reportes de avería registrados.
-                    </td>
-                </tr>
-            {% endfor %}
+    <tr>
+        <td colspan="6" class="empty-table">
+
+            <div class="empty-state">
+
+                <span class="empty-state-icon">
+                    🛠️
+                </span>
+
+                <strong>
+                    No hay reportes de avería
+                </strong>
+
+                <p>
+                    Los reportes técnicos registrados por usuarios o administradores aparecerán aquí.
+                </p>
+
+            </div>
+
+        </td>
+    </tr>
+{% endfor %}
         </tbody>
     </table>
 

@@ -56,13 +56,29 @@
                         </button>
                     </td>
                 </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="6" class="empty-table">
-                        No hay equipos disponibles para préstamo en este momento.
-                    </td>
-                </tr>
-            {% endfor %}
+           {% empty %}
+    <tr>
+        <td colspan="6" class="empty-table">
+
+            <div class="empty-state">
+
+                <span class="empty-state-icon">
+                    💻
+                </span>
+
+                <strong>
+                    No hay equipos disponibles
+                </strong>
+
+                <p>
+                    Actualmente no existen equipos disponibles para solicitar en préstamo.
+                </p>
+
+            </div>
+
+        </td>
+    </tr>
+{% endfor %}
         </tbody>
     </table>
 
