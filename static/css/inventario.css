@@ -158,6 +158,41 @@
     flex-shrink: 0;
 }
 
+
+/* =========================================
+   ESTADOS DE SOLICITUDES Y PRÉSTAMOS
+========================================= */
+
+.status.pendiente {
+    background: rgba(255, 193, 7, 0.18);
+    color: #ffd86b;
+    border-color: rgba(255, 216, 107, 0.22);
+}
+
+.status.aprobado {
+    background: rgba(0, 200, 83, 0.18);
+    color: #65ff9a;
+    border-color: rgba(101, 255, 154, 0.20);
+}
+
+.status.rechazado {
+    background: rgba(255, 77, 77, 0.18);
+    color: #ff9d9d;
+    border-color: rgba(255, 157, 157, 0.20);
+}
+
+.status.entregado {
+    background: rgba(20, 87, 255, 0.18);
+    color: #8ab0ff;
+    border-color: rgba(138, 176, 255, 0.20);
+}
+
+.status.devuelto {
+    background: rgba(0, 200, 83, 0.18);
+    color: #65ff9a;
+    border-color: rgba(101, 255, 154, 0.20);
+}
+
 /* =========================
    FORMULARIO
 ========================= */
