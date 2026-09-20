@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        http-equiv="refresh"
+        content="15"
+    >
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Iniciando Control IT</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/error.css' %}"
+    >
+</head>
+
+<body>
+
+    <main class="error-container">
+
+        <div class="error-card">
+
+            <div class="loader"></div>
+
+            <span class="error-code">
+                ERROR 500
+            </span>
+
+            <h1>
+                Control IT se está iniciando
+            </h1>
+
+            <p class="error-message">
+                La base de datos se encuentra temporalmente
+                fuera de servicio y está siendo iniciada
+                automáticamente.
+            </p>
+
+            <p class="error-help">
+                Este proceso puede tardar unos minutos.
+                La página volverá a intentarlo automáticamente.
+            </p>
+
+            <div class="status">
+                <span class="status-dot"></span>
+                Iniciando servicios...
+            </div>
+
+            <button
+                type="button"
+                onclick="window.location.reload()"
+            >
+                Reintentar ahora
+            </button>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

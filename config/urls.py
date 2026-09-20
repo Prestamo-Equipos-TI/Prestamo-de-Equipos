@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
+from config.views import error_500
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -10,3 +12,5 @@ urlpatterns = [
     path('averias/', include('averias.urls')),
     path('historial/', include('historial.urls')),
 ]
+
+handler500 = error_500
