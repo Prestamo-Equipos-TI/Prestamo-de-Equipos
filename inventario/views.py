@@ -5,9 +5,11 @@ from django.db.models import Q
 
 from .forms import EquipoForm
 from .models import Equipo
+from config.reportes import exportar_reporte, fecha, solo_admin_ti
 
 
 @login_required
+@solo_admin_ti
 def inventario_lista(request):
     busqueda = request.GET.get('q', '').strip()
     estado = request.GET.get('estado', '').strip()
@@ -45,6 +47,14 @@ def inventario_lista(request):
         )
 
     equipos = equipos.order_by('-fecha_registro')
+
+    if request.GET.get('export') in ('pdf', 'excel'):
+        filas = [(e.codigo, e.nombre, e.get_categoria_display(), e.marca, e.modelo,
+                  e.get_estado_display(), e.ubicacion, fecha(e.fecha_registro)) for e in equipos]
+        return exportar_reporte(request.GET['export'], 'inventario', 'Inventario', [
+            ('Inventario', ['Código', 'Equipo', 'Categoría', 'Marca', 'Modelo', 'Estado',
+                            'Ubicación', 'Registro'], filas),
+        ])
 
     context = {
         'active_page': 'inventario',

@@ -14,6 +14,7 @@ from .forms_aprobacion import AprobarSolicitudForm
 from .forms_devolucion import RegistrarDevolucionForm
 from .forms_entrega import RegistrarEntregaForm
 from .models import SolicitudPrestamo
+from config.reportes import exportar_reporte, fecha, solo_admin_ti
 
 
 @login_required
@@ -133,12 +134,23 @@ def mis_solicitudes(request):
 
 
 @login_required
+@solo_admin_ti
 def solicitudes_admin(request):
     solicitudes = SolicitudPrestamo.objects.select_related(
         'usuario',
         'usuario__perfil',
         'equipo'
     ).order_by('-fecha_solicitud')
+
+    if request.GET.get('export') in ('pdf', 'excel'):
+        filas = [(s.usuario.perfil.nombre_completo, s.usuario.perfil.carnet,
+                  s.equipo.nombre, s.equipo.codigo, fecha(s.fecha_prestamo),
+                  s.get_estado_display(), fecha(s.fecha_solicitud),
+                  fecha(s.fecha_devolucion_estimada)) for s in solicitudes]
+        return exportar_reporte(request.GET['export'], 'solicitudes', 'Solicitudes de préstamo', [
+            ('Solicitudes', ['Solicitante', 'Carnet', 'Equipo', 'Código', 'Fecha solicitada',
+                             'Estado', 'Enviada', 'Devolución estimada'], filas),
+        ])
 
     context = {
         'active_page': 'solicitudes_admin',

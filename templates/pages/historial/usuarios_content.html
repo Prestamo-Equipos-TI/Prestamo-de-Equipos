@@ -21,15 +21,19 @@
         <p>Selecciona un usuario para revisar su historial de préstamos.</p>
     </div>
 
-    <button
-        type="button"
-        class="secondary-action"
-        hx-get="{% url 'historial:inicio' %}"
-        hx-target="#app-main"
-        hx-swap="innerHTML"
-        hx-push-url="true">
-        ← Volver a historial
-    </button>
+    <div class="report-actions">
+        <a class="secondary-action" href="{% url 'historial:usuarios' %}?export=pdf">Reporte PDF</a>
+        <a class="secondary-action" href="{% url 'historial:usuarios' %}?export=excel">Reporte Excel</a>
+        <button
+            type="button"
+            class="secondary-action"
+            hx-get="{% url 'historial:inicio' %}"
+            hx-target="#app-main"
+            hx-swap="innerHTML"
+            hx-push-url="true">
+            ← Volver a historial
+        </button>
+    </div>
 
 </section>
 

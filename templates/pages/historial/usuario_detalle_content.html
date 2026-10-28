@@ -21,15 +21,19 @@
         <p>{{ usuario_historial.email }}</p>
     </div>
 
-    <button
-        type="button"
-        class="secondary-action"
-        hx-get="{% url 'historial:usuarios' %}"
-        hx-target="#app-main"
-        hx-swap="innerHTML"
-        hx-push-url="true">
-        ← Volver a usuarios
-    </button>
+    <div class="report-actions">
+        <a class="secondary-action" href="{% url 'historial:usuario_detalle' usuario_historial.id %}?export=pdf">Reporte PDF</a>
+        <a class="secondary-action" href="{% url 'historial:usuario_detalle' usuario_historial.id %}?export=excel">Reporte Excel</a>
+        <button
+            type="button"
+            class="secondary-action"
+            hx-get="{% url 'historial:usuarios' %}"
+            hx-target="#app-main"
+            hx-swap="innerHTML"
+            hx-push-url="true">
+            ← Volver a usuarios
+        </button>
+    </div>
 
 </section>
 

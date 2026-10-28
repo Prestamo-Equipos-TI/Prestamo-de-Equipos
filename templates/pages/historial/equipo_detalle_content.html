@@ -21,15 +21,19 @@
         <p>{{ equipo_historial.codigo }} · {{ equipo_historial.marca }}</p>
     </div>
 
-    <button
-        type="button"
-        class="secondary-action"
-        hx-get="{% url 'historial:equipos' %}"
-        hx-target="#app-main"
-        hx-swap="innerHTML"
-        hx-push-url="true">
-        ← Volver a equipos
-    </button>
+    <div class="report-actions">
+        <a class="secondary-action" href="{% url 'historial:equipo_detalle' equipo_historial.id %}?export=pdf">Reporte PDF</a>
+        <a class="secondary-action" href="{% url 'historial:equipo_detalle' equipo_historial.id %}?export=excel">Reporte Excel</a>
+        <button
+            type="button"
+            class="secondary-action"
+            hx-get="{% url 'historial:equipos' %}"
+            hx-target="#app-main"
+            hx-swap="innerHTML"
+            hx-push-url="true">
+            ← Volver a equipos
+        </button>
+    </div>
 
 </section>
 

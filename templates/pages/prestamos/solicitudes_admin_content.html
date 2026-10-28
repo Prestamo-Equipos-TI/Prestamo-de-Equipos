@@ -21,15 +21,19 @@
         <p>Aprueba o rechaza las solicitudes pendientes de préstamo.</p>
     </div>
 
-    <button
-        type="button"
-        class="secondary-action"
-        hx-get="{% url 'prestamos:admin_inicio' %}"
-        hx-target="#app-main"
-        hx-swap="innerHTML"
-        hx-push-url="true">
-        ← Volver a préstamos
-    </button>
+    <div class="report-actions">
+        <a class="secondary-action" href="{% url 'prestamos:solicitudes_admin' %}?export=pdf">Reporte PDF</a>
+        <a class="secondary-action" href="{% url 'prestamos:solicitudes_admin' %}?export=excel">Reporte Excel</a>
+        <button
+            type="button"
+            class="secondary-action"
+            hx-get="{% url 'prestamos:admin_inicio' %}"
+            hx-target="#app-main"
+            hx-swap="innerHTML"
+            hx-push-url="true">
+            ← Volver a préstamos
+        </button>
+    </div>
 
 </section>
 

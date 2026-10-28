@@ -22,16 +22,20 @@
         <p>Consulta, filtra y administra los equipos tecnológicos.</p>
     </div>
 
-    <button
-        type="button"
-        class="primary-action"
-        hx-get="{% url 'inventario:crear' %}"
-        hx-target="#modal-container"
-        hx-swap="innerHTML">
+    <div class="report-actions">
+        <button type="submit" form="inventory-filters" name="export" value="pdf" class="secondary-action">Reporte PDF</button>
+        <button type="submit" form="inventory-filters" name="export" value="excel" class="secondary-action">Reporte Excel</button>
+        <button
+            type="button"
+            class="primary-action"
+            hx-get="{% url 'inventario:crear' %}"
+            hx-target="#modal-container"
+            hx-swap="innerHTML">
 
-        + Registrar equipo
+            + Registrar equipo
 
-    </button>
+        </button>
+    </div>
 
 </section>
 
@@ -40,7 +44,7 @@
      HERRAMIENTAS DE BÚSQUEDA
      ===================================================== -->
 
-<section class="inventory-tools" id="inventory-filters">
+<form class="inventory-tools" id="inventory-filters" method="get" action="{% url 'inventario:lista' %}">
 
     <!-- BÚSQUEDA RÁPIDA -->
 
@@ -143,7 +147,7 @@
 
     </div>
 
-</section>
+</form>
 
 
 <!-- =====================================================
