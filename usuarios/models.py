@@ -36,6 +36,7 @@ class PerfilUsuario(models.Model):
         max_length=20,
         blank=True
     )
+    debe_cambiar_clave = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.nombre_completo} - {self.get_rol_display()}'

@@ -186,6 +186,7 @@ def usuario_crear(request):
                 nombre_completo=form.cleaned_data['nombre_completo'],
                 carnet=form.cleaned_data['carnet'],
                 telefono=form.cleaned_data['telefono'],
+                debe_cambiar_clave=True,
             )
             RegistroGestionUsuario.objects.create(
                 actor=request.user, usuario=usuario, accion='crear'
@@ -269,6 +270,8 @@ def usuario_restablecer_clave(request, usuario_id):
     with transaction.atomic():
         usuario.set_password(clave)
         usuario.save(update_fields=['password'])
+        usuario.perfil.debe_cambiar_clave = True
+        usuario.perfil.save(update_fields=['debe_cambiar_clave'])
         RegistroGestionUsuario.objects.create(
             actor=request.user, usuario=usuario, accion='restablecer_clave'
         )
@@ -287,6 +290,10 @@ def cambiar_clave(request):
         field.widget.attrs['class'] = 'form-control'
     if request.method == 'POST' and form.is_valid():
         usuario = form.save()
+        perfil = getattr(usuario, 'perfil', None)
+        if perfil and perfil.debe_cambiar_clave:
+            perfil.debe_cambiar_clave = False
+            perfil.save(update_fields=['debe_cambiar_clave'])
         update_session_auth_hash(request, usuario)
         messages.success(request, 'Contraseña actualizada correctamente.')
         return redirect('cambiar_clave')

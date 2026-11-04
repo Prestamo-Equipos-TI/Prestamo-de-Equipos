@@ -77,6 +77,7 @@ class GestionSolicitantesTest(TestCase):
         self.assertFalse(creado.is_staff)
         self.assertFalse(creado.is_superuser)
         self.assertEqual(creado.perfil.rol, PerfilUsuario.ROL_USUARIO)
+        self.assertTrue(creado.perfil.debe_cambiar_clave)
         self.assertTrue(creado.check_password(self.clave_mostrada(respuesta)))
         registro = RegistroGestionUsuario.objects.get(usuario=creado)
         self.assertEqual((registro.actor, registro.accion), (self.admin, 'crear'))
@@ -115,6 +116,7 @@ class GestionSolicitantesTest(TestCase):
         self.solicitante.refresh_from_db()
         self.assertFalse(self.solicitante.check_password('clave-original'))
         self.assertTrue(self.solicitante.check_password(self.clave_mostrada(respuesta)))
+        self.assertTrue(self.solicitante.perfil.debe_cambiar_clave)
         self.assertIn('no-store', respuesta['Cache-Control'])
         self.assertEqual(
             RegistroGestionUsuario.objects.get(usuario=self.solicitante).accion,
@@ -133,6 +135,30 @@ class GestionSolicitantesTest(TestCase):
         self.solicitante.refresh_from_db()
         self.assertTrue(self.solicitante.check_password('Una-clave-nueva-larga-2026'))
         self.assertTrue(self.client.get(url).wsgi_request.user.is_authenticated)
+
+    def test_clave_temporal_exige_cambio_antes_de_entrar(self):
+        respuesta = self.client.post(
+            reverse('usuario_restablecer_clave', args=[self.solicitante.pk]),
+            HTTP_HX_REQUEST='true',
+        )
+        clave_temporal = self.clave_mostrada(respuesta)
+        self.solicitante.refresh_from_db()
+        self.client.force_login(self.solicitante)
+        cambio = reverse('cambiar_clave')
+        self.assertRedirects(self.client.get(reverse('dashboard')), cambio)
+        parcial = self.client.get(reverse('alertas:lista'), HTTP_HX_REQUEST='true')
+        self.assertEqual(parcial.status_code, 204)
+        self.assertEqual(parcial['HX-Redirect'], cambio)
+        self.assertEqual(self.client.get(cambio).status_code, 200)
+        respuesta = self.client.post(cambio, {
+            'old_password': clave_temporal,
+            'new_password1': 'Otra-clave-segura-larga-2026',
+            'new_password2': 'Otra-clave-segura-larga-2026',
+        })
+        self.assertRedirects(respuesta, cambio)
+        self.solicitante.refresh_from_db()
+        self.assertFalse(self.solicitante.perfil.debe_cambiar_clave)
+        self.assertEqual(self.client.get(reverse('dashboard')).status_code, 200)
 
     def test_no_gestiona_administradores_ni_cuentas_tecnicas(self):
         tecnico = User.objects.create_superuser('tecnicoqa', password='clave-tecnica')
