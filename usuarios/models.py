@@ -39,3 +39,21 @@ class PerfilUsuario(models.Model):
 
     def __str__(self):
         return f'{self.nombre_completo} - {self.get_rol_display()}'
+
+
+class RegistroGestionUsuario(models.Model):
+    ACCIONES = [
+        ('crear', 'Crear'),
+        ('editar', 'Editar'),
+        ('activar', 'Activar'),
+        ('desactivar', 'Desactivar'),
+        ('restablecer_clave', 'Restablecer contraseña'),
+    ]
+
+    actor = models.ForeignKey(User, on_delete=models.PROTECT, related_name='gestiones_realizadas')
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT, related_name='gestiones_recibidas')
+    accion = models.CharField(max_length=20, choices=ACCIONES)
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-fecha']
