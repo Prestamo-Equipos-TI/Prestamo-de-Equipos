@@ -423,6 +423,9 @@ document.body.addEventListener('htmx:afterRequest', function (event) {
     const esRechazarSolicitud =
         accion === 'rechazar-solicitud';
 
+    const esEstadoUsuario =
+        accion === 'usuario-estado';
+
 
     const esDesactivarEquipo =
         elemento.classList.contains('danger') &&
@@ -528,6 +531,11 @@ document.body.addEventListener('htmx:afterRequest', function (event) {
 
         mensajeResultado =
             'Equipo eliminado correctamente.';
+
+    } else if (esEstadoUsuario) {
+
+        mensajeResultado =
+            'Estado de la cuenta actualizado.';
     }
 
 
@@ -546,7 +554,8 @@ document.body.addEventListener('htmx:afterRequest', function (event) {
         esFormularioGestionAveria ||
         esFormularioResolverAveria ||
         esRechazarSolicitud ||
-        esDesactivarEquipo
+        esDesactivarEquipo ||
+        esEstadoUsuario
     ) {
 
         mostrarMensajeResultado(

@@ -66,6 +66,14 @@
     overflow: hidden;
 }
 
+.user-table-card {
+    overflow-x: auto;
+}
+
+.user-table-card .inventory-table {
+    min-width: 900px;
+}
+
 .inventory-table {
     width: 100%;
     border-collapse: collapse;
