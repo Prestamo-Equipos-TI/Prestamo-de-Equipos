@@ -1,0 +1,63 @@
+<section class="inventory-table-card user-table-card" id="user-table-wrapper">
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Usuario</th>
+                <th>Carnet</th>
+                <th>Correo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.perfil.nombre_completo }}</td>
+                    <td>{{ usuario.username }}</td>
+                    <td>{{ usuario.perfil.carnet }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>
+                        {% if usuario.is_active %}
+                            <span class="status disponible">Activo</span>
+                        {% else %}
+                            <span class="status mantenimiento">Inactivo</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <button type="button" class="table-btn"
+                                hx-get="{% url 'usuario_detalle' usuario.id %}"
+                                hx-target="#modal-container" hx-swap="innerHTML">Ver</button>
+                        <button type="button" class="table-btn"
+                                hx-get="{% url 'usuario_editar' usuario.id %}"
+                                hx-target="#modal-container" hx-swap="innerHTML">Editar</button>
+                        <form method="post" action="{% url 'usuario_estado' usuario.id %}" style="display:inline">
+                            {% csrf_token %}
+                            <input type="hidden" name="accion" value="{% if usuario.is_active %}desactivar{% else %}activar{% endif %}">
+                            <button type="submit" class="table-btn" data-action="usuario-estado"
+                                    hx-post="{% url 'usuario_estado' usuario.id %}" hx-include="closest form"
+                                    hx-confirm="¿Confirmas el cambio de estado de esta cuenta?">
+                                {% if usuario.is_active %}Desactivar{% else %}Activar{% endif %}
+                            </button>
+                        </form>
+                        <form method="post" action="{% url 'usuario_restablecer_clave' usuario.id %}" style="display:inline">
+                            {% csrf_token %}
+                            <button type="submit" class="table-btn"
+                                    hx-post="{% url 'usuario_restablecer_clave' usuario.id %}"
+                                    hx-target="#modal-container" hx-swap="innerHTML"
+                                    hx-confirm="¿Generar una nueva contraseña para esta cuenta?">
+                                Restablecer clave
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="6" class="empty-table">
+                    <div class="empty-state">
+                        <strong>{% if busqueda %}No se encontraron solicitantes{% else %}No hay solicitantes registrados{% endif %}</strong>
+                    </div>
+                </td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>

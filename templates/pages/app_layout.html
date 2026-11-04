@@ -81,6 +81,17 @@
                     <span>📚</span>
                     Historial
                     </a>
+                    <a
+                        href="{% url 'usuarios_lista' %}"
+                        class="{% if active_page == 'usuarios' %}active{% endif %}"
+                        data-page="usuarios"
+                        hx-get="{% url 'usuarios_lista' %}"
+                        hx-target="#app-main"
+                        hx-swap="innerHTML"
+                        hx-push-url="true">
+                        <span>👤</span>
+                        Usuarios
+                    </a>
                 {% elif request.user.perfil.rol == 'usuario' %}
 
                 <a
@@ -133,6 +144,13 @@
                     {% if tiene_alertas_nuevas %}
                         <span class="sidebar-notification-dot"></span>
                     {% endif %}
+                </a>
+
+                <a href="{% url 'cambiar_clave' %}"
+                   class="{% if active_page == 'cambiar_clave' %}active{% endif %}"
+                   data-page="cambiar_clave">
+                    <span>🔑</span>
+                    Cambiar contraseña
                 </a>
 
             </div>

@@ -1,0 +1,37 @@
+<div class="modal-backdrop-custom">
+    {% if es_modal %}<script>abrirModal();</script>{% endif %}
+    <div class="modal-panel">
+        <div class="modal-header-custom">
+            <div>
+                <h2>{{ titulo }}</h2>
+                <p>{{ descripcion }}</p>
+            </div>
+        </div>
+        <form method="post" class="equipment-form"
+              action="{% if usuario_gestionado %}{% url 'usuario_editar' usuario_gestionado.id %}{% else %}{% url 'usuario_crear' %}{% endif %}"
+              {% if es_modal %}
+              hx-post="{% if usuario_gestionado %}{% url 'usuario_editar' usuario_gestionado.id %}{% else %}{% url 'usuario_crear' %}{% endif %}"
+              hx-target="#modal-container" hx-swap="innerHTML"
+              {% endif %}>
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="form-grid">
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {{ field.errors }}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="form-actions">
+                {% if es_modal %}
+                    <button type="button" class="secondary-action" onclick="cerrarModal()">Cancelar</button>
+                {% else %}
+                    <a class="secondary-action" href="{% url 'usuarios_lista' %}">Cancelar</a>
+                {% endif %}
+                <button type="submit" class="primary-action">Guardar usuario</button>
+            </div>
+        </form>
+    </div>
+</div>

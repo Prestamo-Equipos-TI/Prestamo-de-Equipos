@@ -1,0 +1,41 @@
+<header class="topbar">
+    <div>
+        <h1>Usuarios</h1>
+        <p>Administración de cuentas solicitantes.</p>
+    </div>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">Cerrar sesión</button>
+    </form>
+</header>
+
+<section class="inventory-header">
+    <div>
+        <h2>Solicitantes</h2>
+        <p>Consulta y administra las cuentas de quienes solicitan equipos.</p>
+    </div>
+    <button type="button" class="primary-action"
+            hx-get="{% url 'usuario_crear' %}" hx-target="#modal-container" hx-swap="innerHTML">
+        + Registrar usuario
+    </button>
+</section>
+
+{% if messages %}
+    {% for message in messages %}
+        <p role="status">{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+<form class="inventory-tools" method="get" action="{% url 'usuarios_lista' %}">
+    <div class="search-box">
+        <input type="search" class="form-control" name="q" value="{{ busqueda }}"
+               placeholder="Buscar por nombre, usuario, correo o carnet"
+               aria-label="Buscar solicitantes"
+               hx-get="{% url 'usuarios_lista' %}" hx-target="#user-table-wrapper"
+               hx-trigger="keyup changed delay:350ms"
+               hx-vals='{"partial": "tabla"}'>
+    </div>
+</form>
+
+{% include 'pages/usuarios/tabla.html' %}
+<div id="modal-container"></div>

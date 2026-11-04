@@ -1,0 +1,28 @@
+<div class="modal-backdrop-custom" hx-history="false">
+    {% if es_modal %}<script>abrirModal();</script>{% endif %}
+    <div class="modal-panel">
+        <div class="modal-success">
+            <h2>
+                {% if accion == 'crear' %}Cuenta creada
+                {% elif accion == 'editar' %}Cuenta actualizada
+                {% else %}Contraseña restablecida{% endif %}
+            </h2>
+            <p>{{ usuario_gestionado.perfil.nombre_completo }}</p>
+            {% if clave %}
+                <p>Esta contraseña se muestra una sola vez. Entrégala a la persona por un canal seguro.</p>
+                <p>La persona puede cambiarla desde «Cambiar contraseña» al iniciar sesión.</p>
+                <div class="form-group">
+                    <label for="clave-generada">Nueva contraseña</label>
+                    <input id="clave-generada" class="form-control" type="text"
+                           value="{{ clave }}" readonly autocomplete="off">
+                </div>
+            {% endif %}
+            {% if es_modal %}
+                <button type="button" class="primary-action"
+                        onclick="cerrarModal(); refrescarVistaActual();">Volver a usuarios</button>
+            {% else %}
+                <a class="primary-action" href="{% url 'usuarios_lista' %}">Volver a usuarios</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

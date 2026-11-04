@@ -1,0 +1,33 @@
+<div class="modal-backdrop-custom">
+    {% if es_modal %}<script>abrirModal();</script>{% endif %}
+    <div class="modal-panel">
+        <div class="modal-header-custom">
+            <div>
+                <h2>{{ usuario_gestionado.perfil.nombre_completo }}</h2>
+                <p>Cuenta solicitante</p>
+            </div>
+        </div>
+        <div class="form-grid">
+            <div class="form-group"><strong>Usuario</strong><span>{{ usuario_gestionado.username }}</span></div>
+            <div class="form-group"><strong>Carnet</strong><span>{{ usuario_gestionado.perfil.carnet }}</span></div>
+            <div class="form-group"><strong>Correo</strong><span>{{ usuario_gestionado.email }}</span></div>
+            <div class="form-group"><strong>Teléfono</strong><span>{{ usuario_gestionado.perfil.telefono|default:"—" }}</span></div>
+            <div class="form-group"><strong>Estado</strong><span>{% if usuario_gestionado.is_active %}Activo{% else %}Inactivo{% endif %}</span></div>
+        </div>
+        <h3>Acciones recientes</h3>
+        <ul>
+            {% for registro in acciones %}
+                <li>{{ registro.get_accion_display }} · {{ registro.fecha|date:"d/m/Y H:i" }} · {{ registro.actor.username }}</li>
+            {% empty %}
+                <li>Sin acciones registradas.</li>
+            {% endfor %}
+        </ul>
+        <div class="form-actions">
+            {% if es_modal %}
+                <button type="button" class="secondary-action" onclick="cerrarModal()">Cerrar</button>
+            {% else %}
+                <a class="secondary-action" href="{% url 'usuarios_lista' %}">Volver</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
