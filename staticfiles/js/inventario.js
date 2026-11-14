@@ -64,183 +64,131 @@ function limpiarIndicadoresAlertas() {
 // MENSAJES DE RESULTADO
 // =========================================================
 
-function mostrarMensajeResultado(mensaje, tipo = 'exito') {
+const toastsActivos = new Map();
+const DURACION_TOAST = 4500;
 
+function retirarToast(toast) {
+    const estado = toastsActivos.get(toast);
+    if (!estado) return;
+
+    clearTimeout(estado.auto);
+    clearTimeout(estado.retiro);
+    cancelAnimationFrame(estado.frame);
+    estado.boton.removeEventListener('click', estado.alCerrar);
+    if (estado.alTerminar) {
+        toast.removeEventListener('transitionend', estado.alTerminar);
+    }
+
+    const contenedor = toast.parentElement;
+    toast.remove();
+    toastsActivos.delete(toast);
+    if (contenedor && !contenedor.children.length) contenedor.remove();
+}
+
+function cerrarToast(toast) {
+    const estado = toastsActivos.get(toast);
+    if (!estado || estado.cerrando) return;
+
+    estado.cerrando = true;
+    clearTimeout(estado.auto);
+    cancelAnimationFrame(estado.frame);
+    toast.classList.remove('show');
+    toast.classList.add('hide');
+
+    estado.alTerminar = function (event) {
+        if (event.target === toast && event.propertyName === 'opacity') {
+            retirarToast(toast);
+        }
+    };
+    toast.addEventListener('transitionend', estado.alTerminar);
+    estado.retiro = setTimeout(function () { retirarToast(toast); }, 350);
+}
+
+function crearToast(tipo, icono, contenido) {
     let contenedor = document.getElementById('toast-container');
-
-    // Si todavía no existe, se crea automáticamente
     if (!contenedor) {
         contenedor = document.createElement('div');
         contenedor.id = 'toast-container';
         contenedor.className = 'toast-container';
-
         document.body.appendChild(contenedor);
     }
 
     const toast = document.createElement('div');
+    toast.className = 'result-toast ' + tipo;
 
-    toast.className = `result-toast ${tipo}`;
+    const iconoElemento = document.createElement('span');
+    iconoElemento.className = 'result-toast-icon';
+    iconoElemento.textContent = icono;
 
-    const icono = tipo === 'exito' ? '✓' : '✕';
+    const boton = document.createElement('button');
+    boton.type = 'button';
+    boton.className = 'result-toast-close';
+    boton.setAttribute('aria-label', 'Cerrar aviso');
+    boton.textContent = '\u00d7';
 
-    toast.innerHTML = `
-        <span class="result-toast-icon">
-            ${icono}
-        </span>
-
-        <span class="result-toast-message">
-            ${mensaje}
-        </span>
-    `;
-
+    toast.appendChild(iconoElemento);
+    toast.appendChild(contenido);
+    toast.appendChild(boton);
     contenedor.appendChild(toast);
 
-    // Permite que se ejecute la animación de entrada
-    requestAnimationFrame(function () {
-        toast.classList.add('show');
+    const estado = {
+        auto: null,
+        retiro: null,
+        frame: null,
+        boton: boton,
+        cerrando: false,
+        vence: Date.now() + DURACION_TOAST,
+        alTerminar: null,
+        alCerrar: function () { cerrarToast(toast); }
+    };
+    toastsActivos.set(toast, estado);
+    boton.addEventListener('click', estado.alCerrar);
+    estado.frame = requestAnimationFrame(function () {
+        if (!estado.cerrando) toast.classList.add('show');
     });
-
-    // Empieza a desaparecer después de 3 segundos
-    setTimeout(function () {
-
-        toast.classList.remove('show');
-
-        toast.classList.add('hide');
-
-        setTimeout(function () {
-            toast.remove();
-        }, 300);
-
-    }, 3000);
+    estado.auto = setTimeout(function () {
+        cerrarToast(toast);
+    }, DURACION_TOAST);
 }
+
+function mostrarMensajeResultado(mensaje, tipo = 'exito') {
+    const contenido = document.createElement('span');
+    contenido.className = 'result-toast-message';
+    contenido.textContent = mensaje;
+    crearToast(tipo, tipo === 'exito' ? '\u2713' : '\u2715', contenido);
+}
+
 // =========================================================
 // TOAST DE NUEVAS ALERTAS
 // =========================================================
 
 function mostrarNuevaAlerta(titulo, mensaje) {
+    const contenido = document.createElement('div');
+    contenido.className = 'result-toast-content';
 
-    let contenedor =
-        document.getElementById('toast-container');
+    const tituloElemento = document.createElement('strong');
+    tituloElemento.className = 'result-toast-title';
+    tituloElemento.textContent = titulo;
 
-    if (!contenedor) {
+    const mensajeElemento = document.createElement('span');
+    mensajeElemento.className = 'result-toast-message';
+    mensajeElemento.textContent = mensaje;
 
-        contenedor =
-            document.createElement('div');
-
-        contenedor.id =
-            'toast-container';
-
-        contenedor.className =
-            'toast-container';
-
-        document.body.appendChild(
-            contenedor
-        );
-    }
-
-
-    const toast =
-        document.createElement('div');
-
-    toast.className =
-        'result-toast alerta';
-
-
-    const icono =
-        document.createElement('span');
-
-    icono.className =
-        'result-toast-icon';
-
-    icono.textContent =
-        '🔔';
-
-
-    const contenido =
-        document.createElement('div');
-
-    contenido.className =
-        'result-toast-content';
-
-
-    const tituloElemento =
-        document.createElement('strong');
-
-    tituloElemento.className =
-        'result-toast-title';
-
-    tituloElemento.textContent =
-        titulo;
-
-
-    const mensajeElemento =
-        document.createElement('span');
-
-    mensajeElemento.className =
-        'result-toast-message';
-
-    mensajeElemento.textContent =
-        mensaje;
-
-
-    contenido.appendChild(
-        tituloElemento
-    );
-
-    contenido.appendChild(
-        mensajeElemento
-    );
-
-
-    toast.appendChild(
-        icono
-    );
-
-    toast.appendChild(
-        contenido
-    );
-
-
-    contenedor.appendChild(
-        toast
-    );
-
-
-    requestAnimationFrame(
-        function () {
-
-            toast.classList.add(
-                'show'
-            );
-        }
-    );
-
-
-    setTimeout(
-        function () {
-
-            toast.classList.remove(
-                'show'
-            );
-
-            toast.classList.add(
-                'hide'
-            );
-
-
-            setTimeout(
-                function () {
-
-                    toast.remove();
-
-                },
-                300
-            );
-
-        },
-        5000
-    );
+    contenido.appendChild(tituloElemento);
+    contenido.appendChild(mensajeElemento);
+    crearToast('alerta', '\uD83D\uDD14', contenido);
 }
+
+document.addEventListener('visibilitychange', function () {
+    if (document.hidden) return;
+    for (const [toast, estado] of toastsActivos) {
+        if (Date.now() >= estado.vence) cerrarToast(toast);
+    }
+});
+
+window.addEventListener('pagehide', function () {
+    for (const toast of toastsActivos.keys()) retirarToast(toast);
+});
 
 // =========================================================
 // INDICADOR DE ALERTAS DEL SIDEBAR
@@ -284,7 +232,13 @@ function mostrarIndicadorAlertas() {
 // CONSULTAR NUEVAS ALERTAS
 // =========================================================
 
+let consultaAlertasEnCurso = false;
+let ultimaAlertaMostrada = null;
+
 async function consultarNuevasAlertas() {
+
+    if (consultaAlertasEnCurso) return;
+    consultaAlertasEnCurso = true;
 
     try {
 
@@ -333,12 +287,14 @@ async function consultarNuevasAlertas() {
 
 
         if (
-            ultimoIdGuardado ===
-            idActual
+            ultimoIdGuardado === idActual ||
+            ultimaAlertaMostrada === idActual
         ) {
             return;
         }
 
+
+        ultimaAlertaMostrada = idActual;
 
         mostrarNuevaAlerta(
             datos.titulo,
@@ -358,6 +314,8 @@ async function consultarNuevasAlertas() {
             'Error al consultar alertas:',
             error
         );
+    } finally {
+        consultaAlertasEnCurso = false;
     }
 }
 // =========================================================
@@ -634,23 +592,31 @@ function toggleBusquedaAvanzada() {
 // MONITOREO DE NUEVAS ALERTAS
 // =========================================================
 
+let primeraConsultaAlertas;
+let intervaloAlertas;
+
 document.addEventListener(
     'DOMContentLoaded',
     function () {
 
         // Primera comprobación unos segundos después
         // de cargar el sistema.
-        setTimeout(
+        primeraConsultaAlertas = setTimeout(
             consultarNuevasAlertas,
             3000
         );
 
 
         // Después comprueba cada 30 segundos.
-        setInterval(
+        intervaloAlertas = setInterval(
             consultarNuevasAlertas,
             30000
         );
 
     }
 );
+
+window.addEventListener('pagehide', function () {
+    clearTimeout(primeraConsultaAlertas);
+    clearInterval(intervaloAlertas);
+});

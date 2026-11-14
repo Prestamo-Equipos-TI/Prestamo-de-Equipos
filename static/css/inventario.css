@@ -841,6 +841,26 @@ body.modal-open {
     transform: translateX(25px);
 }
 
+.result-toast-close {
+    align-self: flex-start;
+    flex: 0 0 28px;
+    margin-left: auto;
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    border: 0;
+    background: transparent;
+    color: #dddddd;
+    font: inherit;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.result-toast-close:hover { color: #ffffff; }
+.result-toast-close:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 2px; }
+
 
 /* =========================
    MENSAJE CORRECTO
