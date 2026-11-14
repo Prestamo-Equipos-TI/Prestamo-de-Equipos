@@ -4,7 +4,7 @@
         <div class="modal-header-custom">
             <div>
                 <h2>{{ usuario_gestionado.perfil.nombre_completo }}</h2>
-                <p>Cuenta solicitante</p>
+                <p>{{ usuario_gestionado.perfil.get_rol_display }}{% if usuario_gestionado.perfil.es_principal %} · Principal{% endif %}</p>
             </div>
         </div>
         <div class="form-grid">
@@ -13,11 +13,12 @@
             <div class="form-group"><strong>Correo</strong><span>{{ usuario_gestionado.email }}</span></div>
             <div class="form-group"><strong>Teléfono</strong><span>{{ usuario_gestionado.perfil.telefono|default:"—" }}</span></div>
             <div class="form-group"><strong>Estado</strong><span>{% if usuario_gestionado.is_active %}Activo{% else %}Inactivo{% endif %}</span></div>
+            <div class="form-group"><strong>Rol</strong><span>{{ usuario_gestionado.perfil.get_rol_display }}</span></div>
         </div>
         <h3>Acciones recientes</h3>
         <ul>
             {% for registro in acciones %}
-                <li>{{ registro.get_accion_display }} · {{ registro.fecha|date:"d/m/Y H:i" }} · {{ registro.actor.username }}</li>
+                <li>{{ registro.get_accion_display }}{% if registro.rol_anterior or registro.rol_nuevo %} ({{ registro.rol_anterior|default:'—' }} → {{ registro.rol_nuevo|default:'—' }}){% endif %} · {{ registro.fecha|date:"d/m/Y H:i" }} · {{ registro.actor.username }}{% if registro.motivo %} · {{ registro.motivo }}{% endif %}</li>
             {% empty %}
                 <li>Sin acciones registradas.</li>
             {% endfor %}

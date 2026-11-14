@@ -5,11 +5,12 @@ from django.db.models import Q
 
 from .forms import EquipoForm
 from .models import Equipo
-from config.reportes import exportar_reporte, fecha, solo_admin_ti
+from config.reportes import exportar_reporte, fecha
+from usuarios.permisos import solo_gestor_ti
 
 
 @login_required
-@solo_admin_ti
+@solo_gestor_ti
 def inventario_lista(request):
     busqueda = request.GET.get('q', '').strip()
     estado = request.GET.get('estado', '').strip()
@@ -105,6 +106,7 @@ def inventario_lista(request):
 
 
 @login_required
+@solo_gestor_ti
 def equipo_crear(request):
     es_htmx = request.headers.get('HX-Request')
 
@@ -146,6 +148,7 @@ def equipo_crear(request):
 
 
 @login_required
+@solo_gestor_ti
 def equipo_editar(request, equipo_id):
     equipo = get_object_or_404(
         Equipo,
@@ -199,6 +202,7 @@ def equipo_editar(request, equipo_id):
 
 
 @login_required
+@solo_gestor_ti
 def equipo_detalle(request, equipo_id):
     equipo = get_object_or_404(
         Equipo,
@@ -218,6 +222,7 @@ def equipo_detalle(request, equipo_id):
 
 
 @login_required
+@solo_gestor_ti
 def equipo_desactivar(request, equipo_id):
     equipo = get_object_or_404(
         Equipo,

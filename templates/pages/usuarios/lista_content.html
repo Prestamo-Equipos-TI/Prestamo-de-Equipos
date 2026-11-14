@@ -1,7 +1,7 @@
 <header class="topbar">
     <div>
         <h1>Usuarios</h1>
-        <p>Administración de cuentas solicitantes.</p>
+        <p>Administración de cuentas y roles funcionales.</p>
     </div>
     <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
@@ -11,8 +11,8 @@
 
 <section class="inventory-header">
     <div>
-        <h2>Solicitantes</h2>
-        <p>Consulta y administra las cuentas de quienes solicitan equipos.</p>
+        <h2>Usuarios</h2>
+        <p>Consulta y administra las cuentas autorizadas para tu rol.</p>
     </div>
     <button type="button" class="primary-action"
             hx-get="{% url 'usuario_crear' %}" hx-target="#modal-container" hx-swap="innerHTML">
@@ -30,7 +30,7 @@
     <div class="search-box">
         <input type="search" class="form-control" name="q" value="{{ busqueda }}"
                placeholder="Buscar por nombre, usuario, correo o carnet"
-               aria-label="Buscar solicitantes"
+               aria-label="Buscar usuarios"
                hx-get="{% url 'usuarios_lista' %}" hx-target="#user-table-wrapper"
                hx-trigger="keyup changed delay:350ms"
                hx-vals='{"partial": "tabla"}'>

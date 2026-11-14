@@ -9,12 +9,12 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.db import transaction
 from django.db.models import Q
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 
-from config.reportes import solo_admin_ti
-from .forms import SolicitanteForm
+from .forms import UsuarioGestionForm
+from .permisos import roles_gestionables, solo_gestor_ti
 from .models import PerfilUsuario, RegistroGestionUsuario
 
 from alertas.models import Alerta
@@ -111,11 +111,11 @@ def dashboard(request):
     )
 
 
-def _solicitante(usuario_id):
+def _usuario_gestionable(actor, usuario_id):
     return get_object_or_404(
         User.objects.select_related('perfil'),
         pk=usuario_id,
-        perfil__rol=PerfilUsuario.ROL_USUARIO,
+        perfil__rol__in=roles_gestionables(actor),
         is_staff=False,
         is_superuser=False,
     )
@@ -130,11 +130,11 @@ def _render_panel(request, plantilla, contexto, status=200):
 
 
 @login_required
-@solo_admin_ti
+@solo_gestor_ti
 def usuarios_lista(request):
     busqueda = request.GET.get('q', '').strip()
     usuarios = User.objects.select_related('perfil').filter(
-        perfil__rol=PerfilUsuario.ROL_USUARIO,
+        perfil__rol__in=roles_gestionables(request.user),
         is_staff=False,
         is_superuser=False,
     ).order_by('perfil__nombre_completo')
@@ -157,9 +157,9 @@ def usuarios_lista(request):
 
 
 @login_required
-@solo_admin_ti
+@solo_gestor_ti
 def usuario_detalle(request, usuario_id):
-    usuario = _solicitante(usuario_id)
+    usuario = _usuario_gestionable(request.user, usuario_id)
     return _render_panel(request, 'pages/usuarios/detalle_content.html', {
         'usuario_gestionado': usuario,
         'acciones': usuario.gestiones_recibidas.select_related('actor')[:10],
@@ -168,10 +168,11 @@ def usuario_detalle(request, usuario_id):
 
 
 @login_required
-@solo_admin_ti
+@solo_gestor_ti
 @never_cache
 def usuario_crear(request):
-    form = SolicitanteForm(request.POST if request.method == 'POST' else None)
+    roles = roles_gestionables(request.user)
+    form = UsuarioGestionForm(request.POST if request.method == 'POST' else None, roles_permitidos=roles)
     if request.method == 'POST' and form.is_valid():
         clave = token_urlsafe(24)
         with transaction.atomic():
@@ -182,14 +183,15 @@ def usuario_crear(request):
             )
             PerfilUsuario.objects.create(
                 user=usuario,
-                rol=PerfilUsuario.ROL_USUARIO,
+                rol=form.cleaned_data['rol'],
                 nombre_completo=form.cleaned_data['nombre_completo'],
                 carnet=form.cleaned_data['carnet'],
                 telefono=form.cleaned_data['telefono'],
                 debe_cambiar_clave=True,
             )
             RegistroGestionUsuario.objects.create(
-                actor=request.user, usuario=usuario, accion='crear'
+                actor=request.user, usuario=usuario, accion='crear',
+                rol_nuevo=form.cleaned_data['rol'],
             )
         return _render_panel(request, 'pages/usuarios/resultado_content.html', {
             'usuario_gestionado': usuario,
@@ -199,26 +201,35 @@ def usuario_crear(request):
         })
     return _render_panel(request, 'pages/usuarios/formulario_content.html', {
         'form': form,
-        'titulo': 'Registrar solicitante',
+        'titulo': 'Registrar usuario' if len(roles) > 1 else 'Registrar solicitante',
         'descripcion': 'Completa los datos de la nueva cuenta.',
         'es_modal': bool(request.headers.get('HX-Request')),
     }, status=422 if request.method == 'POST' and request.headers.get('HX-Request') else 200)
 
 
 @login_required
-@solo_admin_ti
+@solo_gestor_ti
 def usuario_editar(request, usuario_id):
-    usuario = _solicitante(usuario_id)
-    form = SolicitanteForm(request.POST if request.method == 'POST' else None, usuario=usuario)
+    usuario = _usuario_gestionable(request.user, usuario_id)
+    roles = (PerfilUsuario.ROL_SUPERADMIN,) if usuario.perfil.es_principal else roles_gestionables(request.user)
+    form = UsuarioGestionForm(request.POST if request.method == 'POST' else None,
+                              usuario=usuario, roles_permitidos=roles)
     if request.method == 'POST' and form.is_valid():
         with transaction.atomic():
             usuario.username = form.cleaned_data['username']
             usuario.email = form.cleaned_data['email']
             usuario.save(update_fields=['username', 'email'])
+            rol_anterior = usuario.perfil.rol
+            usuario.perfil.rol = form.cleaned_data['rol']
             usuario.perfil.nombre_completo = form.cleaned_data['nombre_completo']
             usuario.perfil.carnet = form.cleaned_data['carnet']
             usuario.perfil.telefono = form.cleaned_data['telefono']
-            usuario.perfil.save(update_fields=['nombre_completo', 'carnet', 'telefono'])
+            usuario.perfil.save(update_fields=['rol', 'nombre_completo', 'carnet', 'telefono'])
+            if rol_anterior != usuario.perfil.rol:
+                RegistroGestionUsuario.objects.create(
+                    actor=request.user, usuario=usuario, accion='cambiar_rol',
+                    rol_anterior=rol_anterior, rol_nuevo=usuario.perfil.rol,
+                )
             RegistroGestionUsuario.objects.create(
                 actor=request.user, usuario=usuario, accion='editar'
             )
@@ -229,7 +240,7 @@ def usuario_editar(request, usuario_id):
         })
     return _render_panel(request, 'pages/usuarios/formulario_content.html', {
         'form': form,
-        'titulo': 'Editar solicitante',
+        'titulo': 'Editar usuario',
         'descripcion': 'Actualiza los datos de la cuenta.',
         'usuario_gestionado': usuario,
         'es_modal': bool(request.headers.get('HX-Request')),
@@ -237,16 +248,18 @@ def usuario_editar(request, usuario_id):
 
 
 @login_required
-@solo_admin_ti
+@solo_gestor_ti
 @require_POST
 def usuario_estado(request, usuario_id):
     accion = request.POST.get('accion')
     if accion not in ('activar', 'desactivar'):
         return HttpResponseBadRequest('Acción no válida')
     with transaction.atomic():
-        usuario = _solicitante(usuario_id)
-        usuario = User.objects.select_for_update().get(pk=usuario.pk)
+        usuario = _usuario_gestionable(request.user, usuario_id)
+        usuario = User.objects.select_for_update().select_related('perfil').get(pk=usuario.pk)
         activo = accion == 'activar'
+        if not activo and usuario.perfil.es_principal:
+            return HttpResponseForbidden('No se puede desactivar al superadministrador principal.')
         if usuario.is_active == activo:
             return HttpResponseBadRequest('La cuenta ya tiene ese estado')
         usuario.is_active = activo
@@ -261,11 +274,11 @@ def usuario_estado(request, usuario_id):
 
 
 @login_required
-@solo_admin_ti
+@solo_gestor_ti
 @require_POST
 @never_cache
 def usuario_restablecer_clave(request, usuario_id):
-    usuario = _solicitante(usuario_id)
+    usuario = _usuario_gestionable(request.user, usuario_id)
     clave = token_urlsafe(24)
     with transaction.atomic():
         usuario.set_password(clave)

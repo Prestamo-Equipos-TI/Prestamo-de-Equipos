@@ -29,7 +29,7 @@
 
     </section>
 
-    {% if request.user.perfil.rol == 'admin_ti' %}
+    {% if request.user.perfil.rol == 'admin_ti' or request.user.perfil.rol == 'superadmin' %}
 
     <!-- ==========================================
          ESTADÍSTICAS GENERALES

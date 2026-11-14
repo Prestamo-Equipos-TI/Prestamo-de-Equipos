@@ -35,7 +35,7 @@
                     Dashboard
                 </a>
 
-                {% if request.user.perfil.rol == 'admin_ti' %}
+                {% if request.user.perfil.rol == 'admin_ti' or request.user.perfil.rol == 'superadmin' %}
 
                     <a
                         href="{% url 'inventario:lista' %}"
@@ -166,6 +166,8 @@
 
                 {% if request.user.perfil.rol == 'admin_ti' %}
                     <small>Administrador TI</small>
+                {% elif request.user.perfil.rol == 'superadmin' %}
+                    <small>{% if request.user.perfil.es_principal %}Superadministrador principal{% else %}Superadministrador{% endif %}</small>
                 {% elif request.user.perfil.rol == 'usuario' %}
                     <small>Usuario solicitante</small>
                 {% else %}

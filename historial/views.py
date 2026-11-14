@@ -5,10 +5,12 @@ from django.shortcuts import get_object_or_404, render
 from inventario.models import Equipo
 from averias.models import ReporteAveria
 from prestamos.models import SolicitudPrestamo
-from config.reportes import exportar_reporte, fecha, solo_admin_ti
+from config.reportes import exportar_reporte, fecha
+from usuarios.permisos import solo_gestor_ti
 
 
 @login_required
+@solo_gestor_ti
 def historial_inicio(request):
     context = {
         'active_page': 'historial',
@@ -22,7 +24,7 @@ def historial_inicio(request):
 
 
 @login_required
-@solo_admin_ti
+@solo_gestor_ti
 def historial_usuarios(request):
     prestamos_activos = SolicitudPrestamo.objects.filter(
         usuario=OuterRef('pk'),
@@ -65,7 +67,7 @@ def historial_usuarios(request):
     return render(request, 'pages/app_layout.html', context)
 
 @login_required
-@solo_admin_ti
+@solo_gestor_ti
 def historial_usuario_detalle(request, usuario_id):
     usuario = get_object_or_404(
         User.objects.select_related('perfil'),
@@ -108,7 +110,7 @@ def historial_usuario_detalle(request, usuario_id):
 
     return render(request, 'pages/app_layout.html', context)
 @login_required
-@solo_admin_ti
+@solo_gestor_ti
 def historial_equipos(request):
     equipos = Equipo.objects.filter(
         activo=True
@@ -144,7 +146,7 @@ def historial_equipos(request):
 
     return render(request, 'pages/app_layout.html', context)
 @login_required
-@solo_admin_ti
+@solo_gestor_ti
 def historial_equipo_detalle(request, equipo_id):
     equipo = get_object_or_404(
         Equipo,

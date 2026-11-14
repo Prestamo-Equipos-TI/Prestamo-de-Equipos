@@ -22,7 +22,7 @@ def detectar_prestamos_vencidos():
     )
 
     administradores_ti = PerfilUsuario.objects.filter(
-        rol=PerfilUsuario.ROL_ADMIN_TI
+        rol__in=(PerfilUsuario.ROL_ADMIN_TI, PerfilUsuario.ROL_SUPERADMIN)
     ).select_related('user')
 
     for prestamo in prestamos_vencidos:

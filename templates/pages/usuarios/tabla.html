@@ -6,6 +6,7 @@
                 <th>Usuario</th>
                 <th>Carnet</th>
                 <th>Correo</th>
+                <th>Rol</th>
                 <th>Estado</th>
                 <th>Acciones</th>
             </tr>
@@ -17,6 +18,7 @@
                     <td>{{ usuario.username }}</td>
                     <td>{{ usuario.perfil.carnet }}</td>
                     <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.perfil.get_rol_display }}{% if usuario.perfil.es_principal %} · Principal{% endif %}</td>
                     <td>
                         {% if usuario.is_active %}
                             <span class="status disponible">Activo</span>
@@ -31,6 +33,7 @@
                         <button type="button" class="table-btn"
                                 hx-get="{% url 'usuario_editar' usuario.id %}"
                                 hx-target="#modal-container" hx-swap="innerHTML">Editar</button>
+                        {% if not usuario.perfil.es_principal %}
                         <form method="post" action="{% url 'usuario_estado' usuario.id %}" style="display:inline">
                             {% csrf_token %}
                             <input type="hidden" name="accion" value="{% if usuario.is_active %}desactivar{% else %}activar{% endif %}">
@@ -40,6 +43,7 @@
                                 {% if usuario.is_active %}Desactivar{% else %}Activar{% endif %}
                             </button>
                         </form>
+                        {% endif %}
                         <form method="post" action="{% url 'usuario_restablecer_clave' usuario.id %}" style="display:inline">
                             {% csrf_token %}
                             <button type="submit" class="table-btn"
@@ -52,9 +56,9 @@
                     </td>
                 </tr>
             {% empty %}
-                <tr><td colspan="6" class="empty-table">
+                <tr><td colspan="7" class="empty-table">
                     <div class="empty-state">
-                        <strong>{% if busqueda %}No se encontraron solicitantes{% else %}No hay solicitantes registrados{% endif %}</strong>
+                        <strong>{% if busqueda %}No se encontraron usuarios{% else %}No hay usuarios registrados{% endif %}</strong>
                     </div>
                 </td></tr>
             {% endfor %}

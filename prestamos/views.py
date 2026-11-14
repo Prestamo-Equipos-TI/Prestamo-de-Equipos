@@ -14,10 +14,12 @@ from .forms_aprobacion import AprobarSolicitudForm
 from .forms_devolucion import RegistrarDevolucionForm
 from .forms_entrega import RegistrarEntregaForm
 from .models import SolicitudPrestamo
-from config.reportes import exportar_reporte, fecha, solo_admin_ti
+from config.reportes import exportar_reporte, fecha
+from usuarios.permisos import solo_gestor_ti, solo_solicitante
 
 
 @login_required
+@solo_solicitante
 def solicitar_prestamo_lista(request):
     # Lista equipos disponibles para solicitar préstamo
     equipos = Equipo.objects.filter(
@@ -38,6 +40,7 @@ def solicitar_prestamo_lista(request):
 
 
 @login_required
+@solo_solicitante
 def crear_solicitud_prestamo(request, equipo_id):
     equipo = get_object_or_404(
         Equipo,
@@ -79,7 +82,7 @@ def crear_solicitud_prestamo(request, equipo_id):
 
             # Notifica a administradores TI sobre nueva solicitud
             administradores_ti = PerfilUsuario.objects.filter(
-                rol=PerfilUsuario.ROL_ADMIN_TI
+                rol__in=(PerfilUsuario.ROL_ADMIN_TI, PerfilUsuario.ROL_SUPERADMIN)
             ).select_related('user')
 
             for perfil_admin in administradores_ti:
@@ -116,6 +119,7 @@ def crear_solicitud_prestamo(request, equipo_id):
 
 
 @login_required
+@solo_solicitante
 def mis_solicitudes(request):
     solicitudes = SolicitudPrestamo.objects.filter(
         usuario=request.user
@@ -134,7 +138,7 @@ def mis_solicitudes(request):
 
 
 @login_required
-@solo_admin_ti
+@solo_gestor_ti
 def solicitudes_admin(request):
     solicitudes = SolicitudPrestamo.objects.select_related(
         'usuario',
@@ -165,6 +169,7 @@ def solicitudes_admin(request):
 
 
 @login_required
+@solo_gestor_ti
 def prestamos_admin_inicio(request):
     detectar_prestamos_vencidos()
 
@@ -180,6 +185,7 @@ def prestamos_admin_inicio(request):
 
 
 @login_required
+@solo_gestor_ti
 def aprobar_solicitud_modal(request, solicitud_id):
     solicitud = get_object_or_404(
         SolicitudPrestamo.objects.select_related(
@@ -201,6 +207,7 @@ def aprobar_solicitud_modal(request, solicitud_id):
 
 
 @login_required
+@solo_gestor_ti
 @transaction.atomic
 def confirmar_aprobacion_solicitud(request, solicitud_id):
     solicitud = get_object_or_404(
@@ -287,6 +294,7 @@ def confirmar_aprobacion_solicitud(request, solicitud_id):
 
 
 @login_required
+@solo_gestor_ti
 @transaction.atomic
 def rechazar_solicitud(request, solicitud_id):
     solicitud = get_object_or_404(
@@ -322,6 +330,7 @@ def rechazar_solicitud(request, solicitud_id):
 
 
 @login_required
+@solo_gestor_ti
 def entregas_lista(request):
     solicitudes = SolicitudPrestamo.objects.select_related(
         'usuario',
@@ -345,6 +354,7 @@ def entregas_lista(request):
 
 
 @login_required
+@solo_gestor_ti
 def registrar_entrega_modal(request, solicitud_id):
     solicitud = get_object_or_404(
         SolicitudPrestamo.objects.select_related(
@@ -367,6 +377,7 @@ def registrar_entrega_modal(request, solicitud_id):
 
 
 @login_required
+@solo_gestor_ti
 @transaction.atomic
 def confirmar_entrega(request, solicitud_id):
     solicitud = get_object_or_404(
@@ -432,6 +443,7 @@ def confirmar_entrega(request, solicitud_id):
 
 
 @login_required
+@solo_gestor_ti
 def equipos_prestados(request):
     solicitudes = SolicitudPrestamo.objects.select_related(
         'usuario',
@@ -455,6 +467,7 @@ def equipos_prestados(request):
 
 
 @login_required
+@solo_gestor_ti
 def detalle_prestamo(request, solicitud_id):
     solicitud = get_object_or_404(
         SolicitudPrestamo.objects.select_related(
@@ -474,6 +487,7 @@ def detalle_prestamo(request, solicitud_id):
 
 
 @login_required
+@solo_gestor_ti
 def devoluciones_lista(request):
     solicitudes = SolicitudPrestamo.objects.select_related(
         'usuario',
@@ -497,6 +511,7 @@ def devoluciones_lista(request):
 
 
 @login_required
+@solo_gestor_ti
 def registrar_devolucion_modal(request, solicitud_id):
     solicitud = get_object_or_404(
         SolicitudPrestamo.objects.select_related(
@@ -519,6 +534,7 @@ def registrar_devolucion_modal(request, solicitud_id):
 
 
 @login_required
+@solo_gestor_ti
 @transaction.atomic
 def confirmar_devolucion(request, solicitud_id):
     solicitud = get_object_or_404(

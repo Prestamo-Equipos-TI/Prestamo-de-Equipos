@@ -1,10 +1,8 @@
 from datetime import date, datetime
-from functools import wraps
 from html import escape
 from io import BytesIO
 
-from django.http import HttpResponse, HttpResponseForbidden
-from usuarios.models import PerfilUsuario
+from django.http import HttpResponse
 from django.utils import timezone
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill
@@ -13,15 +11,6 @@ from reportlab.lib.pagesizes import A4, landscape
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import cm
 from reportlab.platypus import LongTable, Paragraph, SimpleDocTemplate, Spacer, TableStyle
-
-
-def solo_admin_ti(vista):
-    @wraps(vista)
-    def protegida(request, *args, **kwargs):
-        if not PerfilUsuario.objects.filter(user=request.user, rol=PerfilUsuario.ROL_ADMIN_TI).exists():
-            return HttpResponseForbidden('Acceso reservado al administrador TI')
-        return vista(request, *args, **kwargs)
-    return protegida
 
 
 def fecha(valor):

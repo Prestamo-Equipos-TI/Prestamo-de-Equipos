@@ -7,6 +7,7 @@ from alertas.models import Alerta
 from inventario.models import Equipo
 from prestamos.models import SolicitudPrestamo
 from usuarios.models import PerfilUsuario
+from usuarios.permisos import solo_gestor_ti, solo_solicitante
 
 from .forms import GestionarAveriaForm, ReporteAveriaForm, ResolverAveriaForm
 from .models import ReporteAveria
@@ -24,6 +25,7 @@ def existe_reporte_activo(equipo):
 
 
 @login_required
+@solo_solicitante
 def reportar_averia_lista(request):
     prestamos_activos = SolicitudPrestamo.objects.select_related(
         'equipo'
@@ -46,6 +48,7 @@ def reportar_averia_lista(request):
 
 
 @login_required
+@solo_solicitante
 def reportar_averia_modal(request, solicitud_id):
     solicitud = get_object_or_404(
         SolicitudPrestamo.objects.select_related('equipo'),
@@ -65,6 +68,7 @@ def reportar_averia_modal(request, solicitud_id):
 
 
 @login_required
+@solo_solicitante
 def confirmar_reporte_averia(request, solicitud_id):
     solicitud = get_object_or_404(
         SolicitudPrestamo.objects.select_related('equipo'),
@@ -115,7 +119,7 @@ def confirmar_reporte_averia(request, solicitud_id):
             )
 
             administradores_ti = PerfilUsuario.objects.filter(
-                rol=PerfilUsuario.ROL_ADMIN_TI
+                rol__in=(PerfilUsuario.ROL_ADMIN_TI, PerfilUsuario.ROL_SUPERADMIN)
             ).select_related('user')
 
             for perfil_admin in administradores_ti:
@@ -145,6 +149,7 @@ def confirmar_reporte_averia(request, solicitud_id):
 
 
 @login_required
+@solo_gestor_ti
 def averias_admin_inicio(request):
     context = {
         'active_page': 'averias_admin',
@@ -158,6 +163,7 @@ def averias_admin_inicio(request):
 
 
 @login_required
+@solo_gestor_ti
 def averias_admin_lista(request):
     reportes = ReporteAveria.objects.select_related(
         'equipo',
@@ -179,6 +185,7 @@ def averias_admin_lista(request):
 
 
 @login_required
+@solo_gestor_ti
 def reporte_administrativo_lista(request):
     equipos = Equipo.objects.filter(
         activo=True,
@@ -198,6 +205,7 @@ def reporte_administrativo_lista(request):
 
 
 @login_required
+@solo_gestor_ti
 def reporte_administrativo_modal(request, equipo_id):
     equipo = get_object_or_404(
         Equipo,
@@ -216,6 +224,7 @@ def reporte_administrativo_modal(request, equipo_id):
 
 
 @login_required
+@solo_gestor_ti
 def confirmar_reporte_administrativo(request, equipo_id):
     equipo = get_object_or_404(
         Equipo,
@@ -279,6 +288,7 @@ def confirmar_reporte_administrativo(request, equipo_id):
 
 
 @login_required
+@solo_gestor_ti
 def gestionar_averia_modal(request, reporte_id):
     reporte = get_object_or_404(
         ReporteAveria.objects.select_related(
@@ -304,6 +314,7 @@ def gestionar_averia_modal(request, reporte_id):
 
 
 @login_required
+@solo_gestor_ti
 def confirmar_gestion_averia(request, reporte_id):
     reporte = get_object_or_404(
         ReporteAveria.objects.select_related(
@@ -376,6 +387,7 @@ def confirmar_gestion_averia(request, reporte_id):
     return redirect('averias:admin_lista')
 
 @login_required
+@solo_gestor_ti
 def resolver_averia_modal(request, reporte_id):
     reporte = get_object_or_404(
         ReporteAveria.objects.select_related(
@@ -398,6 +410,7 @@ def resolver_averia_modal(request, reporte_id):
 
 
 @login_required
+@solo_gestor_ti
 def confirmar_resolucion_averia(request, reporte_id):
     reporte = get_object_or_404(
         ReporteAveria.objects.select_related(

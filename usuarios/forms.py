@@ -5,7 +5,7 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 from .models import PerfilUsuario
 
 
-class SolicitanteForm(forms.Form):
+class UsuarioGestionForm(forms.Form):
     username = forms.CharField(
         label='Usuario', max_length=150, validators=[UnicodeUsernameValidator()]
     )
@@ -13,9 +13,11 @@ class SolicitanteForm(forms.Form):
     nombre_completo = forms.CharField(label='Nombre completo', max_length=150)
     carnet = forms.CharField(label='Carnet', max_length=30)
     telefono = forms.CharField(label='Teléfono', max_length=20, required=False)
+    rol = forms.ChoiceField(label='Rol', required=False)
 
-    def __init__(self, *args, usuario=None, **kwargs):
+    def __init__(self, *args, usuario=None, roles_permitidos=None, **kwargs):
         self.usuario = usuario
+        self.roles_permitidos = tuple(roles_permitidos or (PerfilUsuario.ROL_USUARIO,))
         if usuario and not args and 'initial' not in kwargs:
             kwargs['initial'] = {
                 'username': usuario.username,
@@ -23,10 +25,20 @@ class SolicitanteForm(forms.Form):
                 'nombre_completo': usuario.perfil.nombre_completo,
                 'carnet': usuario.perfil.carnet,
                 'telefono': usuario.perfil.telefono,
+                'rol': usuario.perfil.rol,
             }
         super().__init__(*args, **kwargs)
+        self.fields['rol'].choices = [
+            (valor, etiqueta) for valor, etiqueta in PerfilUsuario.ROLES
+            if valor in self.roles_permitidos
+        ]
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
+
+    def clean_rol(self):
+        return self.cleaned_data['rol'] or (
+            self.usuario.perfil.rol if self.usuario else PerfilUsuario.ROL_USUARIO
+        )
 
     def clean_username(self):
         username = self.cleaned_data['username'].strip()
