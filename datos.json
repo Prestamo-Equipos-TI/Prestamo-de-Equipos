@@ -777,8 +777,8 @@
     "pk": 1,
     "fields": {
       "usuario": 3,
-      "titulo": "Solicitud de pr�stamo aprobada",
-      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido aprobada. Entrega programada: 2026-05-22. Duraci�n: 4 d�a(s).",
+      "titulo": "Solicitud de préstamo aprobada",
+      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido aprobada. Entrega programada: 2026-05-22. Duración: 4 día(s).",
       "tipo": "prestamo_aprobado",
       "leida": true,
       "fecha_creacion": "2026-05-23T05:40:38.038Z"
@@ -789,7 +789,7 @@
     "pk": 2,
     "fields": {
       "usuario": 3,
-      "titulo": "Solicitud de pr�stamo rechazada",
+      "titulo": "Solicitud de préstamo rechazada",
       "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 fue rechazada porque el equipo ya fue reservado.",
       "tipo": "prestamo_rechazado",
       "leida": true,
@@ -801,7 +801,7 @@
     "pk": 3,
     "fields": {
       "usuario": 3,
-      "titulo": "Solicitud de pr�stamo rechazada",
+      "titulo": "Solicitud de préstamo rechazada",
       "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 fue rechazada porque el equipo ya fue reservado.",
       "tipo": "prestamo_rechazado",
       "leida": true,
@@ -813,7 +813,7 @@
     "pk": 4,
     "fields": {
       "usuario": 3,
-      "titulo": "Solicitud de pr�stamo rechazada",
+      "titulo": "Solicitud de préstamo rechazada",
       "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 fue rechazada porque el equipo ya fue reservado.",
       "tipo": "prestamo_rechazado",
       "leida": true,
@@ -825,7 +825,7 @@
     "pk": 5,
     "fields": {
       "usuario": 3,
-      "titulo": "Solicitud de pr�stamo rechazada",
+      "titulo": "Solicitud de préstamo rechazada",
       "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 fue rechazada porque el equipo ya fue reservado.",
       "tipo": "prestamo_rechazado",
       "leida": true,
@@ -837,7 +837,7 @@
     "pk": 6,
     "fields": {
       "usuario": 3,
-      "titulo": "Solicitud de pr�stamo rechazada",
+      "titulo": "Solicitud de préstamo rechazada",
       "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido rechazada por el administrador.",
       "tipo": "prestamo_rechazado",
       "leida": true,
@@ -849,8 +849,8 @@
     "pk": 7,
     "fields": {
       "usuario": 3,
-      "titulo": "Solicitud de pr�stamo aprobada",
-      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido aprobada. Entrega programada: 2026-05-24. Duraci�n: 3 d�a(s).",
+      "titulo": "Solicitud de préstamo aprobada",
+      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido aprobada. Entrega programada: 2026-05-24. Duración: 3 día(s).",
       "tipo": "prestamo_aprobado",
       "leida": true,
       "fecha_creacion": "2026-05-23T06:45:38.250Z"
@@ -862,7 +862,7 @@
     "fields": {
       "usuario": 3,
       "titulo": "Equipo entregado",
-      "mensaje": "Se registr� la entrega del equipo Laptop dell latitude 5450. Fecha estimada de devoluci�n: 2026-05-27.",
+      "mensaje": "Se registró la entrega del equipo Laptop dell latitude 5450. Fecha estimada de devolución: 2026-05-27.",
       "tipo": "prestamo_entregado",
       "leida": true,
       "fecha_creacion": "2026-05-23T07:11:52.980Z"
@@ -874,7 +874,7 @@
     "fields": {
       "usuario": 3,
       "titulo": "Equipo entregado",
-      "mensaje": "Se registr� la entrega del equipo Laptop dell latitude 5450. Fecha estimada de devoluci�n: 2026-05-27.",
+      "mensaje": "Se registró la entrega del equipo Laptop dell latitude 5450. Fecha estimada de devolución: 2026-05-27.",
       "tipo": "prestamo_entregado",
       "leida": true,
       "fecha_creacion": "2026-05-23T07:38:58.869Z"
@@ -885,7 +885,7 @@
     "pk": 10,
     "fields": {
       "usuario": 3,
-      "titulo": "Solicitud de pr�stamo rechazada",
+      "titulo": "Solicitud de préstamo rechazada",
       "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido rechazada por el administrador.",
       "tipo": "prestamo_rechazado",
       "leida": true,
@@ -898,7 +898,7 @@
     "fields": {
       "usuario": 3,
       "titulo": "Equipo devuelto",
-      "mensaje": "Se registr� correctamente la devoluci�n del equipo Laptop dell latitude 5450. Gracias por completar el pr�stamo.",
+      "mensaje": "Se registró correctamente la devolución del equipo Laptop dell latitude 5450. Gracias por completar el préstamo.",
       "tipo": "prestamo_devuelto",
       "leida": true,
       "fecha_creacion": "2026-05-23T23:18:51.982Z"
@@ -909,7 +909,7 @@
     "pk": 12,
     "fields": {
       "usuario": 2,
-      "titulo": "Nueva solicitud de pr�stamo",
+      "titulo": "Nueva solicitud de préstamo",
       "mensaje": "Hay una nueva solicitud pendiente para el equipo Laptop dell latitude 5450.",
       "tipo": "sistema",
       "leida": true,
@@ -921,7 +921,7 @@
     "pk": 13,
     "fields": {
       "usuario": 2,
-      "titulo": "Nueva solicitud de pr�stamo",
+      "titulo": "Nueva solicitud de préstamo",
       "mensaje": "Hay una nueva solicitud pendiente para el equipo Laptop dell latitude 5450.",
       "tipo": "sistema",
       "leida": true,
@@ -933,8 +933,8 @@
     "pk": 14,
     "fields": {
       "usuario": 3,
-      "titulo": "Solicitud de pr�stamo rechazada",
-      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido rechazada por el �rea de TI.",
+      "titulo": "Solicitud de préstamo rechazada",
+      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido rechazada por el área de TI.",
       "tipo": "prestamo_rechazado",
       "leida": true,
       "fecha_creacion": "2026-05-24T01:14:57.913Z"
@@ -945,8 +945,8 @@
     "pk": 15,
     "fields": {
       "usuario": 3,
-      "titulo": "Solicitud de pr�stamo rechazada",
-      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido rechazada por el �rea de TI.",
+      "titulo": "Solicitud de préstamo rechazada",
+      "mensaje": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido rechazada por el área de TI.",
       "tipo": "prestamo_rechazado",
       "leida": true,
       "fecha_creacion": "2026-05-24T01:14:59.768Z"
@@ -957,7 +957,7 @@
     "pk": 16,
     "fields": {
       "usuario": 2,
-      "titulo": "Nueva solicitud de pr�stamo",
+      "titulo": "Nueva solicitud de préstamo",
       "mensaje": "Hay una nueva solicitud pendiente para el equipo Laptop dell latitude 5450.",
       "tipo": "sistema",
       "leida": true,
@@ -969,8 +969,8 @@
     "pk": 17,
     "fields": {
       "usuario": 2,
-      "titulo": "Nueva aver�a reportada",
-      "mensaje": "Se report� una aver�a para el equipo Laptop dell latitude 5450.",
+      "titulo": "Nueva avería reportada",
+      "mensaje": "Se reportó una avería para el equipo Laptop dell latitude 5450.",
       "tipo": "sistema",
       "leida": true,
       "fecha_creacion": "2026-05-24T02:46:22.725Z"
@@ -981,8 +981,8 @@
     "pk": 18,
     "fields": {
       "usuario": 3,
-      "titulo": "Reporte de aver�a enviado",
-      "mensaje": "Tu reporte de aver�a para el equipo Laptop dell latitude 5450 fue enviado correctamente. El �rea de TI revisar� el caso.",
+      "titulo": "Reporte de avería enviado",
+      "mensaje": "Tu reporte de avería para el equipo Laptop dell latitude 5450 fue enviado correctamente. El área de TI revisará el caso.",
       "tipo": "sistema",
       "leida": false,
       "fecha_creacion": "2026-05-24T03:19:57.687Z"
@@ -993,8 +993,8 @@
     "pk": 19,
     "fields": {
       "usuario": 2,
-      "titulo": "Nueva aver�a reportada",
-      "mensaje": "Se report� una aver�a para el equipo Laptop dell latitude 5450.",
+      "titulo": "Nueva avería reportada",
+      "mensaje": "Se reportó una avería para el equipo Laptop dell latitude 5450.",
       "tipo": "sistema",
       "leida": true,
       "fecha_creacion": "2026-05-24T03:19:57.692Z"
@@ -1006,7 +1006,7 @@
     "fields": {
       "usuario": 2,
       "titulo": "Reporte administrativo registrado",
-      "mensaje": "Se registr� correctamente un reporte administrativo para el equipo Laptop dell latitude 5450.",
+      "mensaje": "Se registró correctamente un reporte administrativo para el equipo Laptop dell latitude 5450.",
       "tipo": "sistema",
       "leida": true,
       "fecha_creacion": "2026-05-24T04:08:15.929Z"
@@ -1018,7 +1018,7 @@
     "fields": {
       "usuario": 2,
       "titulo": "Reporte administrativo registrado",
-      "mensaje": "Se registr� correctamente un reporte administrativo para el equipo Laptop dell latitude 5450.",
+      "mensaje": "Se registró correctamente un reporte administrativo para el equipo Laptop dell latitude 5450.",
       "tipo": "sistema",
       "leida": true,
       "fecha_creacion": "2026-05-24T04:08:28.665Z"
@@ -1030,7 +1030,7 @@
     "fields": {
       "usuario": 2,
       "titulo": "Reporte administrativo registrado",
-      "mensaje": "Se registr� correctamente un reporte administrativo para el equipo Samsung Galaxy Tab S10 Lite.",
+      "mensaje": "Se registró correctamente un reporte administrativo para el equipo Samsung Galaxy Tab S10 Lite.",
       "tipo": "sistema",
       "leida": true,
       "fecha_creacion": "2026-05-24T04:08:39.448Z"
@@ -1041,8 +1041,8 @@
     "pk": 23,
     "fields": {
       "usuario": 2,
-      "titulo": "Aver�a en revisi�n",
-      "mensaje": "El reporte de aver�a del equipo Samsung Galaxy Tab S10 Lite ha sido tomado en revisi�n por el �rea de TI.",
+      "titulo": "Avería en revisión",
+      "mensaje": "El reporte de avería del equipo Samsung Galaxy Tab S10 Lite ha sido tomado en revisión por el área de TI.",
       "tipo": "sistema",
       "leida": false,
       "fecha_creacion": "2026-05-24T04:19:25.505Z"
@@ -1053,8 +1053,8 @@
     "pk": 24,
     "fields": {
       "usuario": 3,
-      "titulo": "Aver�a en revisi�n",
-      "mensaje": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido tomado en revisi�n por el �rea de TI.",
+      "titulo": "Avería en revisión",
+      "mensaje": "El reporte de avería del equipo Laptop dell latitude 5450 ha sido tomado en revisión por el área de TI.",
       "tipo": "sistema",
       "leida": false,
       "fecha_creacion": "2026-05-24T04:20:40.665Z"
@@ -1065,8 +1065,8 @@
     "pk": 25,
     "fields": {
       "usuario": 2,
-      "titulo": "Aver�a en revisi�n",
-      "mensaje": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido tomado en revisi�n por el �rea de TI.",
+      "titulo": "Avería en revisión",
+      "mensaje": "El reporte de avería del equipo Laptop dell latitude 5450 ha sido tomado en revisión por el área de TI.",
       "tipo": "sistema",
       "leida": false,
       "fecha_creacion": "2026-05-24T04:34:34.201Z"
@@ -1077,8 +1077,8 @@
     "pk": 26,
     "fields": {
       "usuario": 2,
-      "titulo": "Aver�a en revisi�n",
-      "mensaje": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido tomado en revisi�n por el �rea de TI.",
+      "titulo": "Avería en revisión",
+      "mensaje": "El reporte de avería del equipo Laptop dell latitude 5450 ha sido tomado en revisión por el área de TI.",
       "tipo": "sistema",
       "leida": false,
       "fecha_creacion": "2026-05-24T04:37:29.160Z"
@@ -1089,8 +1089,8 @@
     "pk": 27,
     "fields": {
       "usuario": 2,
-      "titulo": "Aver�a resuelta",
-      "mensaje": "El reporte de aver�a del equipo Samsung Galaxy Tab S10 Lite ha sido marcado como resuelto por el �rea de TI.",
+      "titulo": "Avería resuelta",
+      "mensaje": "El reporte de avería del equipo Samsung Galaxy Tab S10 Lite ha sido marcado como resuelto por el área de TI.",
       "tipo": "sistema",
       "leida": false,
       "fecha_creacion": "2026-05-24T05:07:18.197Z"
@@ -1101,8 +1101,8 @@
     "pk": 28,
     "fields": {
       "usuario": 2,
-      "titulo": "Aver�a resuelta",
-      "mensaje": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el �rea de TI.",
+      "titulo": "Avería resuelta",
+      "mensaje": "El reporte de avería del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el área de TI.",
       "tipo": "sistema",
       "leida": false,
       "fecha_creacion": "2026-05-24T05:07:25.666Z"
@@ -1113,8 +1113,8 @@
     "pk": 29,
     "fields": {
       "usuario": 2,
-      "titulo": "Aver�a resuelta",
-      "mensaje": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el �rea de TI.",
+      "titulo": "Avería resuelta",
+      "mensaje": "El reporte de avería del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el área de TI.",
       "tipo": "sistema",
       "leida": false,
       "fecha_creacion": "2026-05-24T05:07:30.400Z"
@@ -1125,8 +1125,8 @@
     "pk": 30,
     "fields": {
       "usuario": 3,
-      "titulo": "Aver�a resuelta",
-      "mensaje": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el �rea de TI.",
+      "titulo": "Avería resuelta",
+      "mensaje": "El reporte de avería del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el área de TI.",
       "tipo": "sistema",
       "leida": false,
       "fecha_creacion": "2026-05-24T05:07:34.707Z"
@@ -1137,8 +1137,8 @@
     "pk": 31,
     "fields": {
       "usuario": 3,
-      "titulo": "Aver�a en revisi�n",
-      "mensaje": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido tomado en revisi�n por el �rea de TI.",
+      "titulo": "Avería en revisión",
+      "mensaje": "El reporte de avería del equipo Laptop dell latitude 5450 ha sido tomado en revisión por el área de TI.",
       "tipo": "sistema",
       "leida": false,
       "fecha_creacion": "2026-05-24T05:07:48.664Z"
@@ -1149,8 +1149,8 @@
     "pk": 32,
     "fields": {
       "usuario": 3,
-      "titulo": "Aver�a resuelta",
-      "mensaje": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el �rea de TI.",
+      "titulo": "Avería resuelta",
+      "mensaje": "El reporte de avería del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el área de TI.",
       "tipo": "sistema",
       "leida": false,
       "fecha_creacion": "2026-05-24T05:07:51.395Z"
@@ -1220,7 +1220,7 @@
       "equipo": 19,
       "solicitud_prestamo": null,
       "reportado_por": 2,
-      "descripcion_falla": "da�o en pantalla",
+      "descripcion_falla": "daño en pantalla",
       "estado": "resuelta",
       "fecha_reporte": "2026-05-24T04:08:28.657Z",
       "revisado_por": 2,
@@ -1239,7 +1239,7 @@
       "equipo": 17,
       "solicitud_prestamo": null,
       "reportado_por": 2,
-      "descripcion_falla": "motherboard da�ada",
+      "descripcion_falla": "motherboard dañada",
       "estado": "resuelta",
       "fecha_reporte": "2026-05-24T04:08:39.440Z",
       "revisado_por": 2,

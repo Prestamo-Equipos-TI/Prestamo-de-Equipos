@@ -1,0 +1,359 @@
+[
+  {
+    "model": "alertas.alerta",
+    "pk": 1,
+    "field": "titulo",
+    "expected": "Solicitud de pr�stamo aprobada",
+    "replacement": "Solicitud de préstamo aprobada"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 1,
+    "field": "mensaje",
+    "expected": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido aprobada. Entrega programada: 2026-05-22. Duraci�n: 4 d�a(s).",
+    "replacement": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido aprobada. Entrega programada: 2026-05-22. Duración: 4 día(s)."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 2,
+    "field": "titulo",
+    "expected": "Solicitud de pr�stamo rechazada",
+    "replacement": "Solicitud de préstamo rechazada"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 3,
+    "field": "titulo",
+    "expected": "Solicitud de pr�stamo rechazada",
+    "replacement": "Solicitud de préstamo rechazada"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 4,
+    "field": "titulo",
+    "expected": "Solicitud de pr�stamo rechazada",
+    "replacement": "Solicitud de préstamo rechazada"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 5,
+    "field": "titulo",
+    "expected": "Solicitud de pr�stamo rechazada",
+    "replacement": "Solicitud de préstamo rechazada"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 6,
+    "field": "titulo",
+    "expected": "Solicitud de pr�stamo rechazada",
+    "replacement": "Solicitud de préstamo rechazada"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 7,
+    "field": "titulo",
+    "expected": "Solicitud de pr�stamo aprobada",
+    "replacement": "Solicitud de préstamo aprobada"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 7,
+    "field": "mensaje",
+    "expected": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido aprobada. Entrega programada: 2026-05-24. Duraci�n: 3 d�a(s).",
+    "replacement": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido aprobada. Entrega programada: 2026-05-24. Duración: 3 día(s)."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 8,
+    "field": "mensaje",
+    "expected": "Se registr� la entrega del equipo Laptop dell latitude 5450. Fecha estimada de devoluci�n: 2026-05-27.",
+    "replacement": "Se registró la entrega del equipo Laptop dell latitude 5450. Fecha estimada de devolución: 2026-05-27."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 9,
+    "field": "mensaje",
+    "expected": "Se registr� la entrega del equipo Laptop dell latitude 5450. Fecha estimada de devoluci�n: 2026-05-27.",
+    "replacement": "Se registró la entrega del equipo Laptop dell latitude 5450. Fecha estimada de devolución: 2026-05-27."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 10,
+    "field": "titulo",
+    "expected": "Solicitud de pr�stamo rechazada",
+    "replacement": "Solicitud de préstamo rechazada"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 11,
+    "field": "mensaje",
+    "expected": "Se registr� correctamente la devoluci�n del equipo Laptop dell latitude 5450. Gracias por completar el pr�stamo.",
+    "replacement": "Se registró correctamente la devolución del equipo Laptop dell latitude 5450. Gracias por completar el préstamo."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 12,
+    "field": "titulo",
+    "expected": "Nueva solicitud de pr�stamo",
+    "replacement": "Nueva solicitud de préstamo"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 13,
+    "field": "titulo",
+    "expected": "Nueva solicitud de pr�stamo",
+    "replacement": "Nueva solicitud de préstamo"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 14,
+    "field": "titulo",
+    "expected": "Solicitud de pr�stamo rechazada",
+    "replacement": "Solicitud de préstamo rechazada"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 14,
+    "field": "mensaje",
+    "expected": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido rechazada por el �rea de TI.",
+    "replacement": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido rechazada por el área de TI."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 15,
+    "field": "titulo",
+    "expected": "Solicitud de pr�stamo rechazada",
+    "replacement": "Solicitud de préstamo rechazada"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 15,
+    "field": "mensaje",
+    "expected": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido rechazada por el �rea de TI.",
+    "replacement": "Tu solicitud del equipo Laptop dell latitude 5450 ha sido rechazada por el área de TI."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 16,
+    "field": "titulo",
+    "expected": "Nueva solicitud de pr�stamo",
+    "replacement": "Nueva solicitud de préstamo"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 17,
+    "field": "titulo",
+    "expected": "Nueva aver�a reportada",
+    "replacement": "Nueva avería reportada"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 17,
+    "field": "mensaje",
+    "expected": "Se report� una aver�a para el equipo Laptop dell latitude 5450.",
+    "replacement": "Se reportó una avería para el equipo Laptop dell latitude 5450."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 18,
+    "field": "titulo",
+    "expected": "Reporte de aver�a enviado",
+    "replacement": "Reporte de avería enviado"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 18,
+    "field": "mensaje",
+    "expected": "Tu reporte de aver�a para el equipo Laptop dell latitude 5450 fue enviado correctamente. El �rea de TI revisar� el caso.",
+    "replacement": "Tu reporte de avería para el equipo Laptop dell latitude 5450 fue enviado correctamente. El área de TI revisará el caso."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 19,
+    "field": "titulo",
+    "expected": "Nueva aver�a reportada",
+    "replacement": "Nueva avería reportada"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 19,
+    "field": "mensaje",
+    "expected": "Se report� una aver�a para el equipo Laptop dell latitude 5450.",
+    "replacement": "Se reportó una avería para el equipo Laptop dell latitude 5450."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 20,
+    "field": "mensaje",
+    "expected": "Se registr� correctamente un reporte administrativo para el equipo Laptop dell latitude 5450.",
+    "replacement": "Se registró correctamente un reporte administrativo para el equipo Laptop dell latitude 5450."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 21,
+    "field": "mensaje",
+    "expected": "Se registr� correctamente un reporte administrativo para el equipo Laptop dell latitude 5450.",
+    "replacement": "Se registró correctamente un reporte administrativo para el equipo Laptop dell latitude 5450."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 22,
+    "field": "mensaje",
+    "expected": "Se registr� correctamente un reporte administrativo para el equipo Samsung Galaxy Tab S10 Lite.",
+    "replacement": "Se registró correctamente un reporte administrativo para el equipo Samsung Galaxy Tab S10 Lite."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 23,
+    "field": "titulo",
+    "expected": "Aver�a en revisi�n",
+    "replacement": "Avería en revisión"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 23,
+    "field": "mensaje",
+    "expected": "El reporte de aver�a del equipo Samsung Galaxy Tab S10 Lite ha sido tomado en revisi�n por el �rea de TI.",
+    "replacement": "El reporte de avería del equipo Samsung Galaxy Tab S10 Lite ha sido tomado en revisión por el área de TI."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 24,
+    "field": "titulo",
+    "expected": "Aver�a en revisi�n",
+    "replacement": "Avería en revisión"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 24,
+    "field": "mensaje",
+    "expected": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido tomado en revisi�n por el �rea de TI.",
+    "replacement": "El reporte de avería del equipo Laptop dell latitude 5450 ha sido tomado en revisión por el área de TI."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 25,
+    "field": "titulo",
+    "expected": "Aver�a en revisi�n",
+    "replacement": "Avería en revisión"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 25,
+    "field": "mensaje",
+    "expected": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido tomado en revisi�n por el �rea de TI.",
+    "replacement": "El reporte de avería del equipo Laptop dell latitude 5450 ha sido tomado en revisión por el área de TI."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 26,
+    "field": "titulo",
+    "expected": "Aver�a en revisi�n",
+    "replacement": "Avería en revisión"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 26,
+    "field": "mensaje",
+    "expected": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido tomado en revisi�n por el �rea de TI.",
+    "replacement": "El reporte de avería del equipo Laptop dell latitude 5450 ha sido tomado en revisión por el área de TI."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 27,
+    "field": "titulo",
+    "expected": "Aver�a resuelta",
+    "replacement": "Avería resuelta"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 27,
+    "field": "mensaje",
+    "expected": "El reporte de aver�a del equipo Samsung Galaxy Tab S10 Lite ha sido marcado como resuelto por el �rea de TI.",
+    "replacement": "El reporte de avería del equipo Samsung Galaxy Tab S10 Lite ha sido marcado como resuelto por el área de TI."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 28,
+    "field": "titulo",
+    "expected": "Aver�a resuelta",
+    "replacement": "Avería resuelta"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 28,
+    "field": "mensaje",
+    "expected": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el �rea de TI.",
+    "replacement": "El reporte de avería del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el área de TI."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 29,
+    "field": "titulo",
+    "expected": "Aver�a resuelta",
+    "replacement": "Avería resuelta"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 29,
+    "field": "mensaje",
+    "expected": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el �rea de TI.",
+    "replacement": "El reporte de avería del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el área de TI."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 30,
+    "field": "titulo",
+    "expected": "Aver�a resuelta",
+    "replacement": "Avería resuelta"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 30,
+    "field": "mensaje",
+    "expected": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el �rea de TI.",
+    "replacement": "El reporte de avería del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el área de TI."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 31,
+    "field": "titulo",
+    "expected": "Aver�a en revisi�n",
+    "replacement": "Avería en revisión"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 31,
+    "field": "mensaje",
+    "expected": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido tomado en revisi�n por el �rea de TI.",
+    "replacement": "El reporte de avería del equipo Laptop dell latitude 5450 ha sido tomado en revisión por el área de TI."
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 32,
+    "field": "titulo",
+    "expected": "Aver�a resuelta",
+    "replacement": "Avería resuelta"
+  },
+  {
+    "model": "alertas.alerta",
+    "pk": 32,
+    "field": "mensaje",
+    "expected": "El reporte de aver�a del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el �rea de TI.",
+    "replacement": "El reporte de avería del equipo Laptop dell latitude 5450 ha sido marcado como resuelto por el área de TI."
+  },
+  {
+    "model": "averias.reporteaveria",
+    "pk": 4,
+    "field": "descripcion_falla",
+    "expected": "da�o en pantalla",
+    "replacement": "daño en pantalla"
+  },
+  {
+    "model": "averias.reporteaveria",
+    "pk": 5,
+    "field": "descripcion_falla",
+    "expected": "motherboard da�ada",
+    "replacement": "motherboard dañada"
+  }
+]
