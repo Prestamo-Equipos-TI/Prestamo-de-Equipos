@@ -100,8 +100,11 @@
                                 hx-swap="innerHTML">
                                 Rechazar
                             </button>
-                        {% else %}
-                            <span class="muted-text">Sin acciones</span>
+                        {% endif %}
+                        {% if solicitud.estado == 'pendiente' or solicitud.estado == 'aprobado' or solicitud.estado == 'entregado' %}
+                            <button type="button" class="table-btn danger" hx-get="{% url 'prestamos:cancelar_solicitud' solicitud.id %}" hx-target="#modal-container" hx-swap="innerHTML">Cancelar</button>
+                        {% elif solicitud.estado == 'cancelado' or solicitud.estado == 'cancelacion_pendiente' %}
+                            <button type="button" class="table-btn" hx-get="{% url 'prestamos:historial_cancelacion' solicitud.id %}" hx-target="#modal-container" hx-swap="innerHTML">Ver historial</button>
                         {% endif %}
                     </td>
                 </tr>

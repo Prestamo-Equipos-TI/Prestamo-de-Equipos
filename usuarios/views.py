@@ -82,8 +82,8 @@ def dashboard(request):
         ).count(),
 
         'prestamos_vencidos': SolicitudPrestamo.objects.filter(
-            estado=SolicitudPrestamo.ESTADO_ENTREGADO,
-            equipo__estado='prestado',
+            estado__in=(SolicitudPrestamo.ESTADO_ENTREGADO,
+                        SolicitudPrestamo.ESTADO_CANCELACION_PENDIENTE),
             fecha_devolucion_estimada__lt=hoy,
             fecha_devolucion_real__isnull=True
         ).count(),

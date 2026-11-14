@@ -9,6 +9,8 @@ class SolicitudPrestamo(models.Model):
     ESTADO_RECHAZADO = 'rechazado'
     ESTADO_ENTREGADO = 'entregado'
     ESTADO_DEVUELTO = 'devuelto'
+    ESTADO_CANCELADO = 'cancelado'
+    ESTADO_CANCELACION_PENDIENTE = 'cancelacion_pendiente'
 
     ESTADOS = [
         (ESTADO_PENDIENTE, 'Pendiente'),
@@ -16,6 +18,8 @@ class SolicitudPrestamo(models.Model):
         (ESTADO_RECHAZADO, 'Rechazado'),
         (ESTADO_ENTREGADO, 'Entregado'),
         (ESTADO_DEVUELTO, 'Devuelto'),
+        (ESTADO_CANCELADO, 'Cancelado'),
+        (ESTADO_CANCELACION_PENDIENTE, 'Cancelación pendiente de devolución'),
     ]
 
     usuario = models.ForeignKey(
@@ -75,7 +79,7 @@ class SolicitudPrestamo(models.Model):
     )
 
     estado = models.CharField(
-        max_length=20,
+        max_length=30,
         choices=ESTADOS,
         default=ESTADO_PENDIENTE
     )
@@ -113,5 +117,25 @@ class SolicitudPrestamo(models.Model):
 
     def __str__(self):
         return f'{self.usuario.username} - {self.equipo.nombre}'
+
+
+class RegistroEstadoSolicitud(models.Model):
+    solicitud = models.ForeignKey(
+        SolicitudPrestamo, on_delete=models.PROTECT, related_name='transiciones'
+    )
+    actor = models.ForeignKey(User, on_delete=models.PROTECT)
+    estado_anterior = models.CharField(max_length=30)
+    estado_nuevo = models.CharField(max_length=30)
+    motivo = models.TextField()
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['fecha', 'pk']
+
+    def get_estado_anterior_display(self):
+        return dict(SolicitudPrestamo.ESTADOS).get(self.estado_anterior, self.estado_anterior)
+
+    def get_estado_nuevo_display(self):
+        return dict(SolicitudPrestamo.ESTADOS).get(self.estado_nuevo, self.estado_nuevo)
 
 

@@ -33,6 +33,7 @@
                 <th>Fecha solicitada</th>
                 <th>Estado</th>
                 <th>Fecha de envío</th>
+                <th>Acciones</th>
             </tr>
         </thead>
 
@@ -48,10 +49,17 @@
                         </span>
                     </td>
                     <td>{{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</td>
+                    <td>
+                        {% if solicitud.estado == 'pendiente' %}
+                        <button type="button" class="table-btn danger" hx-get="{% url 'prestamos:cancelar_solicitud' solicitud.id %}" hx-target="#modal-container" hx-swap="innerHTML">Cancelar</button>
+                        {% elif solicitud.estado == 'cancelado' or solicitud.estado == 'cancelacion_pendiente' %}
+                        <button type="button" class="table-btn" hx-get="{% url 'prestamos:historial_cancelacion' solicitud.id %}" hx-target="#modal-container" hx-swap="innerHTML">Ver historial</button>
+                        {% else %}<span class="muted-text">—</span>{% endif %}
+                    </td>
                 </tr>
            {% empty %}
     <tr>
-        <td colspan="5" class="empty-table">
+        <td colspan="6" class="empty-table">
 
             <div class="empty-state">
 
@@ -76,3 +84,4 @@
     </table>
 
 </section>
+<div id="modal-container"></div>

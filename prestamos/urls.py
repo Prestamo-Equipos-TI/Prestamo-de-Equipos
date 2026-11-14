@@ -16,11 +16,15 @@ from .views import (
     devoluciones_lista,
     registrar_devolucion_modal,
     confirmar_devolucion,
+    cancelar_solicitud,
+    historial_cancelacion,
 )
 
 app_name = 'prestamos'
 
 urlpatterns = [
+    path('solicitudes/<int:solicitud_id>/cancelar/', cancelar_solicitud, name='cancelar_solicitud'),
+    path('solicitudes/<int:solicitud_id>/historial/', historial_cancelacion, name='historial_cancelacion'),
     path(
         '',
         prestamos_admin_inicio,

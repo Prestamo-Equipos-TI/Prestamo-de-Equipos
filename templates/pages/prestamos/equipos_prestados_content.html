@@ -67,8 +67,8 @@
                     <td>{{ solicitud.fecha_devolucion_estimada|date:"d/m/Y" }}</td>
 
                     <td>
-                        <span class="status prestado">
-                            Prestado
+                        <span class="status {{ solicitud.estado }}">
+                            {{ solicitud.get_estado_display }}
                         </span>
                     </td>
 
@@ -81,6 +81,11 @@
                             hx-swap="innerHTML">
                             Ver
                         </button>
+                        {% if solicitud.estado == 'entregado' %}
+                        <button type="button" class="table-btn danger" hx-get="{% url 'prestamos:cancelar_solicitud' solicitud.id %}" hx-target="#modal-container" hx-swap="innerHTML">Cancelar</button>
+                        {% else %}
+                        <button type="button" class="table-btn" hx-get="{% url 'prestamos:historial_cancelacion' solicitud.id %}" hx-target="#modal-container" hx-swap="innerHTML">Ver historial</button>
+                        {% endif %}
                     </td>
                 </tr>
            {% empty %}

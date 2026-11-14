@@ -31,8 +31,8 @@
                     <p>{{ solicitud.equipo.get_categoria_display }} · {{ solicitud.equipo.marca }}</p>
                 </div>
 
-                <span class="status prestado">
-                    Prestado
+                <span class="status {{ solicitud.estado }}">
+                    {{ solicitud.get_estado_display }}
                 </span>
             </div>
 

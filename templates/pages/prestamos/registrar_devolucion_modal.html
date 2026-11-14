@@ -14,7 +14,7 @@
                 <h2>Registrar devolución</h2>
 
                 <p>
-                    Confirma la recepción del equipo prestado.
+                    {% if solicitud.estado == 'cancelacion_pendiente' %}La recepción física completará la cancelación.{% else %}Confirma la recepción del equipo prestado.{% endif %}
                 </p>
             </div>
 
@@ -42,8 +42,8 @@
 
                 </div>
 
-                <span class="status prestado">
-                    Prestado
+                <span class="status {{ solicitud.estado }}">
+                    {{ solicitud.get_estado_display }}
                 </span>
 
             </div>
@@ -141,6 +141,12 @@
             {% endif %}
 
             <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="{{ form.condicion.id_for_label }}">Condición del equipo</label>
+                    {{ form.condicion }}
+                    {{ form.condicion.errors }}
+                </div>
 
                 <div class="form-group">
 

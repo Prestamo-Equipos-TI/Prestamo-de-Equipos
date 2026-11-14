@@ -3,6 +3,14 @@ from datetime import date
 
 
 class RegistrarDevolucionForm(forms.Form):
+    condicion = forms.ChoiceField(
+        label='Condición del equipo',
+        choices=[
+            ('operativo', 'Operativo'),
+            ('mantenimiento', 'Requiere mantenimiento'),
+        ],
+        widget=forms.Select(attrs={'class': 'form-control'}),
+    )
     fecha_devolucion_real = forms.DateField(
         label='Fecha de devolución',
         widget=forms.DateInput(attrs={

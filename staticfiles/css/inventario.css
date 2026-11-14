@@ -208,6 +208,18 @@
     border-color: rgba(101, 255, 154, 0.20);
 }
 
+.status.cancelado {
+    background: rgba(255, 77, 77, 0.18);
+    color: #ff9d9d;
+    border-color: rgba(255, 157, 157, 0.20);
+}
+
+.status.cancelacion_pendiente {
+    background: rgba(255, 193, 7, 0.18);
+    color: #ffd86b;
+    border-color: rgba(255, 216, 107, 0.22);
+}
+
 /* =========================
    FORMULARIO
 ========================= */

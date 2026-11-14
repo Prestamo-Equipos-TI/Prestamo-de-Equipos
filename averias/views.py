@@ -31,8 +31,9 @@ def reportar_averia_lista(request):
         'equipo'
     ).filter(
         usuario=request.user,
-        estado=SolicitudPrestamo.ESTADO_ENTREGADO,
-        equipo__estado='prestado'
+        estado__in=(SolicitudPrestamo.ESTADO_ENTREGADO,
+                    SolicitudPrestamo.ESTADO_CANCELACION_PENDIENTE),
+        fecha_devolucion_real__isnull=True,
     ).order_by('equipo__nombre')
 
     context = {
@@ -54,8 +55,9 @@ def reportar_averia_modal(request, solicitud_id):
         SolicitudPrestamo.objects.select_related('equipo'),
         id=solicitud_id,
         usuario=request.user,
-        estado=SolicitudPrestamo.ESTADO_ENTREGADO,
-        equipo__estado='prestado'
+        estado__in=(SolicitudPrestamo.ESTADO_ENTREGADO,
+                    SolicitudPrestamo.ESTADO_CANCELACION_PENDIENTE),
+        fecha_devolucion_real__isnull=True,
     )
 
     form = ReporteAveriaForm()
@@ -74,8 +76,9 @@ def confirmar_reporte_averia(request, solicitud_id):
         SolicitudPrestamo.objects.select_related('equipo'),
         id=solicitud_id,
         usuario=request.user,
-        estado=SolicitudPrestamo.ESTADO_ENTREGADO,
-        equipo__estado='prestado'
+        estado__in=(SolicitudPrestamo.ESTADO_ENTREGADO,
+                    SolicitudPrestamo.ESTADO_CANCELACION_PENDIENTE),
+        fecha_devolucion_real__isnull=True,
     )
 
     es_htmx = request.headers.get('HX-Request')

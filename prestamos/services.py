@@ -1,9 +1,34 @@
 from django.utils import timezone
 
 from alertas.models import Alerta
+from averias.models import ReporteAveria
 from usuarios.models import PerfilUsuario
 
 from .models import SolicitudPrestamo
+
+
+def estado_equipo_tras_cierre(equipo, condicion='operativo'):
+    if SolicitudPrestamo.objects.filter(
+        equipo=equipo,
+        estado__in=(SolicitudPrestamo.ESTADO_ENTREGADO,
+                    SolicitudPrestamo.ESTADO_CANCELACION_PENDIENTE),
+        fecha_devolucion_real__isnull=True,
+    ).exists():
+        return 'prestado'
+    if equipo.estado in ('averiado', 'mantenimiento'):
+        return equipo.estado
+    if ReporteAveria.objects.filter(
+        equipo=equipo,
+        estado__in=(ReporteAveria.ESTADO_PENDIENTE, ReporteAveria.ESTADO_EN_REVISION),
+    ).exists():
+        return 'averiado'
+    if condicion == 'mantenimiento' or not equipo.activo:
+        return 'mantenimiento'
+    if SolicitudPrestamo.objects.filter(
+        equipo=equipo, estado=SolicitudPrestamo.ESTADO_APROBADO,
+    ).exists():
+        return 'reservado'
+    return 'disponible'
 
 
 def detectar_prestamos_vencidos():
@@ -14,8 +39,8 @@ def detectar_prestamos_vencidos():
         'usuario',
         'equipo'
     ).filter(
-        estado=SolicitudPrestamo.ESTADO_ENTREGADO,
-        equipo__estado='prestado',
+        estado__in=(SolicitudPrestamo.ESTADO_ENTREGADO,
+                    SolicitudPrestamo.ESTADO_CANCELACION_PENDIENTE),
         fecha_devolucion_estimada__lt=hoy,
         fecha_devolucion_real__isnull=True,
         alerta_vencimiento_enviada=False

@@ -363,6 +363,9 @@ document.body.addEventListener('htmx:afterRequest', function (event) {
     const esFormularioDevolucion =
         elemento.id === 'devolucion-form';
 
+    const esFormularioCancelacion =
+        elemento.id === 'cancelacion-form';
+
     const esFormularioAveria =
         elemento.id === 'averia-form';
 
@@ -465,6 +468,11 @@ document.body.addEventListener('htmx:afterRequest', function (event) {
         mensajeResultado =
             'Devolución registrada correctamente.';
 
+    } else if (esFormularioCancelacion) {
+
+        mensajeResultado =
+            'Cancelación registrada correctamente.';
+
     } else if (esFormularioAveria) {
 
         mensajeResultado =
@@ -507,6 +515,7 @@ document.body.addEventListener('htmx:afterRequest', function (event) {
         esFormularioAprobacion ||
         esFormularioEntrega ||
         esFormularioDevolucion ||
+        esFormularioCancelacion ||
         esFormularioAveria ||
         esFormularioAveriaAdmin ||
         esFormularioGestionAveria ||

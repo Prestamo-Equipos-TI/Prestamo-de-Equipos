@@ -2,20 +2,22 @@ from datetime import timedelta
 
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_http_methods
 
 from alertas.models import Alerta
 from inventario.models import Equipo
 from usuarios.models import PerfilUsuario
-from .services import detectar_prestamos_vencidos
+from .services import detectar_prestamos_vencidos, estado_equipo_tras_cierre
 from .forms import SolicitudPrestamoForm
+from .forms_cancelacion import CancelarSolicitudForm
 from .forms_aprobacion import AprobarSolicitudForm
 from .forms_devolucion import RegistrarDevolucionForm
 from .forms_entrega import RegistrarEntregaForm
-from .models import SolicitudPrestamo
+from .models import RegistroEstadoSolicitud, SolicitudPrestamo
 from config.reportes import exportar_reporte, fecha
-from usuarios.permisos import solo_gestor_ti, solo_solicitante
+from usuarios.permisos import rol_funcional, solo_gestor_ti, solo_solicitante
 
 
 @login_required
@@ -137,6 +139,94 @@ def mis_solicitudes(request):
     return render(request, 'pages/app_layout.html', context)
 
 
+def _solicitud_cancelable(request, solicitud_id, bloquear=False):
+    rol = rol_funcional(request.user)
+    consulta = SolicitudPrestamo.objects.select_related('usuario', 'equipo')
+    if bloquear:
+        consulta = consulta.select_for_update(of=('self',))
+    if rol == PerfilUsuario.ROL_USUARIO:
+        consulta = consulta.filter(usuario=request.user, estado=SolicitudPrestamo.ESTADO_PENDIENTE)
+    elif rol in (PerfilUsuario.ROL_ADMIN_TI, PerfilUsuario.ROL_SUPERADMIN):
+        consulta = consulta.filter(estado__in=(
+            SolicitudPrestamo.ESTADO_PENDIENTE,
+            SolicitudPrestamo.ESTADO_APROBADO,
+            SolicitudPrestamo.ESTADO_ENTREGADO,
+        ))
+    else:
+        return None
+    return get_object_or_404(consulta, pk=solicitud_id)
+
+
+@login_required
+@require_http_methods(['GET', 'POST'])
+def cancelar_solicitud(request, solicitud_id):
+    solicitud = _solicitud_cancelable(request, solicitud_id)
+    if solicitud is None:
+        return HttpResponseForbidden('No tienes permiso para cancelar solicitudes.')
+    form = CancelarSolicitudForm(request.POST if request.method == 'POST' else None)
+    if request.method == 'POST' and form.is_valid():
+        with transaction.atomic():
+            solicitud = _solicitud_cancelable(request, solicitud_id, bloquear=True)
+            equipo = Equipo.objects.select_for_update().get(pk=solicitud.equipo_id)
+            anterior = solicitud.estado
+            solicitud.estado = (
+                SolicitudPrestamo.ESTADO_CANCELACION_PENDIENTE
+                if anterior == SolicitudPrestamo.ESTADO_ENTREGADO
+                else SolicitudPrestamo.ESTADO_CANCELADO
+            )
+            solicitud.save(update_fields=['estado'])
+            RegistroEstadoSolicitud.objects.create(
+                solicitud=solicitud, actor=request.user, estado_anterior=anterior,
+                estado_nuevo=solicitud.estado, motivo=form.cleaned_data['motivo'],
+            )
+            if anterior == SolicitudPrestamo.ESTADO_APROBADO:
+                equipo.estado = estado_equipo_tras_cierre(equipo)
+                equipo.save(update_fields=['estado'])
+            titulo = ('Devolución requerida para cancelar' if anterior == SolicitudPrestamo.ESTADO_ENTREGADO
+                      else 'Solicitud cancelada')
+            if request.user != solicitud.usuario:
+                Alerta.objects.create(
+                    usuario=solicitud.usuario, titulo=titulo,
+                    mensaje=f'{equipo.nombre}: {form.cleaned_data["motivo"]}',
+                    tipo=Alerta.TIPO_SISTEMA,
+                )
+            else:
+                for perfil in PerfilUsuario.objects.filter(
+                    rol__in=(PerfilUsuario.ROL_ADMIN_TI, PerfilUsuario.ROL_SUPERADMIN),
+                    user__is_active=True,
+                ).select_related('user'):
+                    Alerta.objects.create(
+                        usuario=perfil.user, titulo='Solicitud cancelada por solicitante',
+                        mensaje=f'{solicitud.usuario.username} canceló {equipo.nombre}: {form.cleaned_data["motivo"]}',
+                        tipo=Alerta.TIPO_SISTEMA,
+                    )
+        if request.headers.get('HX-Request'):
+            return HttpResponse(status=204)
+        return redirect('prestamos:mis_solicitudes' if request.user == solicitud.usuario
+                        else 'prestamos:solicitudes_admin')
+    return render(request, 'pages/prestamos/cancelar_solicitud_modal.html', {
+        'solicitud': solicitud, 'form': form,
+        'es_modal': bool(request.headers.get('HX-Request')),
+    }, status=422 if request.method == 'POST' and request.headers.get('HX-Request') else 200)
+
+
+@login_required
+def historial_cancelacion(request, solicitud_id):
+    rol = rol_funcional(request.user)
+    if rol not in (PerfilUsuario.ROL_USUARIO, PerfilUsuario.ROL_ADMIN_TI,
+                   PerfilUsuario.ROL_SUPERADMIN):
+        return HttpResponseForbidden('Sin acceso al historial.')
+    consulta = SolicitudPrestamo.objects.select_related('equipo', 'usuario')
+    if rol == PerfilUsuario.ROL_USUARIO:
+        consulta = consulta.filter(usuario=request.user)
+    solicitud = get_object_or_404(consulta, pk=solicitud_id)
+    return render(request, 'pages/prestamos/historial_cancelacion_modal.html', {
+        'solicitud': solicitud,
+        'transiciones': solicitud.transiciones.select_related('actor'),
+        'es_modal': bool(request.headers.get('HX-Request')),
+    })
+
+
 @login_required
 @solo_gestor_ti
 def solicitudes_admin(request):
@@ -211,7 +301,7 @@ def aprobar_solicitud_modal(request, solicitud_id):
 @transaction.atomic
 def confirmar_aprobacion_solicitud(request, solicitud_id):
     solicitud = get_object_or_404(
-        SolicitudPrestamo.objects.select_related(
+        SolicitudPrestamo.objects.select_for_update(of=('self',)).select_related(
             'usuario',
             'usuario__perfil',
             'equipo'
@@ -226,6 +316,9 @@ def confirmar_aprobacion_solicitud(request, solicitud_id):
         form = AprobarSolicitudForm(request.POST)
 
         if form.is_valid():
+            equipo = Equipo.objects.select_for_update().get(pk=solicitud.equipo_id)
+            if not equipo.activo or equipo.estado != 'disponible':
+                return HttpResponse('El equipo ya no está disponible.', status=409)
             solicitud.fecha_entrega_programada = form.cleaned_data['fecha_entrega_programada']
             solicitud.dias_prestamo = form.cleaned_data['dias_prestamo']
             solicitud.estado = SolicitudPrestamo.ESTADO_APROBADO
@@ -233,9 +326,8 @@ def confirmar_aprobacion_solicitud(request, solicitud_id):
             solicitud.save()
 
             # Cambia estado del equipo a reservado
-            equipo = solicitud.equipo
             equipo.estado = 'reservado'
-            equipo.save()
+            equipo.save(update_fields=['estado'])
 
             # Rechaza automáticamente otras solicitudes pendientes del mismo equipo
             solicitudes_rechazadas = SolicitudPrestamo.objects.filter(
@@ -298,7 +390,7 @@ def confirmar_aprobacion_solicitud(request, solicitud_id):
 @transaction.atomic
 def rechazar_solicitud(request, solicitud_id):
     solicitud = get_object_or_404(
-        SolicitudPrestamo.objects.select_related(
+        SolicitudPrestamo.objects.select_for_update(of=('self',)).select_related(
             'usuario',
             'equipo'
         ),
@@ -381,7 +473,7 @@ def registrar_entrega_modal(request, solicitud_id):
 @transaction.atomic
 def confirmar_entrega(request, solicitud_id):
     solicitud = get_object_or_404(
-        SolicitudPrestamo.objects.select_related(
+        SolicitudPrestamo.objects.select_for_update(of=('self',)).select_related(
             'usuario',
             'usuario__perfil',
             'equipo'
@@ -397,6 +489,9 @@ def confirmar_entrega(request, solicitud_id):
         form = RegistrarEntregaForm(request.POST)
 
         if form.is_valid():
+            equipo = Equipo.objects.select_for_update().get(pk=solicitud.equipo_id)
+            if equipo.estado != 'reservado':
+                return HttpResponse('El equipo ya no está reservado.', status=409)
             fecha_real = form.cleaned_data['fecha_entrega_real']
             observaciones = form.cleaned_data['observaciones_entrega']
 
@@ -411,9 +506,8 @@ def confirmar_entrega(request, solicitud_id):
             solicitud.save()
 
             # Cambia estado del equipo a prestado
-            equipo = solicitud.equipo
             equipo.estado = 'prestado'
-            equipo.save()
+            equipo.save(update_fields=['estado'])
 
             # Notifica al usuario sobre la entrega y fecha estimada de devolución
             Alerta.objects.create(
@@ -450,8 +544,9 @@ def equipos_prestados(request):
         'usuario__perfil',
         'equipo'
     ).filter(
-        estado=SolicitudPrestamo.ESTADO_ENTREGADO,
-        equipo__estado='prestado'
+        estado__in=(SolicitudPrestamo.ESTADO_ENTREGADO,
+                    SolicitudPrestamo.ESTADO_CANCELACION_PENDIENTE),
+        fecha_devolucion_real__isnull=True,
     ).order_by('-fecha_entrega_real')
 
     context = {
@@ -476,8 +571,9 @@ def detalle_prestamo(request, solicitud_id):
             'equipo'
         ),
         id=solicitud_id,
-        estado=SolicitudPrestamo.ESTADO_ENTREGADO,
-        equipo__estado='prestado'
+        estado__in=(SolicitudPrestamo.ESTADO_ENTREGADO,
+                    SolicitudPrestamo.ESTADO_CANCELACION_PENDIENTE),
+        fecha_devolucion_real__isnull=True,
     )
 
     return render(request, 'pages/prestamos/detalle_prestamo_modal.html', {
@@ -494,8 +590,9 @@ def devoluciones_lista(request):
         'usuario__perfil',
         'equipo'
     ).filter(
-        estado=SolicitudPrestamo.ESTADO_ENTREGADO,
-        equipo__estado='prestado'
+        estado__in=(SolicitudPrestamo.ESTADO_ENTREGADO,
+                    SolicitudPrestamo.ESTADO_CANCELACION_PENDIENTE),
+        fecha_devolucion_real__isnull=True,
     ).order_by('fecha_devolucion_estimada')
 
     context = {
@@ -520,8 +617,9 @@ def registrar_devolucion_modal(request, solicitud_id):
             'equipo'
         ),
         id=solicitud_id,
-        estado=SolicitudPrestamo.ESTADO_ENTREGADO,
-        equipo__estado='prestado'
+        estado__in=(SolicitudPrestamo.ESTADO_ENTREGADO,
+                    SolicitudPrestamo.ESTADO_CANCELACION_PENDIENTE),
+        fecha_devolucion_real__isnull=True,
     )
 
     form = RegistrarDevolucionForm()
@@ -538,14 +636,15 @@ def registrar_devolucion_modal(request, solicitud_id):
 @transaction.atomic
 def confirmar_devolucion(request, solicitud_id):
     solicitud = get_object_or_404(
-        SolicitudPrestamo.objects.select_related(
+        SolicitudPrestamo.objects.select_for_update(of=('self',)).select_related(
             'usuario',
             'usuario__perfil',
             'equipo'
         ),
         id=solicitud_id,
-        estado=SolicitudPrestamo.ESTADO_ENTREGADO,
-        equipo__estado='prestado'
+        estado__in=(SolicitudPrestamo.ESTADO_ENTREGADO,
+                    SolicitudPrestamo.ESTADO_CANCELACION_PENDIENTE),
+        fecha_devolucion_real__isnull=True,
     )
 
     es_htmx = request.headers.get('HX-Request')
@@ -554,21 +653,30 @@ def confirmar_devolucion(request, solicitud_id):
         form = RegistrarDevolucionForm(request.POST)
 
         if form.is_valid():
+            equipo = Equipo.objects.select_for_update().get(pk=solicitud.equipo_id)
+            anterior = solicitud.estado
             solicitud.fecha_devolucion_real = form.cleaned_data['fecha_devolucion_real']
             solicitud.observaciones_devolucion = form.cleaned_data['observaciones_devolucion']
-            solicitud.estado = SolicitudPrestamo.ESTADO_DEVUELTO
+            solicitud.estado = (SolicitudPrestamo.ESTADO_CANCELADO
+                                if anterior == SolicitudPrestamo.ESTADO_CANCELACION_PENDIENTE
+                                else SolicitudPrestamo.ESTADO_DEVUELTO)
             solicitud.devuelto_por = request.user
             solicitud.save()
 
-            # Libera el equipo cambiando su estado a disponible
-            equipo = solicitud.equipo
-            equipo.estado = 'disponible'
-            equipo.save()
+            equipo.estado = estado_equipo_tras_cierre(equipo, form.cleaned_data['condicion'])
+            equipo.save(update_fields=['estado'])
+            if anterior == SolicitudPrestamo.ESTADO_CANCELACION_PENDIENTE:
+                RegistroEstadoSolicitud.objects.create(
+                    solicitud=solicitud, actor=request.user,
+                    estado_anterior=anterior, estado_nuevo=solicitud.estado,
+                    motivo=f'Devolución física registrada. Condición: {form.cleaned_data["condicion"]}.',
+                )
 
             # Notifica al usuario que la devolución fue registrada correctamente
             Alerta.objects.create(
                 usuario=solicitud.usuario,
-                titulo='Equipo devuelto',
+                titulo=('Cancelación completada' if anterior == SolicitudPrestamo.ESTADO_CANCELACION_PENDIENTE
+                        else 'Equipo devuelto'),
                 mensaje=(
                     f'Se registró correctamente la devolución del equipo '
                     f'{equipo.nombre}. Gracias por completar el préstamo.'

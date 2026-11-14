@@ -1,0 +1,20 @@
+{% if es_modal %}<div class="modal-backdrop-custom" id="modal-cancelar-solicitud"><script>abrirModal();</script><div class="modal-panel">
+{% else %}<div class="modal-panel">{% endif %}
+    <div class="modal-header-custom">
+        <div><h2>Cancelar solicitud</h2><p>{{ solicitud.equipo.nombre }} · {{ solicitud.equipo.codigo }}</p></div>
+        {% if es_modal %}<button type="button" class="modal-close-btn" onclick="cerrarModal(true)" aria-label="Cerrar">×</button>{% endif %}
+    </div>
+    {% if solicitud.estado == 'entregado' %}<p>La cancelación quedará pendiente hasta recibir físicamente el equipo. El equipo seguirá sin estar disponible.</p>{% endif %}
+    <form id="cancelacion-form" method="post" class="equipment-form" action="{% url 'prestamos:cancelar_solicitud' solicitud.id %}" hx-post="{% url 'prestamos:cancelar_solicitud' solicitud.id %}" hx-target="#modal-container" hx-swap="innerHTML">
+        {% csrf_token %}
+        <div class="form-group full-width">
+            <label for="{{ form.motivo.id_for_label }}">Motivo de cancelación</label>
+            {{ form.motivo }}
+            {{ form.motivo.errors }}
+        </div>
+        <div class="form-actions">
+            {% if es_modal %}<button type="button" class="secondary-action" onclick="cerrarModal(true)">Volver</button>{% endif %}
+            <button type="submit" class="primary-action">Confirmar cancelación</button>
+        </div>
+    </form>
+</div>{% if es_modal %}</div>{% endif %}

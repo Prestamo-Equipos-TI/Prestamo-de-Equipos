@@ -1,0 +1,15 @@
+{% if es_modal %}<div class="modal-backdrop-custom" id="modal-historial-cancelacion"><script>abrirModal();</script><div class="modal-panel">
+{% else %}<div class="modal-panel">{% endif %}
+    <div class="modal-header-custom">
+        <div><h2>Historial de cancelación</h2><p>{{ solicitud.equipo.nombre }} · {{ solicitud.equipo.codigo }}</p></div>
+        {% if es_modal %}<button type="button" class="modal-close-btn" onclick="cerrarModal(true)" aria-label="Cerrar">×</button>{% endif %}
+    </div>
+    {% for transicion in transiciones %}
+    <section class="equipment-detail-card">
+        <p><strong>{{ transicion.get_estado_anterior_display }} → {{ transicion.get_estado_nuevo_display }}</strong></p>
+        <p>{{ transicion.fecha|date:"d/m/Y H:i" }} · {{ transicion.actor.get_full_name|default:transicion.actor.username }}</p>
+        <p>{{ transicion.motivo }}</p>
+    </section>
+    {% empty %}<p>Aún no hay transiciones de cancelación.</p>{% endfor %}
+    {% if es_modal %}<div class="form-actions"><button type="button" class="secondary-action" onclick="cerrarModal(true)">Cerrar</button></div>{% endif %}
+</div>{% if es_modal %}</div>{% endif %}
