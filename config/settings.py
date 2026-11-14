@@ -24,7 +24,7 @@ ALLOWED_HOSTS = config(
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'config.admin_apps.AdminEmergenciaConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

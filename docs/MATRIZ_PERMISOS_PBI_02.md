@@ -8,7 +8,7 @@
 | Crear y gestionar administradores TI | No | No | Sí | Sí |
 | Crear y gestionar superadministradores secundarios | No | No | No | Sí |
 | Asignar o transferir la cuenta principal | No | No | No desde la web | Comando técnico auditado |
-| Django Admin (`/admin/`) | Según `is_staff` técnico | Según `is_staff` técnico | Según `is_staff` técnico | Según `is_staff` técnico |
+| Django Admin (`/admin/`) | Solo con `is_staff` e `is_superuser` técnicos | Solo con ambas banderas técnicas | Solo con ambas banderas técnicas | Solo con ambas banderas técnicas |
 
 Las autorizaciones de la aplicación usan `PerfilUsuario.rol`, no `is_staff` ni `is_superuser`. El panel de usuarios no permite gestionar cuentas técnicas (`is_staff` o `is_superuser`), aunque una cuenta técnica designada principal sí puede actuar como gestora funcional. Crear un rol funcional nunca altera las banderas técnicas.
 
