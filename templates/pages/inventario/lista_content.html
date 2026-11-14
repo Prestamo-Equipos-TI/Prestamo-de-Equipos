@@ -145,6 +145,19 @@
 
         </select>
 
+        <input type="text" name="nombre" value="{{ nombre }}" placeholder="Nombre" aria-label="Filtrar por nombre"
+               hx-get="{% url 'inventario:lista' %}" hx-target="#inventory-table-wrapper" hx-trigger="keyup changed delay:350ms"
+               hx-include="#inventory-filters" hx-vals='{"partial": "tabla"}'>
+        <input type="text" name="marca" value="{{ marca }}" placeholder="Marca" aria-label="Filtrar por marca"
+               hx-get="{% url 'inventario:lista' %}" hx-target="#inventory-table-wrapper" hx-trigger="keyup changed delay:350ms"
+               hx-include="#inventory-filters" hx-vals='{"partial": "tabla"}'>
+        <input type="text" name="modelo" value="{{ modelo }}" placeholder="Modelo" aria-label="Filtrar por modelo"
+               hx-get="{% url 'inventario:lista' %}" hx-target="#inventory-table-wrapper" hx-trigger="keyup changed delay:350ms"
+               hx-include="#inventory-filters" hx-vals='{"partial": "tabla"}'>
+        <input type="text" name="ubicacion" value="{{ ubicacion }}" placeholder="Ubicación" aria-label="Filtrar por ubicación"
+               hx-get="{% url 'inventario:lista' %}" hx-target="#inventory-table-wrapper" hx-trigger="keyup changed delay:350ms"
+               hx-include="#inventory-filters" hx-vals='{"partial": "tabla"}'>
+
     </div>
 
 </form>

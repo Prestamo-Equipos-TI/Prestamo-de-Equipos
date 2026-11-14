@@ -16,6 +16,50 @@
     gap: 10px;
 }
 
+.report-period-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 10px;
+}
+
+.alert-report-header {
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.alert-report-header .report-period-form {
+    flex: 1 1 560px;
+    justify-content: flex-end;
+}
+
+.alert-report-results {
+    transition: opacity 150ms ease;
+}
+
+.alert-report-results.htmx-swapping {
+    opacity: 0;
+}
+
+.report-period-form label {
+    display: grid;
+    gap: 4px;
+    color: var(--gray);
+    font-size: 12px;
+}
+
+.report-period-form input,
+.report-period-form select,
+.advanced-filters input {
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #1a1a1a;
+    color: white;
+}
+
+.report-error { color: #ff8b8b; }
+
 .inventory-header h2 {
     font-size: 28px;
     margin-bottom: 6px;

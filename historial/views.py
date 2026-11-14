@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.db.models import Count, Exists, OuterRef
+from django.db.models import Count, Exists, OuterRef, Q
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from inventario.models import Equipo
 from averias.models import ReporteAveria
 from prestamos.models import SolicitudPrestamo
-from config.reportes import exportar_reporte, fecha
+from config.reportes import exportar_reporte, filtrar_periodo, periodo_reporte
 from usuarios.permisos import solo_gestor_ti
 
 
@@ -26,6 +27,7 @@ def historial_inicio(request):
 @login_required
 @solo_gestor_ti
 def historial_usuarios(request):
+    desde, hasta, error_periodo = periodo_reporte(request)
     prestamos_activos = SolicitudPrestamo.objects.filter(
         usuario=OuterRef('pk'),
         estado=SolicitudPrestamo.ESTADO_ENTREGADO,
@@ -42,23 +44,34 @@ def historial_usuarios(request):
     ).order_by('perfil__nombre_completo')
 
     if request.GET.get('export') in ('pdf', 'excel'):
+        if error_periodo:
+            return HttpResponse(error_periodo, status=400)
+        solicitudes = filtrar_periodo(SolicitudPrestamo.objects.select_related(
+            'usuario__perfil', 'equipo').filter(usuario__perfil__rol='usuario'),
+            'fecha_solicitud', desde, hasta).order_by('usuario__perfil__nombre_completo', '-fecha_solicitud')
+        if desde:
+            usuarios = usuarios.filter(pk__in=solicitudes.values('usuario_id')).annotate(
+                solicitudes_periodo=Count('solicitudes_prestamo', filter=Q(
+                    solicitudes_prestamo__fecha_solicitud__date__range=(desde, hasta))))
         resumen = [(u.perfil.nombre_completo, u.perfil.carnet, u.email,
-                    u.total_solicitudes, 'Sí' if u.tiene_prestamo_activo else 'No') for u in usuarios]
-        solicitudes = SolicitudPrestamo.objects.select_related('usuario__perfil', 'equipo').filter(
-            usuario__perfil__rol='usuario').order_by('usuario__perfil__nombre_completo', '-fecha_solicitud')
+                    u.solicitudes_periodo if desde else u.total_solicitudes,
+                    'Sí' if u.tiene_prestamo_activo else 'No') for u in usuarios]
         movimientos = [(s.usuario.perfil.nombre_completo, s.usuario.perfil.carnet,
-                        s.equipo.codigo, fecha(s.fecha_solicitud), fecha(s.fecha_entrega_real),
-                        fecha(s.fecha_devolucion_real), s.get_estado_display()) for s in solicitudes]
+                        s.equipo.codigo, s.fecha_solicitud, s.fecha_entrega_real,
+                        s.fecha_devolucion_real, s.get_estado_display()) for s in solicitudes]
         return exportar_reporte(request.GET['export'], 'historial_usuarios', 'Historial por usuario', [
             ('Usuarios', ['Usuario', 'Carnet', 'Correo', 'Solicitudes', 'Préstamo activo'], resumen),
             ('Solicitudes', ['Usuario', 'Carnet', 'Equipo', 'Solicitud', 'Entrega',
                              'Devolución', 'Estado'], movimientos),
-        ])
+        ], usuario=request.user, desde=desde, hasta=hasta)
 
     context = {
         'active_page': 'historial',
         'content_template': 'pages/historial/usuarios_content.html',
         'usuarios': usuarios,
+        'fecha_inicio': request.GET.get('fecha_inicio', ''),
+        'fecha_fin': request.GET.get('fecha_fin', ''),
+        'error_periodo': error_periodo,
     }
 
     if request.headers.get('HX-Request'):
@@ -69,6 +82,7 @@ def historial_usuarios(request):
 @login_required
 @solo_gestor_ti
 def historial_usuario_detalle(request, usuario_id):
+    desde, hasta, error_periodo = periodo_reporte(request)
     usuario = get_object_or_404(
         User.objects.select_related('perfil'),
         id=usuario_id,
@@ -87,15 +101,18 @@ def historial_usuario_detalle(request, usuario_id):
     ).exists()
 
     if request.GET.get('export') in ('pdf', 'excel'):
-        filas = [(s.equipo.nombre, s.equipo.codigo, fecha(s.fecha_solicitud),
-                  fecha(s.fecha_prestamo), fecha(s.fecha_entrega_real),
-                  fecha(s.fecha_devolucion_estimada), fecha(s.fecha_devolucion_real),
+        if error_periodo:
+            return HttpResponse(error_periodo, status=400)
+        solicitudes = filtrar_periodo(solicitudes, 'fecha_solicitud', desde, hasta)
+        filas = [(s.equipo.nombre, s.equipo.codigo, s.fecha_solicitud,
+                  s.fecha_prestamo, s.fecha_entrega_real,
+                  s.fecha_devolucion_estimada, s.fecha_devolucion_real,
                   s.get_estado_display()) for s in solicitudes]
         return exportar_reporte(request.GET['export'], f'historial_usuario_{usuario.id}',
                                 f'Historial de {usuario.perfil.nombre_completo}', [
             ('Solicitudes', ['Equipo', 'Código', 'Solicitud', 'Fecha solicitada', 'Entrega',
                              'Devolución estimada', 'Devolución real', 'Estado'], filas),
-        ])
+        ], usuario=request.user, desde=desde, hasta=hasta, filtros={'Usuario': usuario.perfil.nombre_completo})
 
     context = {
         'active_page': 'historial',
@@ -103,6 +120,9 @@ def historial_usuario_detalle(request, usuario_id):
         'usuario_historial': usuario,
         'solicitudes': solicitudes,
         'tiene_prestamo_activo': tiene_prestamo_activo,
+        'fecha_inicio': request.GET.get('fecha_inicio', ''),
+        'fecha_fin': request.GET.get('fecha_fin', ''),
+        'error_periodo': error_periodo,
     }
 
     if request.headers.get('HX-Request'):
@@ -112,33 +132,44 @@ def historial_usuario_detalle(request, usuario_id):
 @login_required
 @solo_gestor_ti
 def historial_equipos(request):
+    desde, hasta, error_periodo = periodo_reporte(request)
     equipos = Equipo.objects.filter(
         activo=True
     ).order_by('nombre')
 
     if request.GET.get('export') in ('pdf', 'excel'):
+        if error_periodo:
+            return HttpResponse(error_periodo, status=400)
+        prestamos = filtrar_periodo(SolicitudPrestamo.objects.select_related(
+            'equipo', 'usuario__perfil').filter(equipo__activo=True),
+            'fecha_solicitud', desde, hasta).order_by('equipo__nombre', '-fecha_solicitud')
+        averias = filtrar_periodo(ReporteAveria.objects.select_related(
+            'equipo', 'reportado_por').filter(equipo__activo=True),
+            'fecha_reporte', desde, hasta).order_by('equipo__nombre', '-fecha_reporte')
+        if desde:
+            equipos = equipos.filter(pk__in=set(prestamos.values_list('equipo_id', flat=True)) |
+                                     set(averias.values_list('equipo_id', flat=True)))
         resumen = [(e.codigo, e.nombre, e.get_categoria_display(), e.marca,
                     e.get_estado_display()) for e in equipos]
-        prestamos = SolicitudPrestamo.objects.select_related('equipo', 'usuario__perfil').filter(
-            equipo__activo=True).order_by('equipo__nombre', '-fecha_solicitud')
-        uso = [(p.equipo.codigo, p.usuario.perfil.nombre_completo, fecha(p.fecha_solicitud),
-                fecha(p.fecha_entrega_real), fecha(p.fecha_devolucion_real),
+        uso = [(p.equipo.codigo, p.usuario.perfil.nombre_completo, p.fecha_solicitud,
+                p.fecha_entrega_real, p.fecha_devolucion_real,
                 p.get_estado_display()) for p in prestamos]
-        averias = ReporteAveria.objects.select_related('equipo', 'reportado_por').filter(
-            equipo__activo=True).order_by('equipo__nombre', '-fecha_reporte')
-        fallas = [(a.equipo.codigo, a.descripcion_falla, fecha(a.fecha_reporte),
+        fallas = [(a.equipo.codigo, a.descripcion_falla, a.fecha_reporte,
                    a.get_estado_display(), a.reportado_por.username if a.reportado_por else 'Sistema')
                   for a in averias]
         return exportar_reporte(request.GET['export'], 'historial_equipos', 'Historial por equipo', [
             ('Equipos', ['Código', 'Equipo', 'Categoría', 'Marca', 'Estado'], resumen),
             ('Préstamos', ['Equipo', 'Usuario', 'Solicitud', 'Entrega', 'Devolución', 'Estado'], uso),
             ('Averías', ['Equipo', 'Descripción', 'Reportada', 'Estado', 'Reportado por'], fallas),
-        ])
+        ], usuario=request.user, desde=desde, hasta=hasta)
 
     context = {
         'active_page': 'historial',
         'content_template': 'pages/historial/equipos_content.html',
         'equipos': equipos,
+        'fecha_inicio': request.GET.get('fecha_inicio', ''),
+        'fecha_fin': request.GET.get('fecha_fin', ''),
+        'error_periodo': error_periodo,
     }
 
     if request.headers.get('HX-Request'):
@@ -148,6 +179,7 @@ def historial_equipos(request):
 @login_required
 @solo_gestor_ti
 def historial_equipo_detalle(request, equipo_id):
+    desde, hasta, error_periodo = periodo_reporte(request)
     equipo = get_object_or_404(
         Equipo,
         id=equipo_id,
@@ -173,11 +205,15 @@ def historial_equipo_detalle(request, equipo_id):
     ultimo_prestamo = prestamos.first()
 
     if request.GET.get('export') in ('pdf', 'excel'):
-        uso = [(p.usuario.perfil.nombre_completo, fecha(p.fecha_solicitud),
-                fecha(p.fecha_entrega_real), fecha(p.fecha_devolucion_estimada),
-                fecha(p.fecha_devolucion_real), p.get_estado_display()) for p in prestamos]
+        if error_periodo:
+            return HttpResponse(error_periodo, status=400)
+        prestamos = filtrar_periodo(prestamos, 'fecha_solicitud', desde, hasta)
+        averias = filtrar_periodo(averias, 'fecha_reporte', desde, hasta)
+        uso = [(p.usuario.perfil.nombre_completo, p.fecha_solicitud,
+                p.fecha_entrega_real, p.fecha_devolucion_estimada,
+                p.fecha_devolucion_real, p.get_estado_display()) for p in prestamos]
         fallas = [(a.reportado_por.username if a.reportado_por else 'Sistema',
-                   a.descripcion_falla, fecha(a.fecha_reporte), a.get_estado_display(),
+                   a.descripcion_falla, a.fecha_reporte, a.get_estado_display(),
                    a.revisado_por.username if a.revisado_por else '-',
                    a.resuelto_por.username if a.resuelto_por else '-') for a in averias]
         return exportar_reporte(request.GET['export'], f'historial_equipo_{equipo.id}',
@@ -186,7 +222,7 @@ def historial_equipo_detalle(request, equipo_id):
                            'Devolución real', 'Estado'], uso),
             ('Averías', ['Reportado por', 'Descripción', 'Reportada', 'Estado',
                          'Revisado por', 'Resuelto por'], fallas),
-        ])
+        ], usuario=request.user, desde=desde, hasta=hasta, filtros={'Equipo': equipo.codigo})
 
     context = {
         'active_page': 'historial',
@@ -195,6 +231,9 @@ def historial_equipo_detalle(request, equipo_id):
         'prestamos': prestamos,
         'averias': averias,
         'ultimo_prestamo': ultimo_prestamo,
+        'fecha_inicio': request.GET.get('fecha_inicio', ''),
+        'fecha_fin': request.GET.get('fecha_fin', ''),
+        'error_periodo': error_periodo,
     }
 
     if request.headers.get('HX-Request'):

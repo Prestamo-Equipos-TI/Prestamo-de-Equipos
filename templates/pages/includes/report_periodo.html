@@ -1,0 +1,12 @@
+<form class="report-period-form" method="get" action="{{ request.path }}">
+    <label>Desde <input type="date" name="fecha_inicio" value="{{ fecha_inicio }}" aria-label="Fecha inicial" required></label>
+    <label>Hasta <input type="date" name="fecha_fin" value="{{ fecha_fin }}" aria-label="Fecha final" required></label>
+    <label>Formato
+        <select name="export" aria-label="Formato de exportación">
+            <option value="pdf">PDF</option>
+            <option value="excel">Excel</option>
+        </select>
+    </label>
+    <button type="submit" class="secondary-action">Generar reporte</button>
+    {% if error_periodo %}<span class="report-error" role="alert">{{ error_periodo }}</span>{% endif %}
+</form>

@@ -638,3 +638,33 @@ window.addEventListener('pagehide', function () {
     clearTimeout(primeraConsultaAlertas);
     clearInterval(intervaloAlertas);
 });
+function validarFechasReporte(form, exigirPeriodo) {
+    const desde = form.elements.fecha_inicio.value;
+    const hasta = form.elements.fecha_fin.value;
+    if ((desde && !hasta) || (!desde && hasta) || (exigirPeriodo && (!desde || !hasta)) ||
+        (desde && hasta && desde > hasta)) {
+        form.elements.fecha_fin.setCustomValidity(
+            !desde || !hasta ? 'Selecciona la fecha inicial y final.' :
+            'La fecha final debe ser igual o posterior a la inicial.');
+        form.elements.fecha_fin.reportValidity();
+        return false;
+    }
+    return true;
+}
+
+document.addEventListener('submit', function (event) {
+    const form = event.target;
+    if (form.matches('.report-period-form') &&
+        !validarFechasReporte(form, event.submitter?.name === 'export')) event.preventDefault();
+});
+
+document.addEventListener('htmx:beforeRequest', function (event) {
+    if (event.detail.elt?.matches('#alert-filters [hx-get]') &&
+        !validarFechasReporte(event.detail.elt.form, false)) event.preventDefault();
+});
+
+document.addEventListener('input', function (event) {
+    if (event.target.matches('.report-period-form input[type="date"]')) {
+        event.target.form.elements.fecha_fin.setCustomValidity('');
+    }
+});

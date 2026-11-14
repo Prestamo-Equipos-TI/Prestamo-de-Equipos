@@ -5,7 +5,7 @@ from django.db.models import Q
 
 from .forms import EquipoForm
 from .models import Equipo
-from config.reportes import exportar_reporte, fecha
+from config.reportes import exportar_reporte
 from usuarios.permisos import solo_gestor_ti
 
 
@@ -15,6 +15,10 @@ def inventario_lista(request):
     busqueda = request.GET.get('q', '').strip()
     estado = request.GET.get('estado', '').strip()
     categoria = request.GET.get('categoria', '').strip()
+    modelo = request.GET.get('modelo', '').strip()
+    ubicacion = request.GET.get('ubicacion', '').strip()
+    nombre = request.GET.get('nombre', '').strip()
+    marca = request.GET.get('marca', '').strip()
 
     equipos = Equipo.objects.filter(activo=True)
 
@@ -46,16 +50,23 @@ def inventario_lista(request):
         equipos = equipos.filter(
             categoria=categoria
         )
+    for campo, valor in [('modelo', modelo), ('ubicacion', ubicacion),
+                         ('nombre', nombre), ('marca', marca)]:
+        if valor:
+            equipos = equipos.filter(**{f'{campo}__icontains': valor})
 
     equipos = equipos.order_by('-fecha_registro')
 
     if request.GET.get('export') in ('pdf', 'excel'):
         filas = [(e.codigo, e.nombre, e.get_categoria_display(), e.marca, e.modelo,
-                  e.get_estado_display(), e.ubicacion, fecha(e.fecha_registro)) for e in equipos]
+                  e.get_estado_display(), e.ubicacion, e.fecha_registro) for e in equipos]
         return exportar_reporte(request.GET['export'], 'inventario', 'Inventario', [
             ('Inventario', ['Código', 'Equipo', 'Categoría', 'Marca', 'Modelo', 'Estado',
                             'Ubicación', 'Registro'], filas),
-        ])
+        ], usuario=request.user, filtros={clave: valor for clave, valor in [
+            ('Búsqueda', busqueda), ('Estado', estado), ('Categoría', categoria),
+            ('Modelo', modelo), ('Ubicación', ubicacion), ('Nombre', nombre),
+            ('Marca', marca)] if valor})
 
     context = {
         'active_page': 'inventario',
@@ -67,6 +78,10 @@ def inventario_lista(request):
         'busqueda': busqueda,
         'estado': estado,
         'categoria': categoria,
+        'modelo': modelo,
+        'ubicacion': ubicacion,
+        'nombre': nombre,
+        'marca': marca,
 
         # Opciones disponibles para los select
         'estados': Equipo.ESTADOS,

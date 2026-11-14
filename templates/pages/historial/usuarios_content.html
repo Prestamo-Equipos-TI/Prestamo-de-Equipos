@@ -22,8 +22,7 @@
     </div>
 
     <div class="report-actions">
-        <a class="secondary-action" href="{% url 'historial:usuarios' %}?export=pdf">Reporte PDF</a>
-        <a class="secondary-action" href="{% url 'historial:usuarios' %}?export=excel">Reporte Excel</a>
+        {% include 'pages/includes/report_periodo.html' %}
         <button
             type="button"
             class="secondary-action"

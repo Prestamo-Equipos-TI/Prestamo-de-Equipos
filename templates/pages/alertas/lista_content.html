@@ -14,14 +14,41 @@
 
 </header>
 
-<section class="inventory-header">
+<section class="inventory-header alert-report-header">
 
     <div>
         <h2>Mis alertas</h2>
         <p>Se muestran las alertas asociadas a tu usuario.</p>
     </div>
 
+    <form class="report-period-form" id="alert-filters" method="get" action="{% url 'alertas:lista' %}">
+        <label>Desde
+            <input type="date" name="fecha_inicio" value="{{ fecha_inicio }}" aria-label="Fecha inicial">
+        </label>
+        <label>Hasta
+            <input type="date" name="fecha_fin" value="{{ fecha_fin }}" aria-label="Fecha final">
+        </label>
+        <label>Tipo de alerta
+            <select name="tipo" aria-label="Tipo de alerta">
+                <option value="">Todos los tipos</option>
+                {% for valor, nombre in tipos %}
+                    <option value="{{ valor }}" {% if tipo == valor %}selected{% endif %}>{{ nombre }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <button type="button" class="secondary-action" hx-get="{% url 'alertas:lista' %}"
+                hx-include="#alert-filters" hx-select="#alert-results"
+                hx-target="#alert-results" hx-swap="outerHTML swap:150ms"
+                hx-push-url="true">Filtrar</button>
+        {% if puede_exportar_alertas %}
+            <button type="submit" name="export" value="pdf" class="secondary-action">Generar PDF</button>
+        {% endif %}
+    </form>
+
 </section>
+
+<div id="alert-results" class="alert-report-results">
+{% if error_filtros %}<p class="report-error" role="alert">{{ error_filtros }}</p>{% endif %}
 
 <section class="inventory-table-card">
 
@@ -116,3 +143,4 @@
     </table>
 
 </section>
+</div>

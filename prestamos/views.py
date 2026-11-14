@@ -16,7 +16,7 @@ from .forms_aprobacion import AprobarSolicitudForm
 from .forms_devolucion import RegistrarDevolucionForm
 from .forms_entrega import RegistrarEntregaForm
 from .models import RegistroEstadoSolicitud, SolicitudPrestamo
-from config.reportes import exportar_reporte, fecha
+from config.reportes import exportar_reporte, filtrar_periodo, periodo_reporte
 from usuarios.permisos import rol_funcional, solo_gestor_ti, solo_solicitante
 
 
@@ -235,21 +235,28 @@ def solicitudes_admin(request):
         'usuario__perfil',
         'equipo'
     ).order_by('-fecha_solicitud')
+    desde, hasta, error_periodo = periodo_reporte(request)
 
     if request.GET.get('export') in ('pdf', 'excel'):
+        if error_periodo:
+            return HttpResponse(error_periodo, status=400)
+        solicitudes = filtrar_periodo(solicitudes, 'fecha_solicitud', desde, hasta)
         filas = [(s.usuario.perfil.nombre_completo, s.usuario.perfil.carnet,
-                  s.equipo.nombre, s.equipo.codigo, fecha(s.fecha_prestamo),
-                  s.get_estado_display(), fecha(s.fecha_solicitud),
-                  fecha(s.fecha_devolucion_estimada)) for s in solicitudes]
+                  s.equipo.nombre, s.equipo.codigo, s.fecha_prestamo,
+                  s.get_estado_display(), s.fecha_solicitud,
+                  s.fecha_devolucion_estimada) for s in solicitudes]
         return exportar_reporte(request.GET['export'], 'solicitudes', 'Solicitudes de préstamo', [
             ('Solicitudes', ['Solicitante', 'Carnet', 'Equipo', 'Código', 'Fecha solicitada',
                              'Estado', 'Enviada', 'Devolución estimada'], filas),
-        ])
+        ], usuario=request.user, desde=desde, hasta=hasta)
 
     context = {
         'active_page': 'solicitudes_admin',
         'content_template': 'pages/prestamos/solicitudes_admin_content.html',
         'solicitudes': solicitudes,
+        'fecha_inicio': request.GET.get('fecha_inicio', ''),
+        'fecha_fin': request.GET.get('fecha_fin', ''),
+        'error_periodo': error_periodo,
     }
 
     if request.headers.get('HX-Request'):

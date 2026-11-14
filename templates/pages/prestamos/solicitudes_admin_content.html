@@ -22,8 +22,7 @@
     </div>
 
     <div class="report-actions">
-        <a class="secondary-action" href="{% url 'prestamos:solicitudes_admin' %}?export=pdf">Reporte PDF</a>
-        <a class="secondary-action" href="{% url 'prestamos:solicitudes_admin' %}?export=excel">Reporte Excel</a>
+        {% include 'pages/includes/report_periodo.html' %}
         <button
             type="button"
             class="secondary-action"
