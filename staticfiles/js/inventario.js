@@ -378,6 +378,9 @@ document.body.addEventListener('htmx:afterRequest', function (event) {
     const esFormularioResolverAveria =
         elemento.id === 'resolver-averia-form';
 
+    const esFormularioFalsaAlarma =
+        elemento.id === 'falsa-alarma-form';
+
 
     const accion = elemento.dataset.action;
 
@@ -493,6 +496,11 @@ document.body.addEventListener('htmx:afterRequest', function (event) {
         mensajeResultado =
             'Avería marcada como resuelta correctamente.';
 
+    } else if (esFormularioFalsaAlarma) {
+
+        mensajeResultado =
+            'Reporte cerrado como falsa alarma.';
+
     } else if (esDesactivarEquipo) {
 
         mensajeResultado =
@@ -520,6 +528,7 @@ document.body.addEventListener('htmx:afterRequest', function (event) {
         esFormularioAveriaAdmin ||
         esFormularioGestionAveria ||
         esFormularioResolverAveria ||
+        esFormularioFalsaAlarma ||
         esRechazarSolicitud ||
         esDesactivarEquipo ||
         esEstadoUsuario

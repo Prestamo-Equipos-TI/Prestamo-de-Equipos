@@ -256,7 +256,7 @@ def usuario_estado(request, usuario_id):
         return HttpResponseBadRequest('Acción no válida')
     with transaction.atomic():
         usuario = _usuario_gestionable(request.user, usuario_id)
-        usuario = User.objects.select_for_update().select_related('perfil').get(pk=usuario.pk)
+        usuario = User.objects.select_for_update(of=('self',)).select_related('perfil').get(pk=usuario.pk)
         activo = accion == 'activar'
         if not activo and usuario.perfil.es_principal:
             return HttpResponseForbidden('No se puede desactivar al superadministrador principal.')

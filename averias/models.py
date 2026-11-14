@@ -9,11 +9,13 @@ class ReporteAveria(models.Model):
     ESTADO_PENDIENTE = 'pendiente'
     ESTADO_EN_REVISION = 'en_revision'
     ESTADO_RESUELTA = 'resuelta'
+    ESTADO_FALSA_ALARMA = 'falsa_alarma'
 
     ESTADOS = [
         (ESTADO_PENDIENTE, 'Pendiente'),
         (ESTADO_EN_REVISION, 'En revisión'),
         (ESTADO_RESUELTA, 'Resuelta'),
+        (ESTADO_FALSA_ALARMA, 'Falsa alarma'),
     ]
 
     equipo = models.ForeignKey(
@@ -89,3 +91,23 @@ class ReporteAveria(models.Model):
 
     def __str__(self):
         return f'{self.equipo.codigo} - {self.get_estado_display()}'
+
+
+class RegistroCierreAveria(models.Model):
+    reporte = models.ForeignKey(
+        ReporteAveria, on_delete=models.PROTECT, related_name='cierres'
+    )
+    actor = models.ForeignKey(User, on_delete=models.PROTECT)
+    estado_anterior = models.CharField(max_length=20)
+    estado_nuevo = models.CharField(max_length=20)
+    motivo = models.TextField()
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['fecha', 'pk']
+
+    def get_estado_anterior_display(self):
+        return dict(ReporteAveria.ESTADOS).get(self.estado_anterior, self.estado_anterior)
+
+    def get_estado_nuevo_display(self):
+        return dict(ReporteAveria.ESTADOS).get(self.estado_nuevo, self.estado_nuevo)

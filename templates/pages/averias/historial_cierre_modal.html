@@ -1,0 +1,16 @@
+{% if es_modal %}<div class="modal-backdrop-custom" id="modal-historial-averia"><script>abrirModal();</script><div class="modal-panel">
+{% else %}<div class="modal-panel">{% endif %}
+    <div class="modal-header-custom">
+        <div><h2>Historial de cierre</h2><p>{{ reporte.equipo.nombre }} · {{ reporte.equipo.codigo }}</p></div>
+        {% if es_modal %}<button type="button" class="modal-close-btn" onclick="cerrarModal(true)" aria-label="Cerrar">×</button>{% endif %}
+    </div>
+    <p>Reporte original: {{ reporte.descripcion_falla }}</p>
+    {% for cierre in cierres %}
+    <section class="equipment-detail-card">
+        <p><strong>{{ cierre.get_estado_anterior_display }} → {{ cierre.get_estado_nuevo_display }}</strong></p>
+        <p>{{ cierre.fecha|date:"d/m/Y H:i" }} · {{ cierre.actor.get_full_name|default:cierre.actor.username }}</p>
+        <p>{{ cierre.motivo }}</p>
+    </section>
+    {% empty %}<p>Aún no hay cierres registrados.</p>{% endfor %}
+    {% if es_modal %}<div class="form-actions"><button type="button" class="secondary-action" onclick="cerrarModal(true)">Cerrar</button></div>{% endif %}
+</div>{% if es_modal %}</div>{% endif %}

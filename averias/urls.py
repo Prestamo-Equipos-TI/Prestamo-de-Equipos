@@ -13,11 +13,17 @@ from .views import (
     confirmar_gestion_averia,
     resolver_averia_modal,
     confirmar_resolucion_averia,
+    falsa_alarma_modal,
+    confirmar_falsa_alarma,
+    historial_cierre_averia,
 )
 
 app_name = 'averias'
 
 urlpatterns = [
+    path('reportes/<int:reporte_id>/falsa-alarma/', falsa_alarma_modal, name='falsa_alarma_modal'),
+    path('reportes/<int:reporte_id>/falsa-alarma/confirmar/', confirmar_falsa_alarma, name='confirmar_falsa_alarma'),
+    path('reportes/<int:reporte_id>/historial/', historial_cierre_averia, name='historial_cierre'),
     path(
         '',
         averias_admin_inicio,

@@ -220,6 +220,12 @@
     border-color: rgba(255, 216, 107, 0.22);
 }
 
+.status.falsa_alarma {
+    background: rgba(255, 193, 7, 0.18);
+    color: #ffd86b;
+    border-color: rgba(255, 216, 107, 0.22);
+}
+
 /* =========================
    FORMULARIO
 ========================= */

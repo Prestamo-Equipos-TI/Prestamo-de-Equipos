@@ -1,7 +1,9 @@
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
+from django.views.decorators.http import require_POST
 
 from alertas.models import Alerta
 from inventario.models import Equipo
@@ -9,8 +11,9 @@ from prestamos.models import SolicitudPrestamo
 from usuarios.models import PerfilUsuario
 from usuarios.permisos import solo_gestor_ti, solo_solicitante
 
-from .forms import GestionarAveriaForm, ReporteAveriaForm, ResolverAveriaForm
-from .models import ReporteAveria
+from .forms import FalsaAlarmaForm, GestionarAveriaForm, ReporteAveriaForm, ResolverAveriaForm
+from .models import RegistroCierreAveria, ReporteAveria
+from .services import estado_equipo_tras_falsa_alarma
 
 
 def existe_reporte_activo(equipo):
@@ -22,6 +25,76 @@ def existe_reporte_activo(equipo):
             ReporteAveria.ESTADO_EN_REVISION
         ]
     ).exists()
+
+
+@login_required
+@solo_gestor_ti
+def falsa_alarma_modal(request, reporte_id):
+    reporte = get_object_or_404(
+        ReporteAveria.objects.select_related('equipo'), pk=reporte_id,
+        estado__in=(ReporteAveria.ESTADO_PENDIENTE,
+                    ReporteAveria.ESTADO_EN_REVISION),
+    )
+    return render(request, 'pages/averias/falsa_alarma_modal.html', {
+        'reporte': reporte, 'form': FalsaAlarmaForm(),
+        'es_modal': bool(request.headers.get('HX-Request')),
+    })
+
+
+@login_required
+@solo_gestor_ti
+@require_POST
+@transaction.atomic
+def confirmar_falsa_alarma(request, reporte_id):
+    reporte = get_object_or_404(
+        ReporteAveria.objects.select_for_update(of=('self',)).select_related('equipo'),
+        pk=reporte_id,
+        estado__in=(ReporteAveria.ESTADO_PENDIENTE,
+                    ReporteAveria.ESTADO_EN_REVISION),
+    )
+    form = FalsaAlarmaForm(request.POST)
+    if not form.is_valid():
+        return render(request, 'pages/averias/falsa_alarma_modal.html', {
+            'reporte': reporte, 'form': form,
+            'es_modal': bool(request.headers.get('HX-Request')),
+        }, status=422)
+
+    equipo = Equipo.objects.select_for_update().get(pk=reporte.equipo_id)
+    anterior = reporte.estado
+    reporte.estado = ReporteAveria.ESTADO_FALSA_ALARMA
+    reporte.resuelto_por = request.user
+    reporte.fecha_resolucion = timezone.now()
+    reporte.observaciones_resolucion = form.cleaned_data['motivo']
+    reporte.save(update_fields=[
+        'estado', 'resuelto_por', 'fecha_resolucion', 'observaciones_resolucion',
+    ])
+    RegistroCierreAveria.objects.create(
+        reporte=reporte, actor=request.user, estado_anterior=anterior,
+        estado_nuevo=reporte.estado, motivo=form.cleaned_data['motivo'],
+    )
+    equipo.estado = estado_equipo_tras_falsa_alarma(equipo)
+    equipo.save(update_fields=['estado'])
+    if reporte.reportado_por and reporte.reportado_por != request.user:
+        Alerta.objects.create(
+            usuario=reporte.reportado_por, titulo='Reporte cerrado por falsa alarma',
+            mensaje=f'El reporte del equipo {equipo.nombre} se cerró como falsa alarma: {form.cleaned_data["motivo"]}',
+            tipo=Alerta.TIPO_SISTEMA,
+        )
+    if request.headers.get('HX-Request'):
+        return HttpResponse(status=204)
+    return redirect('averias:admin_lista')
+
+
+@login_required
+@solo_gestor_ti
+def historial_cierre_averia(request, reporte_id):
+    reporte = get_object_or_404(
+        ReporteAveria.objects.select_related('equipo'), pk=reporte_id,
+    )
+    return render(request, 'pages/averias/historial_cierre_modal.html', {
+        'reporte': reporte, 'cierres': reporte.cierres.select_related('actor'),
+        'es_modal': bool(request.headers.get('HX-Request')),
+    })
 
 
 @login_required

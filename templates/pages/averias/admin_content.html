@@ -94,6 +94,7 @@
                               hx-swap="innerHTML">
                               Gestionar
                                 </button>
+                            <button type="button" class="table-btn warning" hx-get="{% url 'averias:falsa_alarma_modal' reporte.id %}" hx-target="#modal-container" hx-swap="innerHTML">Falsa alarma</button>
 
                         {% elif reporte.estado == 'en_revision' %}
                             <div class="table-actions">
@@ -114,10 +115,13 @@
                                      hx-swap="innerHTML">
                                      Resolver
                                  </button>
+                                 <button type="button" class="table-btn warning" hx-get="{% url 'averias:falsa_alarma_modal' reporte.id %}" hx-target="#modal-container" hx-swap="innerHTML">Falsa alarma</button>
                                 </div>
 
                             {% elif reporte.estado == 'resuelta' %}
                                 <span class="muted-text">Resuelta</span>
+                            {% elif reporte.estado == 'falsa_alarma' %}
+                                <button type="button" class="table-btn" hx-get="{% url 'averias:historial_cierre' reporte.id %}" hx-target="#modal-container" hx-swap="innerHTML">Ver historial</button>
                             {% endif %}
                     </td>
                 </tr>

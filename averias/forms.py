@@ -75,3 +75,19 @@ class ResolverAveriaForm(forms.Form):
             'placeholder': 'Describe cómo se resolvió la avería'
         })
     )
+
+
+class FalsaAlarmaForm(forms.Form):
+    motivo = forms.CharField(
+        label='Motivo de falsa alarma', min_length=3, max_length=500,
+        widget=forms.Textarea(attrs={
+            'class': 'form-control', 'rows': 4,
+            'placeholder': 'Explica por qué el reporte es una falsa alarma',
+        }),
+    )
+
+    def clean_motivo(self):
+        motivo = self.cleaned_data['motivo'].strip()
+        if len(motivo) < 3:
+            raise forms.ValidationError('Indica un motivo de al menos 3 caracteres.')
+        return motivo

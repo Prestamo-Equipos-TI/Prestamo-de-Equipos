@@ -1,0 +1,20 @@
+{% if es_modal %}<div class="modal-backdrop-custom" id="modal-falsa-alarma"><script>abrirModal();</script><div class="modal-panel">
+{% else %}<div class="modal-panel">{% endif %}
+    <div class="modal-header-custom">
+        <div><h2>Cerrar como falsa alarma</h2><p>{{ reporte.equipo.nombre }} · {{ reporte.equipo.codigo }}</p></div>
+        {% if es_modal %}<button type="button" class="modal-close-btn" onclick="cerrarModal(true)" aria-label="Cerrar">×</button>{% endif %}
+    </div>
+    <p>El reporte permanecerá en el historial. El estado del equipo se revisará según préstamos, reservas, mantenimiento y otras averías.</p>
+    <form id="falsa-alarma-form" method="post" class="equipment-form" action="{% url 'averias:confirmar_falsa_alarma' reporte.id %}" hx-post="{% url 'averias:confirmar_falsa_alarma' reporte.id %}" hx-target="#modal-container" hx-swap="innerHTML">
+        {% csrf_token %}
+        <div class="form-group full-width">
+            <label for="{{ form.motivo.id_for_label }}">Motivo del cierre</label>
+            {{ form.motivo }}
+            {{ form.motivo.errors }}
+        </div>
+        <div class="form-actions">
+            {% if es_modal %}<button type="button" class="secondary-action" onclick="cerrarModal(true)">Volver</button>{% endif %}
+            <button type="submit" class="primary-action">Confirmar falsa alarma</button>
+        </div>
+    </form>
+</div>{% if es_modal %}</div>{% endif %}
